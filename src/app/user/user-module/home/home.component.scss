@@ -1,0 +1,187 @@
+.login-btn {
+    background: #83CD20;
+    color: #FFFFFF;
+}
+
+.main {
+    margin: 0 2%;
+}
+
+.hero-section {
+    margin: 2%;
+    border-radius: 30px;
+    height: 632px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: url('/assets/images/worldMap.jpg') no-repeat center center;
+    background-size: cover;
+}
+
+.text1 {
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    margin-bottom: 3%;
+}
+
+.text2 {
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    margin-bottom: 6%;
+    color: #FFFFFF;
+}
+
+::ng-deep .mat-mdc-form-field {
+    width: 50%;
+}
+
+.text3 {
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.horizontal-line {
+    margin-top: 1%;
+    background-color: #83CD20;
+    Width: 235px;
+    Height: 6px
+}
+
+.card-img-top {
+    width: 134px;
+    height: 134px;
+    object-fit: cover;
+}
+
+.card-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+
+::ng-deep .card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.card-title {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    
+}
+
+.fixed-img {
+    width: 134px;
+    height: 134px;
+    object-fit: contain;
+    image-rendering: crisp-edges;
+}
+
+@media screen and (max-width: 768px) {
+    .hero-section {
+        height: auto;
+        padding: 40px 10px;
+        margin: 4% 2%;
+        border-radius: 20px;
+    }
+
+    .text1 {
+        font-size: 36px;
+        margin-bottom: 5%;
+    }
+
+    .text2 {
+        font-size: 20px;
+        margin-bottom: 8%;
+    }
+
+    ::ng-deep .mat-mdc-form-field {
+        width: 90%;
+    }
+
+    .text3 {
+        font-size: 32px;
+        padding: 0 10px;
+        text-align: center;
+    }
+
+    .row {
+        display: flex;
+        flex-direction: column;
+        margin: 5% 2%;
+        gap: 20px;
+    }
+
+    .card-col {
+        margin-bottom: 20px;
+    }
+
+    .card-title {
+        font-size: 20px;
+    }
+
+    .fixed-img,
+    .card-img-top {
+        width: 100px;
+        height: 100px;
+    }
+
+    .horizontal-line {
+        width: 120px;
+        height: 4px;
+    }
+
+    .search-label{
+        font-size: 85%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .text1 {
+        font-size: 28px;
+    }
+
+    .text2 {
+        font-size: 18px;
+    }
+
+    .text3 {
+        font-size: 24px;
+    }
+
+    .fixed-img,
+    .card-img-top {
+        width: 80px;
+        height: 80px;
+    }
+
+    .card-title {
+        font-size: 18px;
+    }
+
+    .search-label{
+        font-size: 85%;
+    }
+}
