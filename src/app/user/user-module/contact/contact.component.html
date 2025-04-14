@@ -1,0 +1,166 @@
+<app-header></app-header>
+<section class="backgroundImg">
+    <div style="padding-left: 2%; margin-top: -10%;">
+        <div class="font-1 title">Contact</div>
+    </div>
+</section>
+
+
+<div class="containerOne">
+    <div class="left-column">
+        <img src="assets/images/visa.jpg" alt="visa" class="travel-image" />
+    </div>
+    <div class="right-column">
+        <p class="section-title">CONTACT INFORMATION<i class="zmdi zmdi-account-add"></i></p>
+        <h2 class="heading">Let Your Wanderlust</h2>
+        <h2 class="heading">Guide You</h2><br>
+        <form #contactUsForm="ngForm">
+            <div class="row">
+                <div class="col pb-5">
+                    <mat-form-field style="width: 100%;">
+                        <mat-label>Your Email</mat-label>
+                        <input id='group13' matInput type="text" [(ngModel)]="contactForm.email"
+                            pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" name="emilId" #emilId="ngModel"
+                            required />
+                        <mat-icon matSuffix>mail_outline</mat-icon>
+                        <mat-error [hidden]="emilId.valid">
+                            <div [hidden]="!emilId.hasError('required')">
+                                Please enter a Email-Id
+                            </div>
+                            <div [hidden]="!emilId.hasError('pattern')">Enter a Valid Email-Id</div>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col pb-5">
+                    <mat-form-field style="width: 100%;">
+                        <mat-label>Your Phone</mat-label>
+                        <input matInput type="tel" name="phone" [(ngModel)]="contactForm.phone" #phone="ngModel"
+                            pattern="^[0-9]{10}$" required />
+                        <mat-icon matSuffix>phone</mat-icon>
+                        <mat-error [hidden]="phone.valid">
+                            <div [hidden]="!phone.hasError('required')">
+                                Please enter a Phone Number
+                            </div>
+                            <div [hidden]="!phone.hasError('pattern')">Enter a Valid Phone Number</div>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <mat-form-field style="width: 100%;">
+                    <mat-label>Your Address</mat-label>
+                    <input matInput type="text" name="address" [(ngModel)]="contactForm.address" #address="ngModel"
+                        required />
+                    <mat-icon matSuffix>location_on</mat-icon>
+                    <mat-error [hidden]="address.valid">
+                        <div [hidden]="!address.hasError('required')">
+                            Please enter a Address
+                        </div>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col pb-5">
+                <mat-form-field style="width: 100%;">
+                    <mat-label>Message</mat-label>
+                    <textarea matInput rows="4" name="message" [(ngModel)]="contactForm.message" #message="ngModel"
+                        required></textarea>
+                    <mat-icon matSuffix>message</mat-icon>
+                    <mat-error [hidden]="message.valid">
+                        <div [hidden]="!message.hasError('required')">
+                            Please enter a Message
+                        </div>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col content-row">
+                <button class="contact-btn" type="submit" [disabled]="!contactUsForm.valid">sendMessage</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <div style="text-align:center;">
+        <p class="section-title">CONTACT INFORMATION</p>
+        <h2 class="heading">Let Your Wanderlust</h2>
+        <h2 class="heading">Guide You</h2>
+    </div>
+</div>
+
+<div class="content m-5">
+    <div class="d-flex flex-wrap justify-content-center gap-2">
+        <button class="btn login-btn" *ngFor="let label of buttonLabels"
+            [ngClass]="{ 'active': activeLabel === label }">
+            {{ label }}
+        </button>
+    </div>
+</div>
+
+<div class="containerOne">
+    <div class="left-column content-row main">
+        <div class="col contact-section" style="display: grid; justify-content: center;">
+            <div class="content-row">
+                <i class="left-icon zmdi zmdi-phone"></i>
+                <div>
+                    <label>Requesting A Call:</label>
+                    <h3>(629) 555–0129</h3>
+                </div>
+            </div>
+
+            <div class="content-row">
+                <i class="left-icon zmdi zmdi-email"></i>
+                <div>
+                    <label>E-mail</label>
+                    <h3>{{e_mail}}</h3>
+                </div>
+            </div>
+
+            <div class="content-row">
+                <i class="left-icon zmdi zmdi-pin-drop"></i>
+                <div>
+                    <label>Location</label>
+                    <h3>6391 Elgin St. Celina,<br>Delaware 10299</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-1 vLine" style="display: flex;justify-content: center;">
+            <div class="content-row">
+                <div class="vertical-line"></div>
+            </div>
+        </div>
+        <div class="col content-col">
+            <div class="contact-section">
+                <div class="content-row">
+                    <div>
+                        <label>Monday</label>
+                        <h3><i class="right-icon zmdi zmdi-time"></i>9am - 8pm</h3>
+                    </div>
+                </div>
+                <div class="content-row">
+                    <div>
+                        <label>Tuesday - Friday</label>
+                        <h3><i class="right-icon zmdi zmdi-time"></i>9am - 8pm</h3>
+                    </div>
+                </div>
+                <div class="content-row">
+                    <div>
+                        <label>Saturday</label>
+                        <h3><i class="right-icon zmdi zmdi-time"></i>9am - 8pm</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-column">
+        <img src="assets/images/visaPhoto.jpg" alt="Travel Expert" class="travel-image" />
+    </div>
+</div>
+
+<div class="containerOne">
+    <iframe src="https://www.google.com/maps?q=6391+Elgin+St,+Celina,+Delaware+10299&output=embed" width="100%"
+        height="800" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+</div>
+<app-footer></app-footer>

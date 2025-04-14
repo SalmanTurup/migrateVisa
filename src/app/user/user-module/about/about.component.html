@@ -1,0 +1,147 @@
+<app-header></app-header>
+<section class="backgroundImg">
+    <div style="padding-left: 2%; margin-top: -10%;">
+        <div class="font-1 title">About Us</div>
+    </div>
+</section>
+
+<div class="containerOne">
+    <div class="left-column">
+        <div class="exp-box">
+            <div class="year">25</div>
+            <div>Years Of Experience</div>
+        </div>
+        <img src="assets/images/passion.jpg" alt="about.." class="travel-image" />
+    </div>
+
+    <div class="right-column">
+        <p class="section-title">Why Choose Us</p>
+        <h2 class="heading">Where Wanderlust<br />Meets Dream Destinations</h2>
+        <p class="desc">
+            Et purus duis sollicitudin dignissim habitant. Egestas nulla quis venenatis cras sed eu massa Et purus duis
+            sollicitudin dignissim habitant. Egestas nulla quis venenatis cras sed eu massa Et purus duis sollicitudin
+            dignissim habitant. Egestas nulla
+        </p>
+
+        <div class="cards">
+            <div class="box">
+                <h4>Passport Plus</h4>
+                <ul>
+                    <li>Beyond Border Immigration</li>
+                    <li>Worldwide Visa Assistance</li>
+                </ul>
+            </div>
+            <div class="box">
+                <h4>Global Entry</h4>
+                <ul>
+                    <li>GlobeTrot Visa Services</li>
+                    <li>Infinity Visa Solutions</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="cta">
+            <div class="contact box">
+                <div class="icon">
+                    <i class="zmdi zmdi-phone"></i>
+                </div>
+                <div class="contact-text">
+                    Need help? <br />
+                    <p class="contact-number">(808) 555–0111</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="box">
+    <div style="text-align:center;">
+        <p class="section-title">PROCESS OVERVIEW</p>
+        <h2 class="heading">Unforgettable Getaways</h2>
+        <h2 class="heading">Escaping Routine</h2>
+    </div>
+    <div class="row">
+        <div class="col box">
+            <h1 class="heading">01</h1>
+            <h2 class="g-color">Visa Voyage Agency</h2>
+            <h4 class="g-color">Lorem lpsum is simply dummy text the printing and typeser</h4>
+        </div>
+        <div class="col box">
+            <h1 class="heading">02</h1>
+            <h2 class="g-color">International Access Visas</h2>
+            <h4 class="g-color">Lorem lpsum is simply dummy text the printing and typeser</h4>
+        </div>
+        <div class="col box">
+            <h1 class="heading">03</h1>
+            <h2 class="g-color">Gateway To Global Citizenship</h2>
+            <h4 class="g-color">Lorem lpsum is simply dummy text the printing and typeser</h4>
+        </div>
+    </div>
+</div>
+
+<div class="containerOne">
+    <div class="left-column">
+        <img src="assets/images/visa.jpg" alt="visa.." class="travel-image" />
+    </div>
+    <div class="right-column">
+        <p class="section-title">CONTACT INFORMATION<i class="zmdi zmdi-account-add"></i></p>
+        <h2 class="heading">Let Your Wanderlust</h2>
+        <h2 class="heading">Guide You</h2><br>
+        <form #contactUsForm="ngForm">
+            <div class="row">
+                <div class="col pb-5"> 
+                    <mat-form-field style="width: 100%;">
+                        <mat-label>Your Email</mat-label>
+                        <input id='group13' matInput type="text" [(ngModel)]="contactForm.email"  pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" name="emilId" #emilId="ngModel"  required />
+                        <mat-icon matSuffix>mail_outline</mat-icon>
+                        <mat-error [hidden]="emilId.valid">
+                            <div [hidden]="!emilId.hasError('required')">
+                                Please enter a Email-Id
+                            </div>
+                            <div [hidden]="!emilId.hasError('pattern')">Enter a Valid Email-Id</div>
+                        </mat-error>
+                    </mat-form-field></div>
+                <div class="col pb-5">
+                     <mat-form-field style="width: 100%;">
+                        <mat-label>Your Phone</mat-label>
+                        <input matInput type="tel" name="phone" [(ngModel)]="contactForm.phone" #phone="ngModel" pattern="^[0-9]{10}$" required />
+                        <mat-icon matSuffix>phone</mat-icon>
+                        <mat-error [hidden]="phone.valid">
+                            <div [hidden]="!phone.hasError('required')">
+                                Please enter a Phone Number
+                            </div>
+                            <div [hidden]="!phone.hasError('pattern')">Enter a Valid Phone Number</div>
+                        </mat-error>
+                    </mat-form-field></div>
+            </div>
+            <div class="col pb-5">
+                <mat-form-field style="width: 100%;">
+                    <mat-label>Your Address</mat-label>
+                    <input matInput type="text" name="address" [(ngModel)]="contactForm.address" #address="ngModel" required />
+                    <mat-icon matSuffix>location_on</mat-icon>
+                    <mat-error [hidden]="address.valid">
+                        <div [hidden]="!address.hasError('required')">
+                            Please enter a Address
+                        </div>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col pb-5">
+                <mat-form-field style="width: 100%;">
+                    <mat-label>Message</mat-label>
+                    <textarea matInput rows="4" name="message" [(ngModel)]="contactForm.message" #message="ngModel" required></textarea>
+                    <mat-icon matSuffix>message</mat-icon>
+                    <mat-error [hidden]="message.valid">
+                        <div [hidden]="!message.hasError('required')">
+                            Please enter a Message
+                        </div>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col content-row">
+                <button class="contact-btn" type="submit" [disabled]="!contactUsForm.valid">sendMessage</button>
+            </div>
+        </form>
+    </div>
+</div>
+<app-footer></app-footer>

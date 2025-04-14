@@ -1,0 +1,66 @@
+<app-header></app-header>
+<section class="backgroundImg">
+    <div style="padding-left: 2%; margin-top: -10%;">
+        <div class="font-1 title">FAQ</div>
+    </div>
+</section>
+
+<div class="faq-container">
+    <div class="faq-grid-two-col">
+        <mat-accordion>
+            <mat-expansion-panel *ngFor="let faq of leftFaqs" class="faq-panel">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>{{ faq.question }}</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>{{ faq.answer }}</p>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        <mat-accordion>
+            <mat-expansion-panel *ngFor="let faq of rightFaqs" class="faq-panel">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>{{ faq.question }}</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>{{ faq.answer }}</p>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+    </div>
+</div>
+
+<div class="containerOne">
+    <div class="left-column">
+        <img src="assets/images/passport.jpg" alt="Travel Expert" class="travel-image" />
+    </div>
+
+    <div class="right-column">
+        <h2 class="heading">Get our best offer quickly</h2>
+        <p class="desc">
+            Et purus duis sollicitudin dignissim habitant. Egestas nulla quis venenatis cras sed eu massa Et purus duis
+            sollicitudin dignissim habitant.
+        </p>
+        <div class="mb-3">
+            <button class="btn login-btn" (click)="pageNavigate('about')">Contact us &nbsp;<i
+                    class="zmdi zmdi-arrow-right"></i></button>
+        </div>
+        <div class="exp-box content-row">
+            <div class="col">
+                <div class="number">10k +</div>
+                <div>Complete Project</div>
+            </div>
+            <div class="col">
+                <div class="number">20k +</div>
+                <div>Team Member</div>
+            </div>
+            <div class="col">
+                <div class="number">5k +</div>
+                <div>Wining Award</div>
+            </div>
+            <div class="col">
+                <div class="number">100k +</div>
+                <div>Complete Project's</div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>
