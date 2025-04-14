@@ -1,12 +1,12 @@
 <app-header></app-header>
-<section class="hero-section">
+<section class="sectionOne">
     <div class="grid gap-0 row-gap-3">
-        <div class="text1" style="color: white;">Your Gateway to Hassle-Free</div>
-        <div class="text1" style="color: #83CD20;">Visa Bookings</div>
-        <div class="text2">Fast, Reliable, and Secure Visa Applications for All Destinations</div>
+        <div class="font-1">Your Gateway to Hassle-Free</div>
+        <div class="font-1" style="color: #83CD20;">Visa Bookings</div>
+        <div class="font-2">Fast, Reliable, and Secure Visa Applications for All Destinations</div>
         <div>
-            <mat-form-field appearance="fill">
-                <mat-label class="search-label">Hey Traveler, Search Your Destination</mat-label>
+            <mat-form-field appearance="fill" class="no-custom-font">
+                <mat-label>Hey Traveler, Search Your Destination</mat-label>
                 <input matInput>
                 <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
@@ -14,17 +14,19 @@
     </div>
 </section>
 
-<div class="content">
-    <div class="text3">Why Choose Us?</div>
-</div>
-<div class="content">
-    <div class="horizontal-line"></div>
+<div>
+    <div class="content">
+        <div class="font-3">Why Choose Us?</div>
+    </div>
+    <div class="content">
+        <div class="horizontal-line"></div>
+    </div>
 </div>
 
 <div class="row" style="margin: 3% 5% 0 5%;">
     <div class="col card-col">
         <div class="card">
-            <img src="assets/images/FastProcessing .png" class="card-img-top fixed-img" alt="...">
+            <img src="assets/images/FastProcessing .png" class="card-img-top fixed-img" alt="Why Choose Us?">
             <div class="card-body">
                 <h5 class="card-title">Fast Processing <br>Times</h5>
             </div>
@@ -32,7 +34,7 @@
     </div>
     <div class="col card-col">
         <div class="card">
-            <img src="assets/images/CustomerSupport.png" class="card-img-top fixed-img" alt="...">
+            <img src="assets/images/CustomerSupport.png" class="card-img-top fixed-img" alt="Why Choose Us?">
             <div class="card-body">
                 <h5 class="card-title">24/7 Customer <br>Support</h5>
             </div>
@@ -40,7 +42,7 @@
     </div>
     <div class="col card-col">
         <div class="card">
-            <img src="assets/images/SecureOnlinePayments.png" class="card-img-top fixed-img" alt="...">
+            <img src="assets/images/SecureOnlinePayments.png" class="card-img-top fixed-img" alt="Why Choose Us?">
             <div class="card-body">
                 <h5 class="card-title">Secure Online <br>Payments</h5>
             </div>
@@ -48,7 +50,7 @@
     </div>
     <div class="col card-col">
         <div class="card">
-            <img src="assets/images/ExpertGuidance.png" class="card-img-top fixed-img" alt="...">
+            <img src="assets/images/ExpertGuidance.png" class="card-img-top fixed-img" alt="Why Choose Us?">
             <div class="card-body">
                 <h5 class="card-title">Expert Guidance <br>for All Visa Types</h5>
             </div>
@@ -56,120 +58,224 @@
     </div>
 </div>
 
-<div class="content" style="margin-top: 5%;">
-    <div class="text3">Travel Around The World Hassle-Free</div>
+<div>
+    <div class="content mt-5">
+        <div class="font-3">Travel Around The World Hassle-Free</div>
+    </div>
+    <div class="content">
+        <div class="horizontal-line"></div>
+    </div>
+</div>
+
+<div class="content mt-5">
+    <div class="d-flex flex-wrap justify-content-center gap-2">
+        <button class="btn login-btn" *ngFor="let label of buttonLabels" [ngClass]="{ 'active': activeLabel === label }"
+            (click)="setActive(label)">
+            {{ label }}
+        </button>
+    </div>
+</div>
+
+<div class="row row-gap-5" style="margin:3%;">
+    <ng-container *ngFor="let cData of countryData">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 content" *ngIf="cData.aFilter.includes(activeLabel)">
+            <div class="card visa-card custom-card h-100">
+                <img [src]="cData.sImage" class="card-img-top visa-img" alt="Vietnam">
+                <div class="card-body d-flex justify-content-between align-items-center visa">
+                    <div class="visa-card-title mb-0">{{cData.sCountryName}}</div>
+                    <button class="btn btn-light btn-sm visa-btn">{{cData.sType}}</button>
+                </div>
+                <div class="card-body d-flex justify-content-between visa">
+                    <div>
+                        <small class="person">{{cData.sTitleOne}}</small>
+                        <p class="amount">{{cData.sRupees}}</p>
+                    </div>
+                    <div class="text-end">
+                        <small class="person">{{cData.sTitleTwo}}</small>
+                        <p class="amount">{{cData.sDays}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+<div class="content">
+    <button class="btn login-btn me-2" type="submit">View all Popular</button>
+</div>
+
+<section class="sectionTwo">
+    <div class="content mt-5 pt-2">
+        <div class="font-3" style="color:#FFFFFF;">How It Works</div>
+    </div>
+    <div class="content">
+        <div class="horizontal-line"></div>
+    </div>
+
+    <div *ngIf="!isMobile">
+        <div class="row mt-5">
+            <div class="col content" style="justify-content: end;">
+                <img src="assets/images/image.png" alt="image" />
+            </div>
+            <div class="col-1">
+                <div class="content">
+                    <div class="vertical-line"></div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="col-8 mt-5 mb-5">
+                    <div class="heading">1. Apply Online</div>
+                    <div class="headingContent">Visit our exclusive platform and fill in the required details
+                        hassle-free to
+                        meet criteria.</div>
+                </div>
+
+                <div class="col-8 mt-5 mb-5">
+                    <div class="heading">2. Make Payment</div>
+                    <div class="headingContent">Visit our exclusive platform and fill in the required details
+                        hassle-free to
+                        meet criteria.</div>
+                </div>
+
+                <div class="col-8 mt-5 mb-5">
+                    <div class="heading">3. Sit Back as We Deliver Your Visa on Time.</div>
+                    <div class="headingContent">Visit our exclusive platform and fill in the required details
+                        hassle-free to
+                        meet criteria.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container" *ngIf="isMobile">
+        <div class="row align-items-center">
+            <div class="col-md-6 mb-4 mb-md-0 text-center">
+                <img src="assets/images/image.png" alt="image" class="img-fluid" />
+            </div>
+            <div class="col-md-6">
+                <div class="mb-5">
+                    <div class="heading">1. Apply Online</div>
+                    <p class="headingContent">Visit our exclusive platform and fill in the required details hassle-free
+                        to meet criteria.</p>
+                </div>
+
+                <div class="mb-5">
+                    <div class="heading">2. Make Payment</div>
+                    <p class="headingContent">Visit our exclusive platform and fill in the required details hassle-free
+                        to meet criteria.</p>
+                </div>
+
+                <div class="mb-5">
+                    <div class="heading">3. Sit Back as We Deliver Your Visa on Time.</div>
+                    <p class="headingContent">Visit our exclusive platform and fill in the required details hassle-free
+                        to meet criteria.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<div class="content mt-5">
+    <div class="font-3">Seeking Adventure Thrills and Excitement Await</div>
 </div>
 <div class="content">
     <div class="horizontal-line"></div>
 </div>
 
-
-<div class="col-6 col-md-3 country-col">
-    <div class="card country-card">
-        <img src="assets/images/vietnam.png" class="card-img-top .country-img" alt="...">
-        <div class="card-body row justify-content-between">
-            <div class="col-7 countryName">Vietnam</div>
-            <div class="col-5 align-end">
-                <button class="btn visa-btn">Visa Type</button>
+<div class="row m-3 g-4">
+    <div class="col-md-6">
+        <div class="card-visa h-100">
+            <div class="row g-0 h-100">
+                <div class="col-md-4">
+                    <img src="assets/images/BusinessVisa.png" class="img-fluid h-100 w-100 object-fit-cover"
+                        alt="Business Visa">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <div class="visa-titel m-5">Business Visa</div>
+                        <div class="visa-lable m-5">Et purus duis sollicitudin dignissim habitant. Egestas nulla quis
+                            the venenatis cras sed eu</div>
+                        <div class="m-5"><button class="btn btn2">View</button></div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="card-body row justify-content-between">
-            <div class="col-6">
-                <label class="card-lable" for="Per Person">Per Person</label>
-                <p class="price">₹3998</p>
+    </div>
+    <div class="col-md-6">
+        <div class="card-visa h-100">
+            <div class="row g-0 h-100">
+                <div class="col-md-4">
+                    <img src="assets/images/WorkingVisa.png" class="card-img img-fluid rounded-start"
+                        alt="Business Visa">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <div class="visa-titel m-5">Working Visa</div>
+                        <div class="visa-lable m-5">Et purus duis sollicitudin dignissim habitant. Egestas nulla quis
+                            the venenatis cras sed eu</div>
+                        <div class="m-5"><button class="btn btn2">View</button></div>
+                    </div>
+                </div>
             </div>
-            <div class="col-5 align-end">
-                <label class="card-lable" for="Per Person">Get Visa in</label>
-                <p class="price">7 Days</p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card-visa h-100">
+            <div class="row g-0 h-100">
+                <div class="col-md-4">
+                    <img src="assets/images/StudentVisa.png" class="card-img img-fluid rounded-start"
+                        alt="Business Visa">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <div class="visa-titel m-5">Student Visa</div>
+                        <div class="visa-lable m-5">Et purus duis sollicitudin dignissim habitant. Egestas nulla quis
+                            the venenatis cras sed eu</div>
+                        <div class="m-5"><button class="btn btn2">View</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card-visa h-100">
+            <div class="row g-0 h-100">
+                <div class="col-md-4">
+                    <img src="assets/images/TouristVisa.png" class="card-img img-fluid rounded-start"
+                        alt="Business Visa">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <div class="visa-titel m-5">Tourist Visa</div>
+                        <div class="visa-lable m-5">Et purus duis sollicitudin dignissim habitant. Egestas nulla quis
+                            the venenatis cras sed eu</div>
+                        <div class="m-5"><button class="btn btn2">View</button></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<div class="col-6 col-md-3 country-col">
-    <div class="card country-card">
-        <img src="assets/images/UAE.png" class="card-img-top" alt="...">
-        <div class="card-body row justify-content-between">
-            <div class="col-7 countryName">UAE</div>
-            <div class="col-5 align-end">
-                <button class="btn visa-btn">Visa Type</button>
-            </div>
-        </div>
-        <div class="card-body row justify-content-between">
-            <div class="col-6">
-                <label class="card-lable" for="Per Person">Per Person</label>
-                <p class="price">₹3998</p>
-            </div>
-            <div class="col-5 align-end">
-                <label class="card-lable" for="Per Person">Get Visa in</label>
-                <p class="price">7 Days</p>
-            </div>
+<br><br>
+<div class="content">
+    <button class="btn login-btn me-2" type="submit">Get Started</button>
+</div>
+<br><br>
+<section class="sectionOne">
+    <div class="grid gap-0 row-gap-3">
+        <div class="font-1">Ready to <span style="color: #83CD20;">get started</span>?</div>
+        <div class="font-1">Enter your travel destination</div>
+        <div class="font-2">Know your visa process • Get document checklist • FREE Sign up!</div>
+        <div>
+            <mat-form-field appearance="fill" class="no-custom-font">
+                <mat-label>Hey Traveler, Search Your Destination</mat-label>
+                <input matInput>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
         </div>
     </div>
-</div>
-<div class="col-6 col-md-3 country-col">
-    <div class="card country-card">
-        <img src="assets/images/egypt.png" class="card-img-top" alt="...">
-        <div class="card-body row justify-content-between">
-            <div class="col-7 countryName">Egypt</div>
-            <div class="col-5 align-end">
-                <button class="btn visa-btn">Visa Type</button>
-            </div>
-        </div>
-        <div class="card-body row justify-content-between">
-            <div class="col-6">
-                <label class="card-lable" for="Per Person">Per Person</label>
-                <p class="price">₹3998</p>
-            </div>
-            <div class="col-5 align-end">
-                <label class="card-lable" for="Per Person">Get Visa in</label>
-                <p class="price">7 Days</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="col-6 col-md-3 country-col">
-    <div class="card country-card">
-        <img src="assets/images/indonesia.png" class="card-img-top" alt="...">
-        <div class="card-body row justify-content-between">
-            <div class="col-7 countryName">Indonesia</div>
-            <div class="col-5 align-end">
-                <button class="btn visa-btn">Visa Type</button>
-            </div>
-        </div>
-        <div class="card-body row justify-content-between">
-            <div class="col-6">
-                <label class="card-lable" for="Per Person">Per Person</label>
-                <p class="price">₹3998</p>
-            </div>
-            <div class="col-5 align-end">
-                <label class="card-lable" for="Per Person">Get Visa in</label>
-                <p class="price">7 Days</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="col-6 col-md-3 country-col">
-    <div class="card country-card">
-        <img src="assets/images/hongKong.png" class="card-img-top" alt="...">
-        <div class="card-body row justify-content-between">
-            <div class="col-7 countryName">China</div>
-            <div class="col-5 align-end">
-                <button class="btn visa-btn">Visa Type</button>
-            </div>
-        </div>
-        <div class="card-body row justify-content-between">
-            <div class="col-6">
-                <label class="card-lable" for="Per Person">Per Person</label>
-                <p class="price">₹3998</p>
-            </div>
-            <div class="col-5 align-end">
-                <label class="card-lable" for="Per Person">Get Visa in</label>
-                <p class="price">7 Days</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<br>
+</section>
 <br>
 <app-footer></app-footer>

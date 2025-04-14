@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-
+import { Component, OnDestroy, OnInit } from '@angular/core';
 @Component({
   selector: 'app-footer',
   standalone: true,
@@ -7,6 +6,8 @@ import { Component } from '@angular/core';
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss'
 })
-export class FooterComponent {
-
+export class FooterComponent implements OnInit, OnDestroy {
+  constructor() { }
+  ngOnInit() { }
+  ngOnDestroy(): void { }
 }

@@ -1,13 +1,8 @@
-.login-btn {
-    background: #83CD20;
-    color: #FFFFFF;
-}
-
 .main {
     margin: 0 2%;
 }
 
-.hero-section {
+.sectionOne {
     margin: 2%;
     border-radius: 30px;
     height: 632px;
@@ -19,20 +14,28 @@
     background-size: cover;
 }
 
-.text1 {
+.sectionTwo {
+    margin: 2%;
+    border-radius: 30px;
+    height: auto;
+    background: url('/assets/images/worldMap.jpg') no-repeat center center;
+    background-size: cover;
+    padding: 1%;
+}
+
+.font-1 {
     font-weight: 700;
     font-size: 64px;
     line-height: 100%;
-    letter-spacing: 0%;
     text-align: center;
     margin-bottom: 3%;
+    color: white;
 }
 
-.text2 {
+.font-2 {
     font-weight: 400;
     font-size: 32px;
     line-height: 100%;
-    letter-spacing: 0%;
     text-align: center;
     margin-bottom: 6%;
     color: #FFFFFF;
@@ -42,11 +45,10 @@
     width: 50%;
 }
 
-.text3 {
+.font-3 {
     font-weight: 700;
     font-size: 48px;
     line-height: 100%;
-    letter-spacing: 0%;
     text-align: center;
 }
 
@@ -59,8 +61,35 @@
 .horizontal-line {
     margin-top: 1%;
     background-color: #83CD20;
-    Width: 235px;
-    Height: 6px
+    width: 235px;
+    height: 6px
+}
+
+.vertical-line {
+    background-color: #83CD20;
+    height: 470px;
+    width: 2px
+}
+
+.login-btn {
+    background: #83CD20;
+    color: #FFFFFF;
+    font-weight: 400;
+    text-align: center;
+    min-width: 107px;
+    height: 48px;
+    padding: 0 16px;
+    border-radius: 12px;
+}
+
+button.login-btn.active {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 100%;
+    text-align: center;
+    color: #6E6E6E;
+    background: #ECECEC;
+    border: none;
 }
 
 .card-img-top {
@@ -87,9 +116,7 @@
     font-weight: 500;
     font-size: 24px;
     line-height: 100%;
-    letter-spacing: 0%;
     text-align: center;
-    
 }
 
 .fixed-img {
@@ -99,20 +126,159 @@
     image-rendering: crisp-edges;
 }
 
+.visa-card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+.visa {
+    width: 280px;
+}
+
+.visa-img {
+    width: -webkit-fill-available;
+    height: 198px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+
+.visa-btn {
+    width: 83;
+    height: 36;
+    border-radius: 12px;
+    padding: 10px;
+    gap: 10px;
+    background-color: #ECECEC;
+    color: #000000;
+
+}
+
+.visa-card-title {
+    font-weight: 600;
+    font-size: 24px;
+    color: #000;
+}
+
+
+.person {
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 100%;
+    text-align: center;
+}
+
+.amount {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 100%;
+}
+
+.custom-card {
+    width: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #F6F6F6;
+}
+
+.heading {
+    margin-bottom: 2%;
+    font-weight: 600;
+    font-size: 35px;
+    line-height: 100%;
+    color: #FFFFFF;
+}
+
+.headingContent {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 100%;
+    color: #FFFFFF;
+}
+
+.visa-titel {
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 100%;
+}
+
+.visa-lable {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 100%;
+}
+
+.btn2 {
+    width: 57;
+    height: 39;
+    border-radius: 12px;
+    border: 1px solid #83CD20;
+    color: #83CD20;
+}
+
+.card-visa {
+    border-radius: 24px;
+    border: 1px solid #83CD20
+}
+
+@media screen and (max-width: 480px) {
+    .font-1 {
+        font-size: 28px;
+    }
+
+    .font-2 {
+        font-size: 18px;
+    }
+
+    .font-3 {
+        font-size: 24px;
+    }
+
+    .fixed-img,
+    .card-img-top {
+        width: 80px;
+        height: 80px;
+    }
+
+    .card-title {
+        font-size: 18px;
+    }
+
+    .search-label {
+        font-size: 85%;
+    }
+}
+
+@media (max-width: 576px) {
+    .visa-card img {
+        height: 130px;
+    }
+}
+
+
+@media (max-width:768px) {
+    .row1 {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+}
+
 @media screen and (max-width: 768px) {
-    .hero-section {
+    .sectionOne {
         height: auto;
         padding: 40px 10px;
         margin: 4% 2%;
         border-radius: 20px;
     }
 
-    .text1 {
+    .font-1 {
         font-size: 36px;
         margin-bottom: 5%;
     }
 
-    .text2 {
+    .font-2 {
         font-size: 20px;
         margin-bottom: 8%;
     }
@@ -121,7 +287,7 @@
         width: 90%;
     }
 
-    .text3 {
+    .font-3 {
         font-size: 32px;
         padding: 0 10px;
         text-align: center;
@@ -130,7 +296,6 @@
     .row {
         display: flex;
         flex-direction: column;
-        margin: 5% 2%;
         gap: 20px;
     }
 
@@ -149,39 +314,28 @@
     }
 
     .horizontal-line {
+        margin: 2%;
         width: 120px;
         height: 4px;
     }
 
-    .search-label{
+    .search-label {
         font-size: 85%;
     }
-}
 
-@media screen and (max-width: 480px) {
-    .text1 {
-        font-size: 28px;
+    .no-custom-font mat-label {
+        font-size: 13px;
     }
 
-    .text2 {
+    .headingContent {
+        font-size: 20px;
+    }
+
+    .heading {
         font-size: 18px;
     }
 
-    .text3 {
-        font-size: 24px;
-    }
-
-    .fixed-img,
-    .card-img-top {
-        width: 80px;
-        height: 80px;
-    }
-
-    .card-title {
-        font-size: 18px;
-    }
-
-    .search-label{
-        font-size: 85%;
+    .visa-img {
+        width: 280px !important;
     }
 }
