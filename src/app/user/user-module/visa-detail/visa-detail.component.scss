@@ -1,15 +1,25 @@
 .backgroundImg {
+    display: flex;
+    text-align: center;
+    justify-items: center;
+    align-items: center;
     margin: 2%;
     border-radius: 30px 30px 0 0;
     height: 500px;
-    background: url('/assets/images/pexels-ruichaves.jpg') no-repeat center center;
+    background: url('/assets/images/visaBackGround.jpg') no-repeat center center;
     background-size: cover;
 }
 
 .font-1 {
+    display: flex;
+    height: 500px;
     font-weight: 700;
-    font-size: 40px;
-    color: white;
+    font-size: 50px;
+    color: black;
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    align-items: baseline;
+    padding-bottom: 10%;
 }
 
 .box {
@@ -92,6 +102,108 @@ div {
     padding-bottom: 3%;
 }
 
+
+.visa-container {
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 70px;
+}
+
+.visa-card {
+    width: -webkit-fill-available;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+    background: white;
+}
+
+.visa-card.green {
+    border-left: 10px solid #00b37e;
+}
+
+.visa-card.light-green {
+    border-left: 10px solid #d3f2e3;
+    background: #f0faf7;
+}
+
+.card-left {
+    flex: 2;
+}
+
+.card-left h3 {
+    color: #111;
+    margin-bottom: 12px;
+}
+
+.card-left ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 15px 0;
+}
+
+.card-left ul li {
+    margin-bottom: 6px;
+}
+
+.card-left ul li span {
+    font-weight: bold;
+    margin-right: 6px;
+}
+
+.guidance {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    flex-wrap: wrap;
+}
+
+.guidance img {
+    border-radius: 50%;
+}
+
+.card-right {
+    flex: 1;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.apply-btn {
+    font-size: 18px;
+    background-color: #3a00e5;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.price {
+    font-size: 18px;
+    color: #111;
+    font-weight: bold;
+}
+
+.details-link {
+    font-size: 14px;
+    color: #0073e6;
+    text-decoration: underline;
+}
+
+.visa-card:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+table {
+    width: 100%;
+}
+
 @media only screen and (max-width: 768px) {
     .info-item {
         flex-direction: column;
@@ -105,5 +217,13 @@ div {
 
     .box {
         padding: 5%;
+    }
+
+    .visa-container{
+        flex-direction: column;
+    }
+
+    .apply-btn{
+        font-size: 15px;
     }
 }

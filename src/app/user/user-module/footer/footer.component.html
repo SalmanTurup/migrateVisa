@@ -6,20 +6,20 @@
         </div>
 
         <div class="link mt-3">
-            <a class="details" href="">Home</a>
-            <a class="details" href="/contact">Contact Us</a>
-            <a class="details" href="/about">About</a>
-            <a class="details" href="/blog">Blogs </a>
-            <a class="details" href="/faq">FAQs</a>
+            <a class="details" (click)="pageNavigate('')">Home</a>
+            <a class="details" (click)="pageNavigate('contact')">Contact Us</a>
+            <a class="details" (click)="pageNavigate('about')">About</a>
+            <a class="details" (click)="pageNavigate('blog')">Blogs </a>
+            <a class="details" (click)="pageNavigate('faq')">FAQs</a>
         </div>
 
         <div class="footer-divider"></div>
 
         <div class="link">
-            <a class="details" href="#">Privacy Policy</a>
-            <a class="details" href="#">Refund & Cancellation Policy</a>
-            <a class="details" href="#">Terms & Conditions</a>
-            <a class="details" href="#">Pricing</a>
+            <a class="details" (click)="selectRoute('Privacy')">Privacy Policy</a>
+            <a class="details" (click)="selectRoute('Refund')">Refund & Cancellation Policy</a>
+            <a class="details" (click)="selectRoute('Terms')">Terms & Conditions</a>
+            <a class="details" (click)="selectRoute('Cookie')">Cookie Policy</a>
         </div>
 
         <div class="link mt-3">

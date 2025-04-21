@@ -1,35 +1,47 @@
 <app-header></app-header>
 
 <div class="backgroundImg content-row">
-    <div>
-        <div class="font-1 title" style="padding-bottom:100px;">Vietnam Tourist Visa For Indians</div>
+    <div class="row">
+        <div class="col-12 font-1 title">{{this.countryName}} Tourist Visa For Indians</div>
     </div>
 </div>
 
 <div class="box">
     <div style="font-size: 23px; font-weight: bolder;">Visa Type</div>
     <p class="mt-2" style="font-size: 15px;">Kindly select your preferred visa type as per the requirement</p>
-    <div class="col-12 col-sm-6 col-md-4 col-lg-1 mt-4 smallbox">
-        <div><i class="zmdi zmdi-flight-takeoff"></i></div>
-        <div class="mt-1">Tourist Visa</div>
-        <div>Price : $3200</div>
-    </div>
-</div>
 
-<div class="box">
-    <div class="info-container">
-        <div class="info-item">
-            <div class="icon"><i class="zmdi zmdi-time-countdown"></i></div>
-            <div class="content">
-                <div>Validity Period: <span class="highlight">30 Days</span></div>
-                <div>This number presents the validity of your visa.</div>
+    <div class="visa-container mt-5">
+        <div class="visa-card green">
+            <div class="card-left">
+                <h3>Multiple Entry</h3>
+                <ul>
+                    <li><span>Visa Types:</span> eVisa</li>
+                    <li><span>Stay duration:</span> 90 Days</li>
+                    <li><span>Visa validity:</span> 365 Days</li>
+                    <li><span>Processing time:</span> 15 days</li>
+                </ul>
+            </div>
+            <div class="card-right">
+                <a href="#" class="apply-btn" (click)="pageNavigate('login')">Start Application</a>
+                <div class="price">₹1,799 per adult</div>
+
             </div>
         </div>
-        <div class="info-item">
-            <div class="icon"><i class="zmdi zmdi-file-text"></i></div>
-            <div class="content">
-                <div>Entry Type: <span class="highlight">Single Entry</span></div>
-                <div>You can enter the country only once.</div>
+
+        <div class="visa-card light-green">
+            <div class="card-left">
+                <h3>Single/Multiple Entry</h3>
+                <ul>
+                    <li><span>Visa Types:</span> eVisa</li>
+                    <li><span>Stay duration:</span> 90 Days</li>
+                    <li><span>Visa validity:</span> 365 Days</li>
+                    <li><span>Processing time:</span> 15 days</li>
+                </ul>
+
+            </div>
+            <div class="card-right">
+                <a href="#" class="apply-btn" (click)="pageNavigate('login')">Start Application</a>
+                <div class="price">₹3,999 per adult</div>
             </div>
         </div>
     </div>
@@ -103,7 +115,7 @@
                 <div class="icon"><i class="zmdi zmdi-check-circle" style="color: greenyellow;"></i></div>
                 <div class="content">
                     <div><strong>Standard Processing Time</strong></div>
-                    <div>Estimated Date 10 Sep 2024, 12:23 AM</div>
+                    <div>Estimated Date {{date}}</div>
                 </div>
             </div>
         </div>
@@ -140,6 +152,67 @@
     <div class="box">
         <h1>Track Your Visa Timeline</h1>
         <p>Stay updated on your visa application progess right here.</p>
+
+        <div class="mat-elevation-z8 mt-3" style="overflow: auto;">
+            <table mat-table [dataSource]="dataSource">
+
+                <ng-container matColumnDef="No">
+                    <th mat-header-cell *matHeaderCellDef>No</th>
+                    <td mat-cell *matCellDef="let element"> {{element.No}} </td>
+
+                </ng-container>
+                <!-- Entry Column -->
+                <ng-container matColumnDef="Entery">
+                    <th mat-header-cell *matHeaderCellDef>Entery</th>
+                    <td mat-cell *matCellDef="let element"> {{element.Entery}} </td>
+                </ng-container>
+
+                <!-- Visa Types Column -->
+                <ng-container matColumnDef="Visa Types">
+                    <th mat-header-cell *matHeaderCellDef> Visa Types </th>
+                    <td mat-cell *matCellDef="let element"> {{element.VisaTypes}} </td>
+                </ng-container>
+
+                <!-- Stay Duration Column -->
+                <ng-container matColumnDef="Stay duration">
+                    <th mat-header-cell *matHeaderCellDef> Stay Duration </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Stayduration}} </td>
+                </ng-container>
+
+                <!-- Visa Validity Column -->
+                <ng-container matColumnDef="Visa validity">
+                    <th mat-header-cell *matHeaderCellDef> Visa Validity </th>
+                    <td mat-cell *matCellDef="let element"> {{element.VisaValidity}} </td>
+                </ng-container>
+
+                <!-- Processing Time Column -->
+                <ng-container matColumnDef="Processing time">
+                    <th mat-header-cell *matHeaderCellDef> Processing Time </th>
+                    <td mat-cell *matCellDef="let element"> {{element.ProcessingTime}} </td>
+                </ng-container>
+
+                <!-- Price Column -->
+                <ng-container matColumnDef="Prince">
+                    <th mat-header-cell *matHeaderCellDef> Price </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Prince}} </td>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="Status">
+                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Status}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                aria-label="Select page of periodic elements">
+            </mat-paginator>
+        </div>
+
+
     </div>
 
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SharedModule } from '../../../shared/shared.module';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-about',
@@ -16,8 +17,10 @@ export class AboutComponent implements OnInit, OnDestroy {
     message: ''
   };
 
-  constructor() { }
-  ngOnInit() { }
+  constructor(private viewportScroller: ViewportScroller) { }
+  ngOnInit() {
+    this.viewportScroller.scrollToPosition([0, 0]);
+  }
   ngOnDestroy(): void { }
 
 }

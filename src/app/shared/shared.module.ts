@@ -7,6 +7,16 @@ import { FooterComponent } from '../user/user-module/footer/footer.component';
 import { HeaderComponent } from '../user/user-module/header/header.component';
 import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatListModule } from '@angular/material/list';
+import { NgOtpInputModule } from 'ng-otp-input';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatStepperModule } from '@angular/material/stepper';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   imports: [
@@ -17,7 +27,18 @@ import { MatExpansionModule } from '@angular/material/expansion';
     HeaderComponent,
     FooterComponent,
     FormsModule,
-    MatExpansionModule
+    ReactiveFormsModule,
+    MatExpansionModule,
+    MatListModule,
+    NgOtpInputModule,
+    MatPaginator,
+    MatPaginatorModule,
+    MatTableModule,
+    MatStepperModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule
   ],
   exports: [
     CommonModule,
@@ -27,7 +48,18 @@ import { MatExpansionModule } from '@angular/material/expansion';
     HeaderComponent,
     FooterComponent,
     FormsModule,
-    MatExpansionModule
+    ReactiveFormsModule,
+    MatExpansionModule,
+    MatListModule,
+    NgOtpInputModule,
+    MatPaginator,
+    MatPaginatorModule,
+    MatTableModule,
+    MatStepperModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule
   ]
 })
 export class SharedModule { }

@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { SharedModule } from '../../../shared/shared.module';
+import { ViewportScroller } from '@angular/common';
+import { UserService } from '../../../core/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -102,11 +104,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   ]
   activeLabel: string = 'Popular';
-  constructor(
-    // private toastr: ToastrService,
-  ) { }
+  constructor(private viewportScroller: ViewportScroller, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
+    this.viewportScroller.scrollToPosition([0, 0]);
     if (typeof window !== 'undefined') {
       if (window.innerWidth <= 768) {
         this.isMobile = true;
@@ -116,8 +117,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
+  setCountry(country: any) {
+    this.userService.countryName = country;
+    this.pageNavigate(`visa`);
+  }
   setActive(label: string): void {
     this.activeLabel = label;
+  }
+
+  pageNavigate(path: string) {
+    this.router.navigate([`/${path}`]);
   }
 
   ngOnDestroy(): void { }

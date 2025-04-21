@@ -98,6 +98,10 @@ button.login-btn.active {
     object-fit: cover;
 }
 
+.img-fluid {
+    height: -webkit-fill-available;
+}
+
 .card-col {
     display: flex;
     align-items: center;

@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SharedModule } from '../../../shared/shared.module';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-contact',
@@ -9,6 +10,7 @@ import { SharedModule } from '../../../shared/shared.module';
   styleUrl: './contact.component.scss'
 })
 export class ContactComponent implements OnInit, OnDestroy {
+  constructor(private viewportScroller: ViewportScroller) { }
   contactForm = {
     email: '',
     phone: '',
@@ -18,16 +20,16 @@ export class ContactComponent implements OnInit, OnDestroy {
 
   e_mail = "info@example.com"
 
-  buttonLabels: string[] = [
-    'Asia',
-    'Europe',
-    'North America',
-    'Australia',
-  ];
+  // buttonLabels: string[] = [
+  //   'Asia',
+  //   'Europe',
+  //   'North America',
+  //   'Australia',
+  // ];
 
-  activeLabel: string = 'Asia';
-  
-  constructor() { }
-  ngOnInit() { }
+  // activeLabel: string = 'Asia';
+  ngOnInit() {
+    this.viewportScroller.scrollToPosition([0, 0]);
+  }
   ngOnDestroy(): void { }
 }
