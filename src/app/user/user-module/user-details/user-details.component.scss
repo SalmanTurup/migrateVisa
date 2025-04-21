@@ -1,0 +1,212 @@
+.container {
+  padding: 15px;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+.mat-mdc-form-field {
+  margin-top: 16px;
+}
+
+.contact-btn {
+  border-radius: 20px;
+  border: 1px solid #3ed134;
+  background-color: #3c9136;
+  color: #FFFFFF;
+  font-size: 17px;
+  padding: 12px 45px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.contact-btn:disabled {
+  cursor: not-allowed;
+  color: whitesmoke;
+  border: 1px solid #0c6736;
+  background-color: #0c6736;
+  box-shadow: none;
+}
+
+
+.drop-container {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px dashed #555;
+  color: #444;
+  cursor: pointer;
+  transition: background .2s ease-in-out, border .2s ease-in-out;
+}
+
+.drop-container:hover,
+.drop-container.drag-active {
+  background: #3852ff;
+  border-color: #111;
+}
+
+.drop-container:hover .drop-title,
+.drop-container.drag-active .drop-title {
+  color: #222;
+}
+
+.drop-title {
+  color: #444;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  transition: color .2s ease-in-out;
+}
+
+input[type=file] {
+  width: auto;
+  max-width: 100%;
+  color: #444;
+  padding: 5px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #555;
+}
+
+input[type=file]::file-selector-button {
+  margin-right: 20px;
+  border: none;
+  background: #084cdf;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s ease-in-out;
+}
+
+input[type=file]::file-selector-button:hover {
+  background: #0d45a5;
+}
+
+.drag-file-area {
+  border: 2px dashed #2196F3;
+  border-radius: 40px;
+  margin: 10px 0 15px;
+  padding: 30px 50px;
+  text-align: center;
+}
+
+.drag-file-area h3 {
+  font-size: 26px;
+  margin: 15px 0;
+}
+
+.drag-file-area label {
+  font-size: 19px;
+}
+
+.fileName {
+  font-size: 13px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+mat-label {
+  font-size: 15px;
+}
+
+.service-image {
+  height: 100%;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.login-btn {
+  background: #601996;
+  color: #FFFFFF;
+  font-weight: 400;
+  text-align: center;
+  min-width: 107px;
+  height: 48px;
+  padding: 0 16px;
+  border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+
+  ::ng-deep .mat-step-header {
+    display: block !important;
+  }
+
+  .row {
+    flex-direction: column !important;
+  }
+
+  .col-4 {
+    width: 100% !important;
+    margin-bottom: 20px;
+  }
+
+  .contact-btn {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 16px;
+  }
+
+  .d-flex {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .d-flex .contact-btn:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  .drag-file-area {
+    padding: 20px 25px;
+  }
+
+  .drag-file-area h3 {
+    font-size: 20px;
+  }
+
+  .drag-file-area label {
+    font-size: 16px;
+  }
+
+  .fileName {
+    font-size: 12px;
+    word-break: break-all;
+  }
+
+  .button-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .contact-btn {
+    width: 100%;
+  }
+
+  .button-row {
+    flex-direction: row
+  }
+}

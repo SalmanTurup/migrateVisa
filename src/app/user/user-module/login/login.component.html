@@ -1,0 +1,39 @@
+<!-- <app-header></app-header> -->
+<div class="containerOne">
+    <div class="left-column">
+        <img src="assets/images/login.png" alt="visa" class="travel-image" />
+    </div>
+    <div class="right-column">
+        <div class="content-row mb-4" style="flex-direction: column;">
+            <h2 class="heading">Welcome To Migrate Visa</h2>
+            <p class="section-title">Sign up/Login using your mobile number<i class="zmdi zmdi-account-add"></i></p>
+        </div>
+        <form #contactUsForm="ngForm">
+            <div class="row">
+                <div class="col pb-2">
+                    <mat-form-field style="width: 100%;">
+                        <mat-label>Your Phone</mat-label>
+                        <input matInput type="tel" name="phone" [(ngModel)]="phoneNumber" #phone="ngModel" pattern="^[0-9]{10}$" maxlength="10" [disabled]="isOTPSend" required />
+                        <mat-icon matSuffix>phone</mat-icon>
+                        <mat-error [hidden]="phone.valid">
+                            <div [hidden]="!phone.hasError('required')">
+                                Please enter a Phone Number
+                            </div>
+                            <div [hidden]="!phone.hasError('pattern')">Enter a Valid Phone Number</div>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="content-row pb-4" *ngIf="isOTPSend">
+                <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{ length: 5 }"></ng-otp-input>
+            </div>
+            <div class="col content-row">
+                <button *ngIf="!isOTPSend" class="contact-btn" type="submit" [disabled]="!contactUsForm.valid" (click)="sendOtp()">Send OTP</button>
+                <button *ngIf="isOTPSend" class="contact-btn" type="submit" [disabled]="!isOtpComplete" (click)="verfiy()">Verify OTP</button>
+            </div>
+            <div class="pt-4 content-row section-title" style="font-size: 12px; text-transform: capitalize;">
+                By Continuing, You agree to our&nbsp;<a href="" target="_blank">terms & condtions</a>
+            </div>
+        </form>
+    </div>
+</div>

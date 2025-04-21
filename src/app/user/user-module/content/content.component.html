@@ -1,0 +1,183 @@
+<app-header></app-header>
+<div class="container">
+    <div class="sidebar">
+        <mat-nav-list>
+            <a mat-list-item (click)="selected = 'Privacy'"
+                [ngClass]="{ 'active-link': selected === 'Privacy' }">Privacy Policy</a>
+            <a mat-list-item (click)="selected = 'Refund'" [ngClass]="{ 'active-link': selected === 'Refund' }">Refund &
+                Cancellation Policy</a>
+            <a mat-list-item (click)="selected = 'Terms'" [ngClass]="{ 'active-link': selected === 'Terms' }">Terms
+                and Conditions</a>
+            <a mat-list-item (click)="selected = 'Cookie'" [ngClass]="{ 'active-link': selected === 'Cookie' }">Cookie
+                Policy</a>
+        </mat-nav-list>
+    </div>
+
+    <div class="content">
+        <div *ngIf="selected === 'Privacy'">
+            <div class="heading">Privacy Policy</div>
+            <ul>
+                <li><strong>Information We Collect</strong>
+                    <ul>
+                        <li><strong>Personal Information:</strong> Name, contact number, email, passport details, travel
+                            dates.</li>
+                        <li><strong>Payment Information:</strong> Billing address and payment method (processed securely
+                            via third-party payment gateways).</li>
+                        <li><strong>Usage Data:</strong> Browser type, IP address, device info, and pages visited.</li>
+                    </ul>
+                </li>
+
+                <li><strong>How We Use Your Information</strong>
+                    <ul>
+                        <li>To process your visa applications.</li>
+                        <li>To provide customer support.</li>
+                        <li>To send confirmation emails and updates.</li>
+                        <li>To improve our website and services.</li>
+                    </ul>
+                </li>
+
+                <li><strong>Sharing of Information</strong>
+                    <ul>
+                        <li>We do not sell or rent your personal data.</li>
+                    </ul>
+                </li>
+
+                <li><strong>Security</strong>
+                    <ul>
+                        <li>We implement standard security measures to protect your data. However, no method of
+                            transmission over the internet is 100% secure.</li>
+                    </ul>
+                </li>
+
+                <li><strong>Your Rights</strong>
+                    <ul>
+                        <li>You can request to access, update, or delete your data at any time by contacting us at
+                            migrateVisa&#64;gmail.com.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div *ngIf="selected === 'Refund'">
+            <div class="heading">Refund & Cancellation Policy</div>
+            <ul>
+                <li><strong>How to Cancel</strong>
+                    <ul>
+                        <li>This cancellation will be confirmed offline and the refund would be credited back to the
+                            account used for booking, after deduction of applicable cancellation charges.</li>
+                    </ul>
+                </li>
+
+                <li><strong>Cancellations & Refunds</strong>
+                    <ul>
+                        <li>All cancellation charges are levied on per visa, per person basis.</li>
+                        <li>If you cancel your visa before an application has been made by Teleport on your behalf, the
+                            entire fees will be refunded to your account.</li>
+                        <li>No cancellation will be allowed after visa application has already been submitted by
+                            Teleport to the embassy.</li>
+                    </ul>
+                </li>
+
+                <li><strong>Cancellation and Refund Policy for appointments at VFS Global and outsourcing and technology
+                        services specialists for governments and diplomatic missions worldwide</strong>
+                    <ul>
+                        <li>If you have applied for a visa to a country which has outsourced its administrative tasks
+                            for visa collection to VFS Global or similar agencies, then the Administration Fee in case
+                            of “Rescheduling” or a “No Show” shall be governed by such agency’s own Refund and
+                            Cancellation policy.</li>
+                        <li>In case of a “No Show” at the visa collection centre on the assigned date and time, Teleport
+                            will only be responsible to assist the client to reschedule his or her visa appointment
+                            after the applicant pays the relevant “Rescheduling Fee”.</li>
+                        <li>This “Rescheduling Fee” would be different for different countries to which Visa is applied
+                            and the charges to the customer would also be different depending on the city and centre
+                            from where the customer is submitting his or her application.</li>
+                    </ul>
+                </li>
+
+                <li><strong>Refund timeline</strong>
+                    <ul>
+                        <li>Refunds will be processed within 10-12 days and will be credited to the original mode of
+                            payment.</li>
+                        <li>The Company reserves the right to change temporarily or permanently, some or all of the
+                            cancellation and refund policy, with respect to any or all users, at any time without
+                            notice.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div *ngIf="selected === 'Terms'">
+            <div class="heading">Terms and Conditions</div>
+            <ul>
+                <li><strong>Welcome to migrateVisa</strong>. By using our site and services, you agree to the
+                    following terms:</li>
+
+                <li><strong>Service Scope</strong>
+                    <ul>
+                        <li>We provide visa application support and related booking services.</li>
+                        <li>We are not a government body or consulate.</li>
+                    </ul>
+                </li>
+
+                <li><strong>User Responsibilities</strong>
+                    <ul>
+                        <li>Provide accurate, up-to-date information.</li>
+                        <li>Ensure all submitted documents meet the visa requirements.</li>
+                        <li>Use our website lawfully and respectfully.</li>
+                    </ul>
+                </li>
+
+                <li><strong>Disclaimer</strong>
+                    <ul>
+                        <li>We do not guarantee visa approvals. Final decisions rest with the respective embassies or
+                            consulates.</li>
+                    </ul>
+                </li>
+
+                <li><strong>Intellectual Property</strong>
+                    <ul>
+                        <li>All website content is owned by [Your Company Name]. You may not copy, reproduce, or
+                            distribute it without permission.</li>
+                    </ul>
+                </li>
+
+                <li><strong>Modifications</strong>
+                    <ul>
+                        <li>We reserve the right to change these terms at any time. Continued use of our site means you
+                            accept the updated terms.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div *ngIf="selected === 'Cookie'">
+            <div class="heading">Cookie Policy</div>
+            <ul>
+                <li>This Cookie Policy explains how <strong>[Your Website Name]</strong> uses cookies and similar
+                    technologies.</li>
+
+                <li><strong>What Are Cookies?</strong>
+                    <ul>
+                        <li>Cookies are small files stored on your device to enhance your browsing experience.</li>
+                    </ul>
+                </li>
+
+                <li><strong>How We Use Cookies</strong>
+                    <ul>
+                        <li>To remember your preferences and login sessions.</li>
+                        <li>For analytics and site performance tracking (e.g., Google Analytics).</li>
+                        <li>For personalized content and advertising (if applicable).</li>
+                    </ul>
+                </li>
+
+                <li><strong>Managing Cookies</strong>
+                    <ul>
+                        <li>You can disable cookies in your browser settings. However, some parts of the site may not
+                            function properly without them.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>
