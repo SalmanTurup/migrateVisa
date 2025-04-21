@@ -22,7 +22,7 @@
                 </ul>
             </div>
             <div class="card-right">
-                <a href="#" class="apply-btn" (click)="pageNavigate('login')">Start Application</a>
+                <a class="apply-btn" (click)="startApplication()">Start Application</a>
                 <div class="price">₹1,799 per adult</div>
 
             </div>
@@ -40,7 +40,7 @@
 
             </div>
             <div class="card-right">
-                <a href="#" class="apply-btn" (click)="pageNavigate('login')">Start Application</a>
+                <a class="apply-btn" (click)="startApplication()">Start Application</a>
                 <div class="price">₹3,999 per adult</div>
             </div>
         </div>
@@ -149,7 +149,7 @@
         </div>
     </div>
 
-    <div class="box">
+    <div class="box" *ngIf="isUserLogin">
         <h1>Track Your Visa Timeline</h1>
         <p>Stay updated on your visa application progess right here.</p>
 
@@ -161,43 +161,36 @@
                     <td mat-cell *matCellDef="let element"> {{element.No}} </td>
 
                 </ng-container>
-                <!-- Entry Column -->
                 <ng-container matColumnDef="Entery">
                     <th mat-header-cell *matHeaderCellDef>Entery</th>
                     <td mat-cell *matCellDef="let element"> {{element.Entery}} </td>
                 </ng-container>
 
-                <!-- Visa Types Column -->
                 <ng-container matColumnDef="Visa Types">
                     <th mat-header-cell *matHeaderCellDef> Visa Types </th>
                     <td mat-cell *matCellDef="let element"> {{element.VisaTypes}} </td>
                 </ng-container>
 
-                <!-- Stay Duration Column -->
                 <ng-container matColumnDef="Stay duration">
                     <th mat-header-cell *matHeaderCellDef> Stay Duration </th>
                     <td mat-cell *matCellDef="let element"> {{element.Stayduration}} </td>
                 </ng-container>
 
-                <!-- Visa Validity Column -->
                 <ng-container matColumnDef="Visa validity">
                     <th mat-header-cell *matHeaderCellDef> Visa Validity </th>
                     <td mat-cell *matCellDef="let element"> {{element.VisaValidity}} </td>
                 </ng-container>
 
-                <!-- Processing Time Column -->
                 <ng-container matColumnDef="Processing time">
                     <th mat-header-cell *matHeaderCellDef> Processing Time </th>
                     <td mat-cell *matCellDef="let element"> {{element.ProcessingTime}} </td>
                 </ng-container>
 
-                <!-- Price Column -->
                 <ng-container matColumnDef="Prince">
                     <th mat-header-cell *matHeaderCellDef> Price </th>
                     <td mat-cell *matCellDef="let element"> {{element.Prince}} </td>
                 </ng-container>
 
-                <!-- Status Column -->
                 <ng-container matColumnDef="Status">
                     <th mat-header-cell *matHeaderCellDef> Status </th>
                     <td mat-cell *matCellDef="let element"> {{element.Status}} </td>

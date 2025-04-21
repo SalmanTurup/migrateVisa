@@ -1,3 +1,7 @@
+::ng-deep body {
+    overflow: hidden !important;
+}
+
 .containerOne {
     display: flex;
     flex-wrap: wrap;
@@ -13,6 +17,7 @@
 .left-column,
 .right-column {
     flex: 1 1 400px;
+    margin-top: -12%;
 }
 
 
@@ -55,7 +60,7 @@
     box-shadow: none;
 }
 
-input:disabled{
+input:disabled {
     cursor: not-allowed;
 }
 
@@ -70,4 +75,38 @@ input:disabled{
     font-size: 32px;
     line-height: 100%;
     cursor: pointer;
+    margin: 2% 0 0 2%;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff !important;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3 !important;
+}
+
+a:hover {
+    text-decoration: underline !important;
+}
+
+@media screen and (max-width: 768px) {
+    ::ng-deep body {
+        overflow: auto !important;
+    }
+
+    .left-column {
+        margin-top: -40%;
+    }
+
+    .right-column {
+        margin-top: -70%;
+    }
+
+    .brandName {
+        margin: 3% 0 0 3%;
+    }
 }

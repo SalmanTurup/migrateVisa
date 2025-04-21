@@ -3,6 +3,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { ViewportScroller } from '@angular/common';
 import { UserService } from '../../../core/user.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -83,8 +84,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       aFilter: ['Popular', 'Visa Free']
     },
     {
-      sImage: "assets/images/Azerbaijan.png",
-      sCountryName: "Azerbaijan",
+      sImage: "assets/images/Switzerland.png",
+      sCountryName: "Switzerland",
       sType: "Visa Type",
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
@@ -93,8 +94,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       aFilter: ['Popular', 'Easy Visa', 'Schengen Visa']
     },
     {
-      sImage: "assets/images/Cambodia.png",
-      sCountryName: "Cambodia",
+      sImage: "assets/images/Turkiye.png",
+      sCountryName: "Turkiye",
       sType: "Visa Type",
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
@@ -104,7 +105,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   ]
   activeLabel: string = 'Popular';
-  constructor(private viewportScroller: ViewportScroller, private userService: UserService, private router: Router) { }
+  constructor(
+    private viewportScroller: ViewportScroller,
+    private userService: UserService,
+    private router: Router,
+    private toastr: ToastrService) { }
 
   ngOnInit() {
     this.viewportScroller.scrollToPosition([0, 0]);
@@ -119,7 +124,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   setCountry(country: any) {
     this.userService.countryName = country;
-    this.pageNavigate(`visa`);
+    (this.userService.isUserLogin) ? this.pageNavigate(`visa`) : this.pageNavigate(`login`);
   }
   setActive(label: string): void {
     this.activeLabel = label;
@@ -127,6 +132,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   pageNavigate(path: string) {
     this.router.navigate([`/${path}`]);
+  }
+
+  message() {
+    this.toastr.success('Select a country to continue your application.', 'Start Journey');
   }
 
   ngOnDestroy(): void { }

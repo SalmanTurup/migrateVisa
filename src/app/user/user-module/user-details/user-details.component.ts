@@ -3,6 +3,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ViewportScroller } from '@angular/common';
+import { Router } from '@angular/router';
 const imageExtensions = [".jpg", ".jpeg", ".png"];
 @Component({
   selector: 'app-user-details',
@@ -15,7 +16,8 @@ export class UserDetailsComponent {
 
   constructor(
     private viewportScroller: ViewportScroller,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private router: Router) {
 
   }
 
@@ -143,8 +145,8 @@ export class UserDetailsComponent {
     this.isPayment = true;
   }
 
-  test() {
-    console.log(this.passportFront);
-    console.log(this.passportBack);
+  pageNavigate(path: string) {
+    this.router.navigate([`/${path}`]);
   }
+
 }

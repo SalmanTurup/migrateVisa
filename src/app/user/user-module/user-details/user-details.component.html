@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="container">
-    <mat-stepper #stepper [linear]="true">
+    <mat-stepper #stepper>
         <mat-step [stepControl]="userDetailsFormGroup" label="Basic">
             <form [formGroup]="userDetailsFormGroup">
                 <h2 class="mt-3">1. Add your tentative travel dates</h2>
@@ -426,7 +426,7 @@
                         <div class="text-center">
                             <h1>Thank You !</h1>
                             <p>We've send the link to your inbox. Lorem ipsum dolor sit,lorem lorem </p>
-                            <button class="btn btn-outline-success">Back Home</button>
+                            <button class="btn btn-outline-success" (click)="pageNavigate('visa')">Back Home</button>
                         </div>
                     </div>
                 </div>

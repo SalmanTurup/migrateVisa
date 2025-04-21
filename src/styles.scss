@@ -7,3 +7,10 @@ body, p, h1, h2, h3, h4, h5, h6, span, a, li, button, label, div, strong, em {
 }
 
 @import 'ngx-toastr/toastr';
+
+.toast-bottom-center {
+  bottom: 20px;
+  right: 20px;
+  margin: 0 auto;
+  position: fixed !important; /* This makes it stick to viewport */
+}

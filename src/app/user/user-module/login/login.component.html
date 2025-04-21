@@ -1,4 +1,8 @@
 <!-- <app-header></app-header> -->
+<div class="brandName" (click)="pageNavigate('')">
+    <span style="color:#83CD20; font-style: italic;"><i class="zmdi zmdi-home"></i></span>
+    <span style="color: #034833; font-family: Public Sans;">Home</span>
+</div>
 <div class="containerOne">
     <div class="left-column">
         <img src="assets/images/login.png" alt="visa" class="travel-image" />
@@ -6,14 +10,16 @@
     <div class="right-column">
         <div class="content-row mb-4" style="flex-direction: column;">
             <h2 class="heading">Welcome To Migrate Visa</h2>
-            <p class="section-title">Sign up/Login using your mobile number<i class="zmdi zmdi-account-add"></i></p>
+            <p class="section-title">Sign up/Login using your mobile number &nbsp;<i class="zmdi zmdi-account-add"></i>
+            </p>
         </div>
         <form #contactUsForm="ngForm">
             <div class="row">
                 <div class="col pb-2">
                     <mat-form-field style="width: 100%;">
                         <mat-label>Your Phone</mat-label>
-                        <input matInput type="tel" name="phone" [(ngModel)]="phoneNumber" #phone="ngModel" pattern="^[0-9]{10}$" maxlength="10" [disabled]="isOTPSend" required />
+                        <input matInput type="tel" name="phone" [(ngModel)]="phoneNumber" #phone="ngModel"
+                            pattern="^[6-9]\d{9}$" maxlength="10" [disabled]="isOTPSend" required />
                         <mat-icon matSuffix>phone</mat-icon>
                         <mat-error [hidden]="phone.valid">
                             <div [hidden]="!phone.hasError('required')">
@@ -25,15 +31,28 @@
                 </div>
             </div>
             <div class="content-row pb-4" *ngIf="isOTPSend">
-                <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{ length: 5 }"></ng-otp-input>
+                <ng-otp-input (onInputChange)="onOtpChange($event)"
+                    [config]="{ length: 5, allowNumbersOnly: true,isPasswordInput: true }"></ng-otp-input>
             </div>
-            <div class="col content-row">
-                <button *ngIf="!isOTPSend" class="contact-btn" type="submit" [disabled]="!contactUsForm.valid" (click)="sendOtp()">Send OTP</button>
-                <button *ngIf="isOTPSend" class="contact-btn" type="submit" [disabled]="!isOtpComplete" (click)="verfiy()">Verify OTP</button>
+            <div class="col content-row mt-3">
+                <button *ngIf="!isOTPSend" class="contact-btn" type="submit" [disabled]="!contactUsForm.valid"
+                    (click)="sendOtp()">Send OTP</button>
+                <button *ngIf="isOTPSend" class="contact-btn" type="submit" [disabled]="!isOtpComplete"
+                    (click)="verify()">Verify OTP</button>
             </div>
             <div class="pt-4 content-row section-title" style="font-size: 12px; text-transform: capitalize;">
-                By Continuing, You agree to our&nbsp;<a href="" target="_blank">terms & condtions</a>
+                By Continuing, You agree to our&nbsp;<a (click)="openDialog(termsTemplate)">terms & condtions</a>
             </div>
         </form>
     </div>
 </div>
+
+<ng-template #termsTemplate>
+    <div class="terms-popup container" style="padding: 5%;">
+        <h2>Terms and Conditions</h2>
+        <p style="font-size: 15px;">
+            Your Terms and Conditions content goes here. You can provide detailed information about your Visa website’s
+            policies, rules, and usage.
+        </p>
+    </div>
+</ng-template>

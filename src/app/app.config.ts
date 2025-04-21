@@ -10,7 +10,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 
 const toastrConfig: Partial<ToastrConfig> = {
   positionClass: 'toast-bottom-center',
-  timeOut: 3000,
+  timeOut: 7000,
   closeButton: true,
   progressBar: true
 };

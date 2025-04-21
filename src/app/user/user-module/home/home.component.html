@@ -4,15 +4,9 @@
         <div class="font-1">Your Gateway to Hassle-Free</div>
         <div class="font-1" style="color: #83CD20;">Visa Bookings</div>
         <div class="font-2">Fast, Reliable, and Secure Visa Applications for All Destinations</div>
-        <!-- <div>
-            <mat-form-field appearance="fill" class="no-custom-font">
-                <mat-label>Hey Traveler, Search Your Destination</mat-label>
-                <input matInput>
-                <mat-icon matSuffix>search</mat-icon>
-            </mat-form-field>
-        </div> -->
         <div>
-            <a href="#visaList" class="btn login-btn me-2" type="submit" style="width: 200px !important; align-content: center;" >View Visa</a>
+            <a href="#visaList" class="btn login-btn me-2" type="submit" style="width: 200px;;align-content: center;"
+                (click)="message()">View Visa</a>
         </div>
     </div>
 </section>
@@ -69,7 +63,7 @@
         <div class="horizontal-line"></div>
     </div>
 </div>
-
+<div id="visaList" style="visibility: none;"></div>
 <div class="content mt-5">
     <div class="d-flex flex-wrap justify-content-center gap-2">
         <button class="btn login-btn" *ngFor="let label of buttonLabels" [ngClass]="{ 'active': activeLabel === label }"
@@ -79,14 +73,15 @@
     </div>
 </div>
 
-<div id="visaList" class="row row-gap-5" style="margin:3%;">
+<div class="row row-gap-5" style="margin:3%;">
     <ng-container *ngFor="let cData of countryData">
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 content" *ngIf="cData.aFilter.includes(activeLabel)">
             <div class="card visa-card custom-card h-100">
-                <img [src]="cData.sImage" class="card-img-top visa-img" alt="Vietnam">
+                <img [src]="cData.sImage" class="card-img-top visa-img" alt="..{{cData.sCountryName}}">
                 <div class="card-body d-flex justify-content-between align-items-center visa">
                     <div class="visa-card-title mb-0">{{cData.sCountryName}}</div>
-                    <button class="btn btn-light btn-sm btn btn2" (click)="setCountry(cData.sCountryName)">{{cData.sType}}</button>
+                    <button class="btn btn-light btn-sm btn btn2"
+                        (click)="setCountry(cData.sCountryName)">{{cData.sType}}</button>
                 </div>
                 <div class="card-body d-flex justify-content-between visa">
                     <div>
@@ -187,15 +182,15 @@
     <div class="col-md-6">
         <div class="card-visa h-100">
             <div class="row g-0 h-100">
-                <div class="col-md-4">
-                    <img src="assets/images/BusinessVisa.png" class="card-img img-fluid rounded-start"
-                        alt="Business Visa">
+                <div class="col-md-5">
+                    <img src="assets/images/BusinessVisa.png" class="card-img img-fluid" alt="Business Visa">
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <div class="card-body">
                         <div class="visa-titel m-5">Business Visa</div>
-                        <div class="visa-lable m-5">Et purus duis sollicitudin dignissim habitant. Egestas nulla quis
-                            the venenatis cras sed eu</div>
+                        <div class="visa-lable m-5">Unlock global opportunities with our Business Visa services. Whether
+                            you're attending a conference, sealing a deal, or exploring partnerships abroad, we
+                            streamline the application process to get you there on time.</div>
                     </div>
                 </div>
             </div>
@@ -204,15 +199,15 @@
     <div class="col-md-6">
         <div class="card-visa h-100">
             <div class="row g-0 h-100">
-                <div class="col-md-4">
-                    <img src="assets/images/WorkingVisa.png" class="card-img img-fluid rounded-start"
-                        alt="Working Visa">
+                <div class="col-md-5">
+                    <img src="assets/images/WorkingVisa.png" class="card-img img-fluid" alt="Working Visa">
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <div class="card-body">
                         <div class="visa-titel m-5">Working Visa</div>
-                        <div class="visa-lable m-5">Et purus duis sollicitudin dignissim habitant. Egestas nulla quis
-                            the venenatis cras sed eu</div>
+                        <div class="visa-lable m-5">Ready to build your career across borders? Our Working Visa service
+                            helps professionals and skilled workers move abroad with ease, meeting all legal and
+                            employer requirements.</div>
                     </div>
                 </div>
             </div>
@@ -221,15 +216,15 @@
     <div class="col-md-6">
         <div class="card-visa h-100">
             <div class="row g-0 h-100">
-                <div class="col-md-4">
-                    <img src="assets/images/StudentVisa.png" class="card-img img-fluid rounded-start"
-                        alt="Student Visa">
+                <div class="col-md-5">
+                    <img src="assets/images/StudentVisa.png" class="card-img img-fluid" alt="Student Visa">
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <div class="card-body">
                         <div class="visa-titel m-5">Student Visa</div>
-                        <div class="visa-lable m-5">Et purus duis sollicitudin dignissim habitant. Egestas nulla quis
-                            the venenatis cras sed eu</div>
+                        <div class="visa-lable m-5">Pursue your academic dreams internationally with our Student Visa
+                            support. We assist students in gaining entry to top institutions while ensuring all legal
+                            and financial paperwork is complete.</div>
                     </div>
                 </div>
             </div>
@@ -238,15 +233,15 @@
     <div class="col-md-6">
         <div class="card-visa h-100">
             <div class="row g-0 h-100">
-                <div class="col-md-4">
-                    <img src="assets/images/TouristVisa.png" class="card-img img-fluid rounded-start"
-                        alt="Tourist Visa">
+                <div class="col-md-5">
+                    <img src="assets/images/TouristVisa.png" class="card-img img-fluid" alt="Tourist Visa">
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <div class="card-body">
                         <div class="visa-titel m-5">Tourist Visa</div>
-                        <div class="visa-lable m-5">Et purus duis sollicitudin dignissim habitant. Egestas nulla quis
-                            the venenatis cras sed eu</div>
+                        <div class="visa-lable m-5">Explore the world with ease. Our Tourist Visa services cover
+                            short-term travel to your dream destinations from city getaways to bucket-list adventures
+                        </div>
                     </div>
                 </div>
             </div>
@@ -259,15 +254,9 @@
         <div class="font-1">Ready to <span style="color: #83CD20;">get started</span>?</div>
         <div class="font-1">Enter your travel destination</div>
         <div class="font-2">Know your visa process • Get document checklist • FREE Sign up!</div>
-        <!-- <div>
-            <mat-form-field appearance="fill" class="no-custom-font">
-                <mat-label>Hey Traveler, Search Your Destination</mat-label>
-                <input matInput>
-                <mat-icon matSuffix>search</mat-icon>
-            </mat-form-field>
-        </div> -->
         <div class="content">
-            <button class="btn login-btn me-2" type="submit" style="width:300px" (click)="pageNavigate('login')">Start Your Visa Applicantion</button>
+            <a href="#visaList" class="btn login-btn me-2" type="submit" style="align-content: center;"
+                (click)="message()">Start Your Visa Applicantion</a>
         </div>
     </div>
 </section>

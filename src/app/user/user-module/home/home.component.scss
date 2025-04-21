@@ -5,7 +5,7 @@
 .sectionOne {
     margin: 2%;
     border-radius: 30px;
-    height: 632px;
+    height: 600px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -72,20 +72,19 @@
 }
 
 .login-btn {
+    font-size: 24px;
     background: #83CD20;
     color: #FFFFFF;
     font-weight: 400;
     text-align: center;
-    min-width: 107px;
-    height: 48px;
-    padding: 0 16px;
+    min-width: auto;
+    height: auto;
+    padding: 10px;
     border-radius: 12px;
 }
 
 button.login-btn.active {
     font-weight: 400;
-    font-size: 24px;
-    line-height: 100%;
     text-align: center;
     color: #6E6E6E;
     background: #ECECEC;
@@ -208,9 +207,7 @@ button.login-btn.active {
 }
 
 .visa-lable {
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 100%;
+    font-size: 18px;
 }
 
 .btn2 {
@@ -226,6 +223,9 @@ button.login-btn.active {
     border: 1px solid #83CD20
 }
 
+.card-img{
+    border-radius: 25px;
+}
 @media screen and (max-width: 480px) {
     .font-1 {
         font-size: 28px;
@@ -340,6 +340,6 @@ button.login-btn.active {
     }
 
     .visa-img {
-        width: 280px !important;
+        width: -webkit-fill-available !important;
     }
 }

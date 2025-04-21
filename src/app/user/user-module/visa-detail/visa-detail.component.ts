@@ -14,7 +14,8 @@ import { Router } from '@angular/router';
   styleUrl: './visa-detail.component.scss'
 })
 export class VisaDetailComponent implements AfterViewInit {
-  date = new Date();
+  date: any;
+  isUserLogin = false;
   countryName: any;
   displayedColumns: string[] = ["No", 'Entery', 'Visa Types', 'Stay duration', 'Visa validity', 'Processing time', 'Prince', 'Status'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
@@ -22,18 +23,33 @@ export class VisaDetailComponent implements AfterViewInit {
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
-  constructor(private userService: UserService, private viewportScroller: ViewportScroller,private router: Router) {
+  constructor(
+    private userService: UserService,
+    private viewportScroller: ViewportScroller,
+    private router: Router) {
 
   }
   ngOnInit(): void {
     this.viewportScroller.scrollToPosition([0, 0]);
     this.countryName = this.userService.countryName;
+    this.isUserLogin = this.userService.isUserLogin;
+    this.processingTime();
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
   pageNavigate(path: string) {
     this.router.navigate([`/${path}`]);
+  }
+
+  processingTime() {
+    const date = new Date(); // today's date
+    const targetDate = new Date(date);
+    this.date = targetDate.setDate(date.getDate() + 4);
+  }
+
+  startApplication() {
+    (this.isUserLogin) ? this.pageNavigate('userDetails') : this.pageNavigate('login');
   }
 }
 
