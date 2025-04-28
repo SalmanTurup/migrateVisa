@@ -94,16 +94,6 @@ export class UserDetailsComponent {
     }
   }
 
-  onFileChange(event: any, controlName: string): void {
-    const file = event.target.files?.[0];
-    if (file) {
-      this.userDetailsFormGroup.patchValue({ [controlName]: file });
-      this.userDetailsFormGroup.get(controlName)?.markAsTouched();
-      this.userDetailsFormGroup.get(controlName)?.updateValueAndValidity();
-    }
-  }
-
-
   masterSelected(event: Event, variable: string) {
     const fileInput = event.target as HTMLInputElement;
     if (fileInput.files && fileInput.files.length > 0) {

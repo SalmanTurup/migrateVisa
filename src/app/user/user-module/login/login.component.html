@@ -14,44 +14,85 @@
             </p>
         </div>
         <form #contactUsForm="ngForm">
-            <div class="row">
-                <div class="col pb-2">
-                    <mat-form-field style="width: 100%;">
-                        <mat-label>Your Phone</mat-label>
-                        <input matInput type="tel" name="phone" [(ngModel)]="phoneNumber" #phone="ngModel"
-                            pattern="^[6-9]\d{9}$" maxlength="10" [disabled]="isOTPSend" required />
-                        <mat-icon matSuffix>phone</mat-icon>
-                        <mat-error [hidden]="phone.valid">
-                            <div [hidden]="!phone.hasError('required')">
-                                Please enter a Phone Number
-                            </div>
-                            <div [hidden]="!phone.hasError('pattern')">Enter a Valid Phone Number</div>
-                        </mat-error>
-                    </mat-form-field>
+            <ng-container *ngIf="isUser">
+                <div class="row">
+                    <div class="col pb-2">
+                        <mat-form-field style="width: 100%;">
+                            <mat-label>Your Phone</mat-label>
+                            <input matInput type="tel" name="phone" [(ngModel)]="phoneNumber" #phone="ngModel"
+                                pattern="^[6-9]\d{9}$" maxlength="10" [disabled]="isOTPSend" required />
+                            <mat-icon matSuffix>phone</mat-icon>
+                            <mat-error [hidden]="phone.valid">
+                                <div [hidden]="!phone.hasError('required')">
+                                    Please enter a Phone Number
+                                </div>
+                                <div [hidden]="!phone.hasError('pattern')">Enter a Valid Phone Number</div>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
                 </div>
-            </div>
-            <div class="content-row pb-4" *ngIf="isOTPSend">
-                <ng-otp-input (onInputChange)="onOtpChange($event)"
-                    [config]="{ length: 5, allowNumbersOnly: true,isPasswordInput: true }"></ng-otp-input>
-            </div>
-            <div class="col content-row mt-3">
-                <button *ngIf="!isOTPSend" class="contact-btn" type="submit" [disabled]="!contactUsForm.valid"
-                    (click)="sendOtp()">Send OTP</button>
-                <button *ngIf="isOTPSend" class="contact-btn" type="submit" [disabled]="!isOtpComplete"
-                    (click)="verify()">Verify OTP</button>
-            </div>
-            <div class="pt-4 content-row section-title" style="font-size: 12px; text-transform: capitalize;">
-                By Continuing, You agree to our&nbsp;<a (click)="openDialog(termsTemplate)">terms & condtions</a>
-            </div>
+                <div class="content-row pb-4" *ngIf="isOTPSend">
+                    <ng-otp-input (onInputChange)="onOtpChange($event)"
+                        [config]="{ length: 5, allowNumbersOnly: true,isPasswordInput: true }"></ng-otp-input>
+                </div>
+                <div class="col content-row mt-3">
+                    <button *ngIf="!isOTPSend" class="contact-btn" type="submit" [disabled]="!contactUsForm.valid"
+                        (click)="sendOtp()">Send OTP</button>
+                    <button *ngIf="isOTPSend" class="contact-btn" type="submit" [disabled]="!isOtpComplete"
+                        (click)="verify()">Verify OTP</button>
+                </div>
+            </ng-container>
         </form>
+        <ng-container *ngIf="isAdmin">
+            <form #admin="ngForm">
+                <div class="row" style="flex-direction: column;">
+                    <div class="col pb-2">
+                        <mat-form-field style="width: 100%;">
+                            <mat-label>Enter Your Email</mat-label>
+                            <input matInput name="email" [(ngModel)]="email" #emailModel="ngModel" required
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+                            <mat-icon matSuffix>mail</mat-icon>
+                            <mat-error *ngIf="emailModel.invalid && emailModel.touched">
+                                <div *ngIf="emailModel.hasError('required')">Please enter an email</div>
+                                <div *ngIf="emailModel.hasError('pattern')">Enter a valid email</div>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col pb-2">
+                        <mat-form-field style="width: 100%;">
+                            <mat-label>Enter Your Password</mat-label>
+                            <input class="password" matInput name="pass" [(ngModel)]="password" #pass="ngModel" required
+                                pattern=".{6,}" />
+                            <mat-icon *ngIf="!pass.invalid" matSuffix>lock_open</mat-icon>
+                            <mat-icon *ngIf="pass.invalid" matSuffix>lock</mat-icon>
+                            <mat-error *ngIf="pass.invalid && pass.touched">
+                                <div *ngIf="pass.hasError('required')">Please enter a password</div>
+                                <div *ngIf="pass.hasError('pattern')">Enter minimum 6 characters</div>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col content-row mt-3">
+                    <button class="contact-btn" type="submit" [disabled]="!admin.valid"
+                        (click)="verifyAdmin(email,password)">Login</button>
+                </div>
+            </form>
+        </ng-container>
+
+        <div class="pt-4 content-row section-title" style="font-size: 12px; text-transform: capitalize;">
+            By Continuing, You agree to our&nbsp;<a (click)="openDialog(termsTemplate)">terms & condtions</a>
+        </div>
+        <div *ngIf="isUser" class="content-row section-title user" (click)="changeUser()">Admin Login</div>
+        <div *ngIf="isAdmin" class="content-row section-title user" (click)="changeUser()">User Login</div>
     </div>
 </div>
 
 <ng-template #termsTemplate>
     <div class="terms-popup container" style="padding: 5%;">
-        <h2>Terms and Conditions</h2>
+        <h2>Terms & Conditions</h2>
         <p style="font-size: 15px;">
-            Your Terms and Conditions content goes here. You can provide detailed information about your Visa website’s
+            Your Terms & Conditions content goes here. You can provide detailed information about your Visa website’s
             policies, rules, and usage.
         </p>
     </div>

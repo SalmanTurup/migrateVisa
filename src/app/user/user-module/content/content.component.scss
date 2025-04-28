@@ -6,7 +6,7 @@
 .container {
     display: flex;
     max-width: 100%;
-    flex-wrap: wrap; /* Enable wrapping on small screens */
+    flex-wrap: wrap;
 }
 
 .sidebar {
@@ -34,7 +34,6 @@ li {
     line-height: 23px;
 }
 
-/* --- Mobile Styles --- */
 @media screen and (max-width: 768px) {
     .container {
         flex-direction: column;

@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="container">
-    <mat-stepper #stepper>
+    <mat-stepper #stepper >
         <mat-step [stepControl]="userDetailsFormGroup" label="Basic">
             <form [formGroup]="userDetailsFormGroup">
                 <h2 class="mt-3">1. Add your tentative travel dates</h2>
@@ -296,8 +296,9 @@
                     </div>
                 </div>
             </div>
-            <div class="button-row">
-                <button class="contact-btn" *ngIf="!isUserDetailsSubmit"
+            <div class="button-row justify-between">
+                <button style="visibility: hidden;"></button>
+                <button class="contact-btn " *ngIf="!isUserDetailsSubmit"
                     [disabled]="!passportFront || !passportBack || !userDetailsFormGroup.valid"
                     (click)="submitForm()">Submit</button>
                 <button class="contact-btn" *ngIf="isUserDetailsSubmit" [disabled]="!userDetailsFormGroup.valid"
@@ -426,7 +427,7 @@
                         <div class="text-center">
                             <h1>Thank You !</h1>
                             <p>We've send the link to your inbox. Lorem ipsum dolor sit,lorem lorem </p>
-                            <button class="btn btn-outline-success" (click)="pageNavigate('visa')">Back Home</button>
+                            <button class="btn btn-outline-success" (click)="pageNavigate('welcome')">Back Home</button>
                         </div>
                     </div>
                 </div>

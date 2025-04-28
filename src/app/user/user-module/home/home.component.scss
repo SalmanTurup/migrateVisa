@@ -132,7 +132,6 @@ button.login-btn.active {
 .visa-card {
     border-radius: 15px;
     overflow: hidden;
-    transition: all 0.3s ease-in-out;
 }
 
 .visa {
@@ -226,6 +225,7 @@ button.login-btn.active {
 .card-img{
     border-radius: 25px;
 }
+
 @media screen and (max-width: 480px) {
     .font-1 {
         font-size: 28px;

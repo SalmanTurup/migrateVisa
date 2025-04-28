@@ -18,6 +18,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -40,6 +43,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatNativeDateModule,
     MatSelectModule,
     MatDialogModule,
+    MatTooltipModule,
+    HttpClientModule
   ],
   exports: [
     CommonModule,
@@ -61,7 +66,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule,
+    HttpClientModule
   ],
 })
 export class SharedModule { }

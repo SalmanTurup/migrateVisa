@@ -22,88 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     'Visa Free'
   ];
 
-  countryData: any = [
-    {
-      sImage: "assets/images/Vietnam.png",
-      sCountryName: "Vietnam",
-      sType: "Visa Type",
-      sTitleOne: "Per Person",
-      sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['Popular', 'Visa in week', 'Schengen Visa']
-    },
-    {
-      sImage: "assets/images/UAE.png",
-      sCountryName: "UAE",
-      sType: "Visa Type",
-      sTitleOne: "Per Person",
-      sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['Popular', 'Easy Visa', 'Schengen Visa']
-    },
-    {
-      sImage: "assets/images/Egypt.png",
-      sCountryName: "Egypt",
-      sType: "Visa Type",
-      sTitleOne: "Per Person",
-      sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['Popular', 'Visa in week', 'Schengen Visa']
-    },
-    {
-      sImage: "assets/images/Indonesia.png",
-      sCountryName: "Indonesia",
-      sType: "Visa Type",
-      sTitleOne: "Per Person",
-      sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['Popular']
-    },
-    {
-      sImage: "assets/images/China.png",
-      sCountryName: "China",
-      sType: "Visa Type",
-      sTitleOne: "Per Person",
-      sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['Popular', 'Visa in week', 'Easy Visa']
-    },
-    {
-      sImage: "assets/images/Oman.png",
-      sCountryName: "Oman",
-      sType: "Visa Type",
-      sTitleOne: "Per Person",
-      sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['Popular', 'Visa Free']
-    },
-    {
-      sImage: "assets/images/Switzerland.png",
-      sCountryName: "Switzerland",
-      sType: "Visa Type",
-      sTitleOne: "Per Person",
-      sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['Popular', 'Easy Visa', 'Schengen Visa']
-    },
-    {
-      sImage: "assets/images/Turkiye.png",
-      sCountryName: "Turkiye",
-      sType: "Visa Type",
-      sTitleOne: "Per Person",
-      sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['Popular', 'Easy Visa', 'Visa Free']
-    }
-  ]
+  countryData: any;
   activeLabel: string = 'Popular';
   constructor(
     private viewportScroller: ViewportScroller,
@@ -120,6 +39,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.isMobile = false;
       }
     }
+    this.countryData = this.userService.countryData;
+    // const data = this.userService.getUsers();
+    // console.log(data);
+    
   }
 
   setCountry(country: any) {
@@ -136,6 +59,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   message() {
     this.toastr.success('Select a country to continue your application.', 'Start Journey');
+  }
+
+  startApplication() {
+    (this.userService.isUserLogin) ? this.pageNavigate(`welcome`) : this.pageNavigate(`login`);
   }
 
   ngOnDestroy(): void { }

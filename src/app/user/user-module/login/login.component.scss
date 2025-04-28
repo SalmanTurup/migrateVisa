@@ -73,7 +73,6 @@ input:disabled {
 .brandName {
     font-weight: 900;
     font-size: 32px;
-    line-height: 100%;
     cursor: pointer;
     margin: 2% 0 0 2%;
 }
@@ -91,6 +90,19 @@ a:hover {
 
 a:hover {
     text-decoration: underline !important;
+}
+
+.password {
+    -webkit-text-security: disc;
+}
+
+.user {
+    cursor: pointer;
+}
+
+.user:hover {
+    color: #00431f;
+    text-decoration: underline;
 }
 
 @media screen and (max-width: 768px) {
