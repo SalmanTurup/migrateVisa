@@ -1,0 +1,138 @@
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.visa-card {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.custom-card {
+    width: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #F6F6F6;
+}
+
+.card-img-top {
+    width: 134px;
+    height: 134px;
+    object-fit: cover;
+}
+
+.visa-card {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.visa {
+    width: 280px;
+}
+
+.visa-img {
+    width: -webkit-fill-available;
+    height: 198px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+
+.visa-btn {
+    width: 83;
+    height: 36;
+    border-radius: 12px;
+    padding: 10px;
+    gap: 10px;
+    background-color: #ECECEC;
+    color: #000000;
+
+}
+
+.visa-card-title {
+    font-weight: 600;
+    font-size: 24px;
+    color: #000;
+}
+
+.person {
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 100%;
+    text-align: center;
+}
+
+.amount {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 100%;
+}
+
+.login-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    transition: all 0.3s ease;
+    text-transform: capitalize;
+}
+
+.login-btn:hover {
+    background: linear-gradient(135deg, #0056b3, #003f7f);
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+.login-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.4);
+}
+
+.login-btn.active {
+    background: linear-gradient(135deg, #28a745, #1e7e34);
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.4);
+    color: #fff;
+}
+
+.btn2 {
+    width: 57;
+    height: 39;
+    border-radius: 12px;
+    border: 1px solid #83CD20;
+    color: #83CD20;
+}
+
+@media (max-width: 576px) {
+    .visa-card img {
+        height: 130px;
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+
+    .fixed-img,
+    .card-img-top {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .fixed-img,
+    .card-img-top {
+        width: 100px;
+        height: 100px;
+    }
+
+    .visa-img {
+        width: -webkit-fill-available !important;
+    }
+}

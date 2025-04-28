@@ -1,0 +1,344 @@
+<div class="brandName" (click)="pageNavigate('')">
+    <div>
+        <span style="color:#83CD20; font-style: italic;"><i class="zmdi zmdi-home"></i></span>
+        <span style="color: #034833; font-family: Public Sans;">Home</span>
+    </div>
+</div>
+
+<div class="container">
+    <div class="sidebar">
+        <mat-nav-list>
+            <a style="margin-bottom: 10px;" (click)="switchTab('visa');tab = 'visa'" mat-list-item class="button-30"
+                [ngClass]="{ 'active-link': tab === 'visa' }">Visa Booking
+                Request</a>
+            <a (click)="switchTab('contact');tab = 'contact'" mat-list-item class="button-30"
+                [ngClass]="{ 'active-link': tab === 'contact' }">Contact Form
+                Leads </a>
+        </mat-nav-list>
+    </div>
+
+    <div class=" container-xl" *ngIf="tab === 'visa'">
+        <div class="mat-elevation-z8 mt-3" style="overflow: auto;">
+            <table mat-table [dataSource]="visaTableData" matSort (matSortChange)="announceSortChange($event)"
+                class="mat-elevation-z8">
+                <ng-container matColumnDef="Name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Name">
+                        Name
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Email">
+                        Email
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Phone">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Phone">
+                        Phone
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Phone}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="DepartureDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by DepartureDate">
+                        Departure Date
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.DepartureDate}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="VisaType">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by VisaType">
+                        Visa Type
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.VisaType}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Status">
+                        Status
+                    </th>
+                    <td mat-cell *matCellDef="let element"
+                        [ngClass]="element.Status === 'Pending' ? 'contact-pending' : '' "> {{element.Status}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Action">
+                    <th mat-header-cell *matHeaderCellDef class="font-400">
+                        Action
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button matTooltip="Approve" *ngIf="element.Status === 'Pending'" class="button-30"
+                            role="button"><i class="zmdi zmdi-check" style="color: #034833;"></i></button> &nbsp; &nbsp;
+                        <button matTooltip="Decline" *ngIf="element.Status === 'Pending'" class="button-30"
+                            role="button"><i class="zmdi zmdi-close" style="color: red;"></i></button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="ViewApplication">
+                    <th mat-header-cell *matHeaderCellDef class="font-400">
+                        View Application
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button matTooltip="View Application" class="button-30" (click)="openDialog(viewApplication)"
+                            role="button"><i class="zmdi zmdi-eye"></i></button> &nbsp; &nbsp;
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="visaTableColumn"></tr>
+                <tr mat-row *matRowDef="let row; columns: visaTableColumn;"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10]" [pageSize]="10" showFirstLastButtons
+                aria-label="Select page of periodic elements">
+            </mat-paginator>
+        </div>
+    </div>
+
+    <div class=" container-xl" *ngIf="tab === 'contact'">
+        <div class="mat-elevation-z8 mt-3" style="overflow: auto;">
+            <table mat-table [dataSource]="contactTableData" matSort (matSortChange)="announceSortChange($event)"
+                class="mat-elevation-z8 center-text">
+                <ng-container matColumnDef="Email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Email">
+                        Email
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Phone">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Phone">
+                        Phone
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Phone}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Address">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Address">
+                        Address
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Address}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Message">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Message">
+                        Message
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Message}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Status">
+                        Status
+                    </th>
+                    <td mat-cell *matCellDef="let element"
+                        [ngClass]="element.Status === 'Pending' ? 'contact-pending' : '' "> {{element.Status}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Action">
+                    <th mat-header-cell *matHeaderCellDef class="font-400">
+                        Action
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button matTooltip="Mark As Done" *ngIf="element.Status === 'Pending'" class="button-30"
+                            role="button"><i class="zmdi zmdi-check" style="color: #034833;"></i></button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="contactTableColumn"></tr>
+                <tr mat-row *matRowDef="let row; columns: contactTableColumn;"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10]" [pageSize]="10" showFirstLastButtons
+                aria-label="Select page of periodic elements">
+            </mat-paginator>
+
+        </div>
+    </div>
+</div>
+
+<ng-template #viewApplication>
+    <div class="popup-scroll">
+        <div class="container">
+            <form [formGroup]="userDetailsFormGroup">
+                <h2 class="mt-3">1.Tentative travel dates</h2>
+                <div class="row gx-5">
+                    <div class="col-12 col-md-3 mb-3">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Tentative Departure Date</mat-label>
+                            <input matInput formControlName="tentativeDepartureDate" readonly />
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-md-3 mb-3">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Tentative Return Date</mat-label>
+                            <input matInput formControlName="tentativeReturnDate" readonly />
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <h2 class="mt-2">2. Passport Details</h2>
+                <div class="row gx-5">
+                    <div class="col-12 col-md-3 mb-3">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Passport Number</mat-label>
+                            <input matInput formControlName="passportNumber" readonly />
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-md-3 mb-3">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Passport Issue Date</mat-label>
+                            <input matInput formControlName="passportIssueDate" readonly />
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-md-3 mb-3">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Passport Expiry Date</mat-label>
+                            <input matInput formControlName="passportExpiryDate" readonly />
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-md-3 mb-3">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Passport Issue Place</mat-label>
+                            <input matInput formControlName="passportIssuePlace" readonly />
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row gx-5">
+                    <div class="col-12 col-md-3 mb-3">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>First Name</mat-label>
+                            <input matInput formControlName="firstName" readonly />
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-md-3 mb-3">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Last Name</mat-label>
+                            <input matInput formControlName="lastName" readonly />
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-md-3 mb-3">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Birth Date</mat-label>
+                            <input matInput formControlName="birthDate" readonly />
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-md-3 mb-3">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Place of Birth</mat-label>
+                            <input matInput formControlName="placeOfBirth" readonly />
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row gx-5">
+                    <div class="col-12 col-md-3 mb-3">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Sex</mat-label>
+                            <mat-select formControlName="sex" [disabled]="true">
+                                <mat-option value="Male">Male</mat-option>
+                                <mat-option value="Female">Female</mat-option>
+                                <mat-option value="Other">Other</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-md-3 mb-3">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Pincode</mat-label>
+                            <input matInput formControlName="pincode" readonly />
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-md-3 mb-3">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>City</mat-label>
+                            <input matInput formControlName="city" readonly />
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-md-3 mb-3">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>State</mat-label>
+                            <input matInput formControlName="state" readonly />
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row gx-5">
+                    <div class="col-12 col-md-3 mb-3">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Current Address Line 1</mat-label>
+                            <input matInput formControlName="currentAddressLine1" readonly />
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-md-3 mb-3">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Current Address Line 2</mat-label>
+                            <input matInput formControlName="currentAddressLine2" readonly />
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-md-3 mb-3">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Mobile Number</mat-label>
+                            <input matInput formControlName="mobileNumber" readonly />
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-md-3 mb-3">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="email" readonly />
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="mt-4">
+            <h2>3. Passport</h2>
+            <div class="row gx-4">
+                <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-3">
+                    <img src="assets/images/visa.jpg" alt="visa" class="travel-image" />
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-3">
+                    <img src="assets/images/Express.png" alt="visa" class="travel-image" />
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h2>4. Mandatory Documents</h2>
+            <div class="row gx-4">
+                <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-3">
+                    <img src="assets/images/visa.jpg" alt="visa" class="travel-image" />
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-3">
+                    <img src="assets/images/Express.png" alt="visa" class="travel-image" />
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-3">
+                    <img src="assets/images/Express.png" alt="visa" class="travel-image" />
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h2>3. Payment Proof</h2>
+            <div class="row gx-4">
+                <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-3">
+                    <img src="assets/images/visa.jpg" alt="visa" class="travel-image" />
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
