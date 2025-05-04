@@ -2,8 +2,9 @@ import { Component, inject } from '@angular/core';
 import { SharedModule } from '../../../shared/shared.module';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { ViewportScroller } from '@angular/common';
+import { DatePipe, ViewportScroller } from '@angular/common';
 import { Router } from '@angular/router';
+import { ApiService } from '../../../core/api.service';
 const imageExtensions = [".jpg", ".jpeg", ".png"];
 @Component({
   selector: 'app-user-details',
@@ -17,14 +18,17 @@ export class UserDetailsComponent {
   constructor(
     private viewportScroller: ViewportScroller,
     private toastr: ToastrService,
-    private router: Router) {
+    private router: Router,
+    private apiService: ApiService,
+    private datePipe: DatePipe,
+  ) {
 
   }
 
   _formBuilder = inject(FormBuilder);
-  Letter: File | null = null;
-  Aadhaar: File | null = null;
-  Educational: File | null = null;
+  letter: File | null = null;
+  aadhaar: File | null = null;
+  educational: File | null = null;
   passportFront: File | null = null;
   passportBack: File | null = null;
   UPI: File | null = null;
@@ -101,30 +105,74 @@ export class UserDetailsComponent {
     }
   }
 
+  saveVisaRequest(form: any) {
+    if (!form.invalid) {
+      const requestBody = {
+        userForm: this.createRequestBody(form.value),
+        passportFront: this.passportFront,
+        passportBack: this.passportBack,
+        transactionProof: this.UPI,
+        letter: this.letter,
+        aadhaar: this.aadhaar,
+        educationalCertificate: this.educational
+      }
+      debugger
+      this.apiService.postDataWithBody('visa/save', requestBody).subscribe({
+        next: (response) => {
+          this.isDocUploaded = true;
+          this.toastr.success(response?.message, 'Success');
+        }
+        ,
+        error: (err) => this.toastr.error('Error:', err),
+      });
+    } else {
+      this.toastr.error('Please fill in all required fields of Basic Form', 'Validation Error');
+    }
+  }
+
+  createRequestBody(form: any): any {
+    return {
+      email: form.email,
+      visaType: "single",
+      firstName: form.firstName,
+      lastName: form.lastName,
+      sex: form.sex,
+      birthDate: this.datePipe.transform(form.birthDate, "dd/MM/yyyy"),
+      placeOfBirth: form.placeOfBirth,
+      passportNumber: form.passportNumber,
+      passportIssueDate: this.datePipe.transform(form.passportIssueDate, "dd/MM/yyyy"),
+      passportExpiryDate: this.datePipe.transform(form.passportExpiryDate, "dd/MM/yyyy"),
+      passportIssuePlace: this.datePipe.transform(form.passportIssuePlace, "dd/MM/yyyy"),
+      tentativeDepartureDate: this.datePipe.transform(form.tentativeDepartureDate, "dd/MM/yyyy"),
+      tentativeReturnDate: this.datePipe.transform(form.tentativeReturnDate, "dd/MM/yyyy"),
+      currentAddressLine1: form.currentAddressLine1,
+      currentAddressLine2: form.currentAddressLine2,
+      pinCode: form.pincode,
+      state: form.state,
+      city: form.city,
+      mobileNumber: form.mobileNumber,
+      trasactionId: "1234",
+      visaDetails: {
+        visaType: "single",
+        stayDuration: "2day",
+        visaValidity: "2",
+        processingTime: "3hr",
+        price: "pune"
+      }
+    };
+  }
+
 
   submitForm() {
     if (this.userDetailsFormGroup.invalid) {
       this.userDetailsFormGroup.markAllAsTouched();
       return;
     }
-
-    const formData = new FormData();
-
-    Object.keys(this.userDetailsFormGroup.controls).forEach(key => {
-      const control = this.userDetailsFormGroup.get(key);
-      if (control && control.value !== null && control.value !== undefined) {
-        formData.append(key, control.value);
-      }
-    });
-
-    formData.forEach((value, key) => {
-      console.log(`${key}: ${value}`);
-    });
-
     this.isUserDetailsSubmit = true;
   }
-  submitDocuments() {
-    this.isDocUploaded = true;
+
+  submitDocuments(formData:any) {
+    this.saveVisaRequest(formData);
   }
 
   submitPayment() {

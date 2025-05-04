@@ -6,6 +6,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideToastr, ToastrConfig } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 
 const toastrConfig: Partial<ToastrConfig> = {
@@ -19,6 +20,7 @@ export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes), provideClientHydration(), provideAnimationsAsync(),
     provideRouter(routes),
     provideAnimations(),
-    provideToastr(toastrConfig)
+    provideToastr(toastrConfig),
+    provideHttpClient(withFetch())
   ]
 };

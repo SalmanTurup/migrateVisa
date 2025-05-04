@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="container">
-    <mat-stepper #stepper >
+    <mat-stepper #stepper  [linear]="true" >
         <mat-step [stepControl]="userDetailsFormGroup" label="Basic">
             <form [formGroup]="userDetailsFormGroup">
                 <h2 class="mt-3">1. Add your tentative travel dates</h2>
@@ -10,9 +10,9 @@
                             <mat-label>Tentative Departure Date</mat-label>
                             <input (focus)="!isUserDetailsSubmit && departureDatePicker.open()" matInput
                                 [min]="minReturnDate" [matDatepicker]="departureDatePicker"
-                                formControlName="tentativeDepartureDate" [readonly]="isUserDetailsSubmit" required />
+                                formControlName="tentativeDepartureDate"  required />
                             <mat-datepicker-toggle matSuffix [for]="departureDatePicker"></mat-datepicker-toggle>
-                            <mat-datepicker #departureDatePicker [disabled]="isUserDetailsSubmit"></mat-datepicker>
+                            <mat-datepicker #departureDatePicker ></mat-datepicker>
                             <mat-error
                                 *ngIf="userDetailsFormGroup.get('tentativeDepartureDate')?.hasError('required') && userDetailsFormGroup.get('tentativeDepartureDate')?.touched">
                                 Departure date is required
@@ -25,9 +25,9 @@
                             <mat-label>Tentative Return Date</mat-label>
                             <input (focus)="!isUserDetailsSubmit && returnDatePicker.open()" matInput
                                 [min]="minReturnDate" [matDatepicker]="returnDatePicker"
-                                formControlName="tentativeReturnDate" [readonly]="isUserDetailsSubmit" required />
+                                formControlName="tentativeReturnDate" required />
                             <mat-datepicker-toggle matSuffix [for]="returnDatePicker"></mat-datepicker-toggle>
-                            <mat-datepicker #returnDatePicker [disabled]="isUserDetailsSubmit"></mat-datepicker>
+                            <mat-datepicker #returnDatePicker></mat-datepicker>
                             <mat-error
                                 *ngIf="userDetailsFormGroup.get('tentativeReturnDate')?.hasError('required') && userDetailsFormGroup.get('tentativeReturnDate')?.touched">
                                 Return date is required
@@ -43,7 +43,7 @@
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Passport Number</mat-label>
                             <input matInput formControlName="passportNumber" maxlength="8"
-                                [readonly]="isUserDetailsSubmit" required />
+                                 required />
                             <mat-error
                                 *ngIf="userDetailsFormGroup.get('passportNumber')?.hasError('required') && userDetailsFormGroup.get('passportNumber')?.touched">
                                 Passport number is required
@@ -59,10 +59,9 @@
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Passport Issue Date</mat-label>
                             <input matInput (focus)="!isUserDetailsSubmit && issueDatePicker.open()"
-                                [matDatepicker]="issueDatePicker" formControlName="passportIssueDate"
-                                [readonly]="isUserDetailsSubmit" required />
+                                [matDatepicker]="issueDatePicker" formControlName="passportIssueDate" required />
                             <mat-datepicker-toggle matSuffix [for]="issueDatePicker"></mat-datepicker-toggle>
-                            <mat-datepicker #issueDatePicker [disabled]="isUserDetailsSubmit"></mat-datepicker>
+                            <mat-datepicker #issueDatePicker ></mat-datepicker>
                             <mat-error
                                 *ngIf="userDetailsFormGroup.get('passportIssueDate')?.hasError('required') && userDetailsFormGroup.get('passportIssueDate')?.touched">
                                 Passport issue date is required
@@ -74,10 +73,9 @@
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Passport Expiry Date</mat-label>
                             <input matInput (focus)="!isUserDetailsSubmit && expiryDatePicker.open()"
-                                [matDatepicker]="expiryDatePicker" formControlName="passportExpiryDate"
-                                [readonly]="isUserDetailsSubmit" required />
+                                [matDatepicker]="expiryDatePicker" [min]="minReturnDate" formControlName="passportExpiryDate" required />
                             <mat-datepicker-toggle matSuffix [for]="expiryDatePicker"></mat-datepicker-toggle>
-                            <mat-datepicker #expiryDatePicker [disabled]="isUserDetailsSubmit"></mat-datepicker>
+                            <mat-datepicker #expiryDatePicker></mat-datepicker>
                             <mat-error
                                 *ngIf="userDetailsFormGroup.get('passportExpiryDate')?.hasError('required') && userDetailsFormGroup.get('passportExpiryDate')?.touched">
                                 Passport expiry date is required
@@ -88,8 +86,7 @@
                     <div class="col-12 col-md-3 mb-3">
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Passport Issue Place</mat-label>
-                            <input matInput formControlName="passportIssuePlace" [readonly]="isUserDetailsSubmit"
-                                required />
+                            <input matInput formControlName="passportIssuePlace" required />
                             <mat-error
                                 *ngIf="userDetailsFormGroup.get('passportIssuePlace')?.hasError('required') && userDetailsFormGroup.get('passportIssuePlace')?.touched">
                                 Passport issue place is required
@@ -102,7 +99,7 @@
                     <div class="col-12 col-md-3 mb-3">
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>First Name</mat-label>
-                            <input matInput formControlName="firstName" [readonly]="isUserDetailsSubmit" required />
+                            <input matInput formControlName="firstName" required />
                             <mat-error
                                 *ngIf="userDetailsFormGroup.get('firstName')?.hasError('required') && userDetailsFormGroup.get('firstName')?.touched">
                                 First name is required
@@ -113,7 +110,7 @@
                     <div class="col-12 col-md-3 mb-3">
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Last Name</mat-label>
-                            <input matInput formControlName="lastName" [readonly]="isUserDetailsSubmit" required />
+                            <input matInput formControlName="lastName" required />
                             <mat-error
                                 *ngIf="userDetailsFormGroup.get('lastName')?.hasError('required') && userDetailsFormGroup.get('lastName')?.touched">
                                 Last name is required
@@ -125,10 +122,9 @@
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Birth Date</mat-label>
                             <input matInput (focus)="!isUserDetailsSubmit && dobPicker.open()"
-                                [matDatepicker]="dobPicker" formControlName="birthDate" [readonly]="isUserDetailsSubmit"
-                                required />
+                                [matDatepicker]="dobPicker" formControlName="birthDate" required />
                             <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
-                            <mat-datepicker #dobPicker [disabled]="isUserDetailsSubmit"></mat-datepicker>
+                            <mat-datepicker #dobPicker></mat-datepicker>
                             <mat-error
                                 *ngIf="userDetailsFormGroup.get('birthDate')?.hasError('required') && userDetailsFormGroup.get('birthDate')?.touched">
                                 Birth date is required
@@ -139,7 +135,7 @@
                     <div class="col-12 col-md-3 mb-3">
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Place of Birth</mat-label>
-                            <input matInput formControlName="placeOfBirth" [readonly]="isUserDetailsSubmit" required />
+                            <input matInput formControlName="placeOfBirth" required />
                             <mat-error
                                 *ngIf="userDetailsFormGroup.get('placeOfBirth')?.hasError('required') && userDetailsFormGroup.get('placeOfBirth')?.touched">
                                 Place of birth is required
@@ -152,7 +148,7 @@
                     <div class="col-12 col-md-3 mb-3">
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Sex</mat-label>
-                            <mat-select formControlName="sex" [disabled]="isUserDetailsSubmit" required>
+                            <mat-select formControlName="sex" required>
                                 <mat-option value="Male">Male</mat-option>
                                 <mat-option value="Female">Female</mat-option>
                                 <mat-option value="Other">Other</mat-option>
@@ -167,7 +163,7 @@
                     <div class="col-12 col-md-3 mb-3">
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Pincode</mat-label>
-                            <input matInput formControlName="pincode" [readonly]="isUserDetailsSubmit" maxlength="6"
+                            <input matInput formControlName="pincode" maxlength="6"
                                 required />
                             <mat-error
                                 *ngIf="userDetailsFormGroup.get('pincode')?.hasError('required') && userDetailsFormGroup.get('pincode')?.touched">
@@ -183,7 +179,7 @@
                     <div class="col-12 col-md-3 mb-3">
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>City</mat-label>
-                            <input matInput formControlName="city" [readonly]="isUserDetailsSubmit" required />
+                            <input matInput formControlName="city" required />
                             <mat-error
                                 *ngIf="userDetailsFormGroup.get('city')?.hasError('required') && userDetailsFormGroup.get('city')?.touched">
                                 City is required
@@ -194,7 +190,7 @@
                     <div class="col-12 col-md-3 mb-3">
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>State</mat-label>
-                            <input matInput formControlName="state" [readonly]="isUserDetailsSubmit" required />
+                            <input matInput formControlName="state" required />
                             <mat-error
                                 *ngIf="userDetailsFormGroup.get('state')?.hasError('required') && userDetailsFormGroup.get('state')?.touched">
                                 State is required
@@ -207,8 +203,7 @@
                     <div class="col-12 col-md-3 mb-3">
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Current Address Line 1</mat-label>
-                            <input matInput formControlName="currentAddressLine1" [readonly]="isUserDetailsSubmit"
-                                required />
+                            <input matInput formControlName="currentAddressLine1" required />
                             <mat-error
                                 *ngIf="userDetailsFormGroup.get('currentAddressLine1')?.hasError('required') && userDetailsFormGroup.get('currentAddressLine1')?.touched">
                                 Address Line 1 is required
@@ -219,8 +214,7 @@
                     <div class="col-12 col-md-3 mb-3">
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Current Address Line 2</mat-label>
-                            <input matInput formControlName="currentAddressLine2" [readonly]="isUserDetailsSubmit"
-                                required />
+                            <input matInput formControlName="currentAddressLine2" required />
                             <mat-error
                                 *ngIf="userDetailsFormGroup.get('currentAddressLine2')?.hasError('required') && userDetailsFormGroup.get('currentAddressLine2')?.touched">
                                 Address Line 2 is required
@@ -231,8 +225,7 @@
                     <div class="col-12 col-md-3 mb-3">
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Mobile Number</mat-label>
-                            <input matInput formControlName="mobileNumber" [readonly]="isUserDetailsSubmit"
-                                maxlength="10" required />
+                            <input matInput formControlName="mobileNumber" maxlength="10" required />
                             <mat-error
                                 *ngIf="userDetailsFormGroup.get('mobileNumber')?.hasError('required') && userDetailsFormGroup.get('mobileNumber')?.touched">
                                 Mobile number is required
@@ -248,7 +241,7 @@
                     <div class="col-12 col-md-3 mb-3">
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Email</mat-label>
-                            <input matInput formControlName="email" [readonly]="isUserDetailsSubmit" required />
+                            <input matInput formControlName="email" required />
                             <mat-error
                                 *ngIf="userDetailsFormGroup.get('email')?.hasError('required') && userDetailsFormGroup.get('email')?.touched">
                                 Email is required
@@ -272,8 +265,7 @@
                             <h4 class="fileName">{{passportFront?.name}}</h4>
                             <label class="label">
                                 <span class="browse-files">
-                                    <input style="font-size: 85%;" [(ngModel)]="passportFront"
-                                        (change)="masterSelected($event,'passportFront')" type="file" name="passportF">
+                                    <input style="font-size: 85%;" [(ngModel)]="passportFront" (change)="masterSelected($event,'passportFront')" type="file" name="passportF">
                                 </span>
                             </label>
                         </div>
@@ -288,8 +280,7 @@
                             <h4 class="fileName">{{passportBack?.name}}</h4>
                             <label class="label">
                                 <span class="browse-files">
-                                    <input style="font-size: 85%;" [(ngModel)]="passportBack"
-                                        (change)="masterSelected($event,'passportBack')" type="file" name="passportB">
+                                    <input style="font-size: 85%;" [(ngModel)]="passportBack" (change)="masterSelected($event,'passportBack')" type="file" name="passportB">
                                 </span>
                             </label>
                         </div>
@@ -329,7 +320,7 @@
                             <h4 class="fileName">{{UPI?.name}}</h4>
                             <label class="label">
                                 <span class="browse-files">
-                                    <input style="font-size: 85%;" [(ngModel)]="Letter"
+                                    <input style="font-size: 85%;" [(ngModel)]="letter"
                                         (change)="masterSelected($event,'UPI')" type="file" name="UPI-ID">
                                 </span>
                             </label>
@@ -362,13 +353,13 @@
             <div class="row">
                 <div class="col-4">
                     <div class="drag-file-area" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
-                        (drop)="onDrop($event,'Letter')">
+                        (drop)="onDrop($event,'letter')">
                         <h3 class="dynamic-message"> Drag & drop any file here </h3>
-                        <h4 class="fileName">{{Letter?.name}}</h4>
+                        <h4 class="fileName">{{letter?.name}}</h4>
                         <label class="label">
                             <span class="browse-files">
-                                <input style="font-size: 85%;" [(ngModel)]="Letter"
-                                    (change)="masterSelected($event,'Letter')" type="file" name="LetterDoc">
+                                <input style="font-size: 85%;" [(ngModel)]="letter"
+                                    (change)="masterSelected($event,'letter')" type="file" name="LetterDoc">
                             </span>
                         </label>
                     </div>
@@ -376,13 +367,13 @@
                 </div>
                 <div class="col-4">
                     <div class="drag-file-area" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
-                        (drop)="onDrop($event,'Aadhaar')">
+                        (drop)="onDrop($event,'aadhaar')">
                         <h3 class="dynamic-message"> Drag & drop any file here </h3>
-                        <h4 class="fileName">{{Aadhaar?.name}}</h4>
+                        <h4 class="fileName">{{aadhaar?.name}}</h4>
                         <label class="label">
                             <span class="browse-files">
-                                <input style="font-size: 85%;" [(ngModel)]="Aadhaar"
-                                    (change)="masterSelected($event,'Aadhaar')" type="file" name="AadhaarDoc">
+                                <input style="font-size: 85%;" [(ngModel)]="aadhaar"
+                                    (change)="masterSelected($event,'aadhaar')" type="file" name="AadhaarDoc">
                             </span>
                         </label>
                     </div>
@@ -390,13 +381,13 @@
                 </div>
                 <div class="col-4">
                     <div class="drag-file-area" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
-                        (drop)="onDrop($event,'Educational')">
+                        (drop)="onDrop($event,'educational')">
                         <h3 class="dynamic-message"> Drag & drop any file here </h3>
-                        <h4 class="fileName">{{Educational?.name}}</h4>
+                        <h4 class="fileName">{{educational?.name}}</h4>
                         <label class="label">
                             <span class="browse-files">
-                                <input style="font-size: 85%;" [(ngModel)]="Educational"
-                                    (change)="masterSelected($event,'Educational')" type="file" name="EducationalDoc">
+                                <input style="font-size: 85%;" [(ngModel)]="educational"
+                                    (change)="masterSelected($event,'educational')" type="file" name="EducationalDoc">
                             </span>
                         </label>
                     </div>
@@ -405,8 +396,8 @@
             </div>
             <div class="button-row justify-between">
                 <button class="contact-btn" matStepperPrevious>Back</button>
-                <button class="contact-btn" *ngIf="!isDocUploaded" [disabled]="!Letter ||!Aadhaar||!Educational"
-                    (click)="submitDocuments()">Submit</button>
+                <button class="contact-btn" *ngIf="!isDocUploaded" [disabled]="!letter ||!aadhaar||!educational"
+                    (click)="submitDocuments(userDetailsFormGroup)">Submit</button>
                 <button class="contact-btn" *ngIf="isDocUploaded" matStepperNext>Next</button>
             </div>
         </mat-step>

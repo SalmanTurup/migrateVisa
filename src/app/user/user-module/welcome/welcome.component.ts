@@ -4,8 +4,10 @@ import { ViewportScroller } from '@angular/common';
 import { UserService } from '../../../core/user.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { ApiService } from '../../../core/api.service';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-welcome',
@@ -15,6 +17,8 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrl: './welcome.component.scss'
 })
 export class WelcomeComponent {
+  @ViewChild(MatSort)
+    sort!: MatSort;
   countryData: any;
   activeLabel: string = 'All';
   buttonLabels: string[] = [
@@ -30,21 +34,19 @@ export class WelcomeComponent {
   paginator!: MatPaginator;
 
   displayedColumns: string[] = ["No", 'Entery', 'Visa Types', 'Stay duration', 'Visa validity', 'Processing time', 'Prince', 'Status'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  visaTableData : any;
   constructor(
     private viewportScroller: ViewportScroller,
     private userService: UserService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public apiService: ApiService,
   ) { }
 
   ngOnInit(): void {
     this.viewportScroller.scrollToPosition([0, 0]);
     this.countryData = this.userService.countryData;
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    this.getAllVisaRequest();
   }
 
   setCountry(country: any) {
@@ -52,6 +54,17 @@ export class WelcomeComponent {
     (this.userService.isUserLogin) ? this.pageNavigate(`visa`) : this.pageNavigate(`login`);
   }
 
+  getAllVisaRequest() {
+    this.apiService.getData('visa/get-all-visa').subscribe({
+      next: (response) => {
+        this.visaTableData = response?.data;
+        this.visaTableData = new MatTableDataSource(this.visaTableData);
+        this.visaTableData.sort = this.sort;
+        this.visaTableData.paginator = this.paginator;
+      },
+      error: (err) => this.toastr.error('Error:', err),
+    });
+  }
 
   pageNavigate(path: string) {
     this.router.navigate([`/${path}`]);
@@ -62,106 +75,3 @@ export class WelcomeComponent {
   }
 
 }
-
-export const ELEMENT_DATA = [
-
-  {
-    No: "1",
-    Entery: 'Multiple Entry',
-    VisaTypes: 'eVisa',
-    Stayduration: 1.0079,
-    VisaValidity: '3 months',
-    ProcessingTime: '2 days',
-    Prince: '$55.04',
-    Status: 'Active'
-  },
-  {
-    No: "2",
-    Entery: 'Single Entry',
-    VisaTypes: 'eVisa',
-    Stayduration: 4.0026,
-    VisaValidity: '6 months',
-    ProcessingTime: '3 days',
-    Prince: '$70.01',
-    Status: 'Pending'
-  },
-  {
-    No: "3",
-    Entery: 'Single Entry',
-    VisaTypes: 'eVisa',
-    Stayduration: 6.941,
-    VisaValidity: '9 months',
-    ProcessingTime: '4 days',
-    Prince: '$84.71',
-    Status: 'Rejected'
-  },
-  {
-    No: "4",
-    Entery: 'Multiple Entry',
-    VisaTypes: 'eVisa',
-    Stayduration: 9.0122,
-    VisaValidity: '12 months',
-    ProcessingTime: '5 days',
-    Prince: '$95.06',
-    Status: 'Active'
-  },
-  {
-    No: "5",
-    Entery: 'Single Entry',
-    VisaTypes: 'eVisa',
-    Stayduration: 10.811,
-    VisaValidity: '15 months',
-    ProcessingTime: '2 days',
-    Prince: '$104.06',
-    Status: 'Pending'
-  }, {
-    No: "6",
-    Entery: 'Multiple Entry',
-    VisaTypes: 'eVisa',
-    Stayduration: 1.0079,
-    VisaValidity: '3 months',
-    ProcessingTime: '2 days',
-    Prince: '$55.04',
-    Status: 'Active'
-  },
-  {
-    No: "7",
-    Entery: 'Single Entry',
-    VisaTypes: 'eVisa',
-    Stayduration: 4.0026,
-    VisaValidity: '6 months',
-    ProcessingTime: '3 days',
-    Prince: '$70.01',
-    Status: 'Pending'
-  },
-  {
-    No: "8",
-    Entery: 'Multiple Entry',
-    VisaTypes: 'eVisa',
-    Stayduration: 6.941,
-    VisaValidity: '9 months',
-    ProcessingTime: '4 days',
-    Prince: '$84.71',
-    Status: 'Rejected'
-  },
-  {
-    No: "9",
-    Entery: 'Single Entry',
-    VisaTypes: 'eVisa',
-    Stayduration: 9.0122,
-    VisaValidity: '12 months',
-    ProcessingTime: '5 days',
-    Prince: '$95.06',
-    Status: 'Active'
-  },
-  {
-    No: "10",
-    Entery: 'Multiple Entry',
-    VisaTypes: 'eVisa',
-    Stayduration: 10.811,
-    VisaValidity: '15 months',
-    ProcessingTime: '2 days',
-    Prince: '$104.06',
-    Status: 'Pending'
-  }
-];

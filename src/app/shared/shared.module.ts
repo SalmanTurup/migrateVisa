@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,6 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { HttpClientModule } from '@angular/common/http';
+import { ApiService } from '../core/api.service';
 
 @NgModule({
   imports: [
@@ -44,7 +45,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatSelectModule,
     MatDialogModule,
     MatTooltipModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   exports: [
     CommonModule,
@@ -68,7 +69,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatSelectModule,
     MatDialogModule,
     MatTooltipModule,
-    HttpClientModule
+    HttpClientModule,
   ],
+   providers:[ApiService,DatePipe]
 })
 export class SharedModule { }

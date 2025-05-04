@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SharedModule } from '../../../shared/shared.module';
 import { ViewportScroller } from '@angular/common';
+import { ApiService } from '../../../core/api.service';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-contact',
@@ -10,7 +13,9 @@ import { ViewportScroller } from '@angular/common';
   styleUrl: './contact.component.scss'
 })
 export class ContactComponent implements OnInit, OnDestroy {
-  constructor(private viewportScroller: ViewportScroller) { }
+  constructor(private viewportScroller: ViewportScroller,
+    public apiService: ApiService,
+    private toastr: ToastrService) { }
   contactForm = {
     email: '',
     phone: '',
@@ -20,16 +25,22 @@ export class ContactComponent implements OnInit, OnDestroy {
 
   e_mail = "info@example.com"
 
-  // buttonLabels: string[] = [
-  //   'Asia',
-  //   'Europe',
-  //   'North America',
-  //   'Australia',
-  // ];
-
-  // activeLabel: string = 'Asia';
   ngOnInit() {
     this.viewportScroller.scrollToPosition([0, 0]);
+  }
+
+  saveContactRequest() {
+    if(this.contactForm.email && this.contactForm.phone , this.contactForm.address , this.contactForm.message){
+      this.apiService.postDataWithBody('contact-us/save',this.contactForm).subscribe({
+        next: (response) => {
+          this.toastr.success(response?.message, 'Success');
+        }
+        ,
+        error: (err) => this.toastr.error('Error:', err),
+      });
+    }else{
+      this.toastr.error('Please fill in all required fields', 'Validation Error');
+    }
   }
   ngOnDestroy(): void { }
 }

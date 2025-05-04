@@ -25,35 +25,35 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Name">
                         Name
                     </th>
-                    <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.firstName}} {{element.lastName}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="Email">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Email">
                         Email
                     </th>
-                    <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="Phone">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Phone">
                         Phone
                     </th>
-                    <td mat-cell *matCellDef="let element"> {{element.Phone}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.mobileNumber}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="DepartureDate">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by DepartureDate">
                         Departure Date
                     </th>
-                    <td mat-cell *matCellDef="let element"> {{element.DepartureDate}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.tentativeDepartureDate}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="VisaType">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by VisaType">
                         Visa Type
                     </th>
-                    <td mat-cell *matCellDef="let element"> {{element.VisaType}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.visaType}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="Status">
@@ -61,7 +61,7 @@
                         Status
                     </th>
                     <td mat-cell *matCellDef="let element"
-                        [ngClass]="element.Status === 'Pending' ? 'contact-pending' : '' "> {{element.Status}} </td>
+                        [ngClass]="element.status === 'Pending' ? 'contact-pending' : '' "> {{element.status}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="Action">
@@ -69,10 +69,10 @@
                         Action
                     </th>
                     <td mat-cell *matCellDef="let element">
-                        <button matTooltip="Approve" *ngIf="element.Status === 'Pending'" class="button-30"
-                            role="button"><i class="zmdi zmdi-check" style="color: #034833;"></i></button> &nbsp; &nbsp;
-                        <button matTooltip="Decline" *ngIf="element.Status === 'Pending'" class="button-30"
-                            role="button"><i class="zmdi zmdi-close" style="color: red;"></i></button>
+                        <button matTooltip="Approve" *ngIf="element.status === 'Pending'" class="button-30" role="button" (click)="adminDecision(element.email,'Approved')">
+                            <i class="zmdi zmdi-check" style="color: #034833;"></i></button> &nbsp; &nbsp;
+                        <button matTooltip="Decline" *ngIf="element.status === 'Pending'" class="button-30" role="button" (click)="adminDecision(element.email,'Declined')">
+                            <i class="zmdi zmdi-close" style="color: red;" ></i></button>
                     </td>
                 </ng-container>
 
@@ -81,7 +81,7 @@
                         View Application
                     </th>
                     <td mat-cell *matCellDef="let element">
-                        <button matTooltip="View Application" class="button-30" (click)="openDialog(viewApplication)"
+                        <button matTooltip="View Application" class="button-30" (click)="getVisaApplicationById(element.email);"
                             role="button"><i class="zmdi zmdi-eye"></i></button> &nbsp; &nbsp;
                     </td>
                 </ng-container>
@@ -104,28 +104,28 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Email">
                         Email
                     </th>
-                    <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="Phone">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Phone">
                         Phone
                     </th>
-                    <td mat-cell *matCellDef="let element"> {{element.Phone}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="Address">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Address">
                         Address
                     </th>
-                    <td mat-cell *matCellDef="let element"> {{element.Address}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.address}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="Message">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Message">
                         Message
                     </th>
-                    <td mat-cell *matCellDef="let element"> {{element.Message}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.message}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="Status">
@@ -133,7 +133,7 @@
                         Status
                     </th>
                     <td mat-cell *matCellDef="let element"
-                        [ngClass]="element.Status === 'Pending' ? 'contact-pending' : '' "> {{element.Status}} </td>
+                        [ngClass]="element.Status === 'Pending' ? 'contact-pending' : '' "> {{element.status}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="Action">
@@ -141,8 +141,8 @@
                         Action
                     </th>
                     <td mat-cell *matCellDef="let element">
-                        <button matTooltip="Mark As Done" *ngIf="element.Status === 'Pending'" class="button-30"
-                            role="button"><i class="zmdi zmdi-check" style="color: #034833;"></i></button>
+                        <button matTooltip="Mark As Done" *ngIf="element.status === 'Pending'" class="button-30"
+                            role="button"><i class="zmdi zmdi-check" style="color: #034833;" (click)="markAsDone(element.email)"></i></button>
                     </td>
                 </ng-container>
 
@@ -309,10 +309,11 @@
             <h2>3. Passport</h2>
             <div class="row gx-4">
                 <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-3">
-                    <img src="assets/images/visa.jpg" alt="visa" class="travel-image" />
+                    <img matTooltip="Passport Front" [src]="passportFront" alt="...Passport Front" class="travel-image" />
+                    <h2></h2>
                 </div>
                 <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-3">
-                    <img src="assets/images/Express.png" alt="visa" class="travel-image" />
+                    <img  matTooltip="Passport Back" [src]="passportBack" alt="...Passport Back" class="travel-image" />
                 </div>
             </div>
         </div>
@@ -321,13 +322,13 @@
             <h2>4. Mandatory Documents</h2>
             <div class="row gx-4">
                 <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-3">
-                    <img src="assets/images/visa.jpg" alt="visa" class="travel-image" />
+                    <img  matTooltip="Aadhaar Card" [src]="aadhaar" alt="...Aadhaar Card" class="travel-image" />
                 </div>
                 <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-3">
-                    <img src="assets/images/Express.png" alt="visa" class="travel-image" />
+                    <img  matTooltip="Educational Certificate" [src]="educationalCertificate" alt="...Educational Certificate" class="travel-image" />
                 </div>
                 <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-3">
-                    <img src="assets/images/Express.png" alt="visa" class="travel-image" />
+                    <img  matTooltip="Letter From Indain Company" [src]="letter" alt="...Letter From Indain Company" class="travel-image" />
                 </div>
             </div>
         </div>
@@ -336,7 +337,7 @@
             <h2>3. Payment Proof</h2>
             <div class="row gx-4">
                 <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-3">
-                    <img src="assets/images/visa.jpg" alt="visa" class="travel-image" />
+                    <img  matTooltip="Transaction Proof" [src]="transactionProof" alt="...Transaction Proof" class="travel-image" />
                 </div>
             </div>
         </div>
