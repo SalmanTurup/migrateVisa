@@ -10,6 +10,6 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   exports: [],
-  providers:[ApiService]
+  providers: [ApiService]
 })
 export class UserModuleModule { }

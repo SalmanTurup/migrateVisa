@@ -17,9 +17,8 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrl: './welcome.component.scss'
 })
 export class WelcomeComponent {
-  @ViewChild(MatSort)
-    sort!: MatSort;
   countryData: any;
+  visaTableData: any;
   activeLabel: string = 'All';
   buttonLabels: string[] = [
     'All',
@@ -29,12 +28,10 @@ export class WelcomeComponent {
     'Schengen Visa',
     'Visa Free'
   ];
-
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
-
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   displayedColumns: string[] = ["No", 'Entery', 'Visa Types', 'Stay duration', 'Visa validity', 'Processing time', 'Prince', 'Status'];
-  visaTableData : any;
+  
   constructor(
     private viewportScroller: ViewportScroller,
     private userService: UserService,
@@ -55,14 +52,22 @@ export class WelcomeComponent {
   }
 
   getAllVisaRequest() {
-    this.apiService.getData('visa/get-all-visa').subscribe({
+    this.userService.loginUserEmail = "john.doe@example.com";
+    this.apiService.getData(`visa/get-user-visa-details?id=${this.userService.loginUserEmail}`).subscribe({
       next: (response) => {
         this.visaTableData = response?.data;
         this.visaTableData = new MatTableDataSource(this.visaTableData);
         this.visaTableData.sort = this.sort;
         this.visaTableData.paginator = this.paginator;
+        if (response.error) {
+          this.toastr.error(response.message, 'Warning!');
+        } else {
+          this.toastr.success(response.message, 'Success!');
+        }
       },
-      error: (err) => this.toastr.error('Error:', err),
+      error: (err) => {
+        this.toastr.error('Something went wrong. Please try again.', 'Warning!');
+      }
     });
   }
 
@@ -73,5 +78,4 @@ export class WelcomeComponent {
   setActive(label: string): void {
     this.activeLabel = label;
   }
-
 }

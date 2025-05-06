@@ -1,6 +1,4 @@
 import { Injectable, OnInit } from '@angular/core';
-import { environment } from '../../environments/environment';
-// import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +8,8 @@ export class UserService implements OnInit {
   public selectedRoutingValue: any;
   public countryName: any;
   public isUserLogin = false;
-  private baseUrl = environment.apiUrl;
+  public loginUserEmail: any;
+  public visaObject: any;
   public countryData: any = [
     {
       sImage: "assets/images/Vietnam.png",
@@ -18,9 +17,9 @@ export class UserService implements OnInit {
       sType: "Visa Type",
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['All','Visa in week','Schengen Visa']
+      sDays: "3 Days",
+      sRupees: "₹2500",
+      aFilter: ['All', 'Visa in week', 'Schengen Visa']
     },
     {
       sImage: "assets/images/UAE.png",
@@ -28,9 +27,9 @@ export class UserService implements OnInit {
       sType: "Visa Type",
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['All','Popular','Easy Visa']
+      sDays: "2 Days",
+      sRupees: "₹2999",
+      aFilter: ['All', 'Popular', 'Easy Visa']
     },
     {
       sImage: "assets/images/Egypt.png",
@@ -38,9 +37,9 @@ export class UserService implements OnInit {
       sType: "Visa Type",
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['All','Popular','Schengen Visa']
+      sDays: "4 Days",
+      sRupees: "₹3200",
+      aFilter: ['All', 'Popular', 'Schengen Visa']
     },
     {
       sImage: "assets/images/Indonesia.png",
@@ -48,9 +47,9 @@ export class UserService implements OnInit {
       sType: "Visa Type",
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['All','Visa in week','Easy Visa','Visa Free']
+      sDays: "1 Day",
+      sRupees: "₹1800",
+      aFilter: ['All', 'Visa in week', 'Easy Visa', 'Visa Free']
     },
     {
       sImage: "assets/images/China.png",
@@ -59,8 +58,8 @@ export class UserService implements OnInit {
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
       sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['All','Popular','Visa in week','Visa Free']
+      sRupees: "₹4500",
+      aFilter: ['All', 'Popular', 'Visa in week', 'Visa Free']
     },
     {
       sImage: "assets/images/Oman.png",
@@ -68,9 +67,9 @@ export class UserService implements OnInit {
       sType: "Visa Type",
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['All','Visa in week','Easy Visa']
+      sDays: "3 Days",
+      sRupees: "₹2800",
+      aFilter: ['All', 'Visa in week', 'Easy Visa']
     },
     {
       sImage: "assets/images/Switzerland.png",
@@ -78,9 +77,9 @@ export class UserService implements OnInit {
       sType: "Visa Type",
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['All','Popular','Schengen Visa','Visa Free']
+      sDays: "15 Days",
+      sRupees: "₹7000",
+      aFilter: ['All', 'Popular', 'Schengen Visa', 'Visa Free']
     },
     {
       sImage: "assets/images/Turkiye.png",
@@ -88,9 +87,9 @@ export class UserService implements OnInit {
       sType: "Visa Type",
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['All','Visa in week']
+      sDays: "5 Days",
+      sRupees: "₹3500",
+      aFilter: ['All', 'Visa in week']
     },
     {
       sImage: "assets/images/Canada.png",
@@ -98,9 +97,9 @@ export class UserService implements OnInit {
       sType: "Visa Type",
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['All','Popular','Easy Visa','Schengen Visa']
+      sDays: "20 Days",
+      sRupees: "₹8500",
+      aFilter: ['All', 'Popular', 'Easy Visa', 'Schengen Visa']
     },
     {
       sImage: "assets/images/Germany.png",
@@ -108,9 +107,9 @@ export class UserService implements OnInit {
       sType: "Visa Type",
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998,'Visa in week'",
-      aFilter: ['All','Schengen Visa','Visa Free']
+      sDays: "10 Days",
+      sRupees: "₹6000",
+      aFilter: ['All', 'Schengen Visa', 'Visa Free']
     },
     {
       sImage: "assets/images/Japan.png",
@@ -119,8 +118,8 @@ export class UserService implements OnInit {
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
       sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['All','Popular','Visa Free']
+      sRupees: "₹5500",
+      aFilter: ['All', 'Popular', 'Visa Free']
     },
     {
       sImage: "assets/images/UnitedStates.png",
@@ -128,9 +127,9 @@ export class UserService implements OnInit {
       sType: "Visa Type",
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['All','Easy Visa','Schengen Visa']
+      sDays: "20 Days",
+      sRupees: "₹9500",
+      aFilter: ['All', 'Easy Visa', 'Schengen Visa']
     },
     {
       sImage: "assets/images/Italy.png",
@@ -138,9 +137,9 @@ export class UserService implements OnInit {
       sType: "Visa Type",
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['All','Visa in week','Visa Free']
+      sDays: "12 Days",
+      sRupees: "₹6500",
+      aFilter: ['All', 'Visa in week', 'Visa Free']
     },
     {
       sImage: "assets/images/Thailand.png",
@@ -148,9 +147,9 @@ export class UserService implements OnInit {
       sType: "Visa Type",
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['All','Popular','Easy Visa','Schengen Visa']
+      sDays: "2 Days",
+      sRupees: "₹2200",
+      aFilter: ['All', 'Popular', 'Easy Visa', 'Schengen Visa']
     },
     {
       sImage: "assets/images/France.png",
@@ -158,9 +157,9 @@ export class UserService implements OnInit {
       sType: "Visa Type",
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['All','Visa in week']
+      sDays: "10 Days",
+      sRupees: "₹6700",
+      aFilter: ['All', 'Visa in week']
     },
     {
       sImage: "assets/images/Maldives.png",
@@ -168,9 +167,9 @@ export class UserService implements OnInit {
       sType: "Visa Type",
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['All','Popular','Easy Visa']
+      sDays: "1 Day",
+      sRupees: "₹2000",
+      aFilter: ['All', 'Popular', 'Easy Visa']
     },
     {
       sImage: "assets/images/Mexico.png",
@@ -178,9 +177,9 @@ export class UserService implements OnInit {
       sType: "Visa Type",
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['All','Visa in week','Schengen Visa']
+      sDays: "6 Days",
+      sRupees: "₹5000",
+      aFilter: ['All', 'Visa in week', 'Schengen Visa']
     },
     {
       sImage: "assets/images/Turkey.png",
@@ -188,9 +187,9 @@ export class UserService implements OnInit {
       sType: "Visa Type",
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['All','Visa in week','Visa Free']
+      sDays: "5 Days",
+      sRupees: "₹3500",
+      aFilter: ['All', 'Visa in week', 'Visa Free']
     },
     {
       sImage: "assets/images/Spain.png",
@@ -198,9 +197,9 @@ export class UserService implements OnInit {
       sType: "Visa Type",
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['All','Easy Visa']
+      sDays: "12 Days",
+      sRupees: "₹6200",
+      aFilter: ['All', 'Easy Visa']
     },
     {
       sImage: "assets/images/Austria.png",
@@ -208,23 +207,23 @@ export class UserService implements OnInit {
       sType: "Visa Type",
       sTitleOne: "Per Person",
       sTitleTwo: "Get Visa in",
-      sDays: "7 Days",
-      sRupees: "₹3998",
-      aFilter: ['All','Visa in week','Schengen Visa']
+      sDays: "10 Days",
+      sRupees: "₹6100",
+      aFilter: ['All', 'Visa in week', 'Schengen Visa']
     }
-  ]
+  ];
 
-
+  constructor() { }
 
   ngOnInit() { }
 
   resetApplication() {
     this.isUserLogin = false;
     this.selectedRoutingValue = undefined;
+    this.loginUserEmail = undefined;
+    this.countryName = undefined;
   }
 
-  constructor() { }
-  
   ngOnDestroy(): void {
     this.resetApplication();
   }

@@ -10,9 +10,14 @@ import { ViewportScroller } from '@angular/common';
   styleUrl: './blog.component.scss'
 })
 export class BlogComponent implements OnInit, OnDestroy {
-  constructor(private viewportScroller: ViewportScroller) { }
+
+  constructor(
+    private viewportScroller: ViewportScroller
+  ) { }
+
   ngOnInit() {
     this.viewportScroller.scrollToPosition([0, 0]);
   }
+
   ngOnDestroy(): void { }
 }

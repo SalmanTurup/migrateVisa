@@ -14,6 +14,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   isMobile: any;
+  countryData: any;
+  activeLabel: string = 'Popular';
   buttonLabels: string[] = [
     'Popular',
     'Visa in week',
@@ -22,13 +24,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     'Visa Free'
   ];
 
-  countryData: any;
-  activeLabel: string = 'Popular';
   constructor(
     private viewportScroller: ViewportScroller,
     private userService: UserService,
     private router: Router,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit() {
     this.viewportScroller.scrollToPosition([0, 0]);
@@ -40,15 +41,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     }
     this.countryData = this.userService.countryData;
-    // const data = this.userService.getUsers();
-    // console.log(data);
-    
   }
 
   setCountry(country: any) {
     this.userService.countryName = country;
     (this.userService.isUserLogin) ? this.pageNavigate(`visa`) : this.pageNavigate(`login`);
   }
+
   setActive(label: string): void {
     this.activeLabel = label;
   }

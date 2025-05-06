@@ -18,15 +18,13 @@
                 <div class="row">
                     <div class="col pb-2">
                         <mat-form-field style="width: 100%;">
-                            <mat-label>Your Phone</mat-label>
-                            <input matInput type="tel" name="phone" [(ngModel)]="phoneNumber" #phone="ngModel"
-                                pattern="^[6-9]\d{9}$" maxlength="10" [disabled]="isOTPSend" required />
-                            <mat-icon matSuffix>phone</mat-icon>
-                            <mat-error [hidden]="phone.valid">
-                                <div [hidden]="!phone.hasError('required')">
-                                    Please enter a Phone Number
-                                </div>
-                                <div [hidden]="!phone.hasError('pattern')">Enter a Valid Phone Number</div>
+                            <mat-label>Enter Your Email</mat-label>
+                            <input matInput name="email" [(ngModel)]="email" #emailModel="ngModel" required
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [disabled]="isOTPSend && !ResendOTP" />
+                            <mat-icon matSuffix>mail</mat-icon>
+                            <mat-error *ngIf="emailModel.invalid && emailModel.touched">
+                                <div *ngIf="emailModel.hasError('required')">Please enter an email</div>
+                                <div *ngIf="emailModel.hasError('pattern')">Enter a valid email</div>
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -36,10 +34,20 @@
                         [config]="{ length: 5, allowNumbersOnly: true,isPasswordInput: true }"></ng-otp-input>
                 </div>
                 <div class="col content-row mt-3">
-                    <button *ngIf="!isOTPSend" class="contact-btn" type="submit" [disabled]="!contactUsForm.valid"
-                        (click)="sendOtp()">Send OTP</button>
-                    <button *ngIf="isOTPSend" class="contact-btn" type="submit" [disabled]="!isOtpComplete"
+                    <button *ngIf="!isOTPSend" class="contact-btn" type="submit"
+                        [disabled]="isLoading || !contactUsForm.valid" (click)="sendOtp()">
+                        <span *ngIf="!this.isLoading">Send OTP</span>
+                        <i *ngIf="this.isLoading" class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                    </button>
+                    <button *ngIf="isOTPSend" class="contact-btn" type="submit" [disabled]="!isOtpComplete || isLoading "
                         (click)="verify()">Verify OTP</button>
+                        &nbsp;
+                    <button *ngIf="isOTPSend" class="contact-btn" type="submit" [disabled]="!ResendOTP || isLoading"
+                        (click)="sendOtp()">
+                        <span *ngIf="!ResendOTP && !this.isLoading">Resend in {{ countdown }}s</span>
+                        <span *ngIf="ResendOTP && !this.isLoading">Resend OTP</span>
+                        <i *ngIf="this.isLoading" class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                    </button>
                 </div>
             </ng-container>
         </form>
@@ -83,8 +91,8 @@
         <div class="pt-4 content-row section-title" style="font-size: 12px; text-transform: capitalize;">
             By Continuing, You agree to our&nbsp;<a (click)="openDialog(termsTemplate)">terms & condtions</a>
         </div>
-        <div *ngIf="isUser" class="content-row section-title user" (click)="changeUser()">Admin Login</div>
-        <div *ngIf="isAdmin" class="content-row section-title user" (click)="changeUser()">User Login</div>
+        <div *ngIf="isUser &&  !isLoading" class="content-row section-title user" (click)="changeUser()">Admin Login</div>
+        <div *ngIf="isAdmin && !isLoading" class="content-row section-title user" (click)="changeUser()">User Login</div>
     </div>
 </div>
 

@@ -18,7 +18,9 @@
         <p class="section-title">Why Choose Us</p>
         <h2 class="heading">Where Wanderlust<br />Meets Dream Destinations</h2>
         <p class="desc">
-            At Migrate Visa, we understand that moving to a new country is more than just paperwork — it’s a life-changing journey. That’s why we’re committed to making the migration process smooth, transparent, and stress-free.
+            At Migrate Visa, we understand that moving to a new country is more than just paperwork — it’s a
+            life-changing journey. That’s why we’re committed to making the migration process smooth, transparent, and
+            stress-free.
         </p>
 
         <div class="cards">
@@ -62,17 +64,20 @@
         <div class="col box">
             <h1 class="heading">01</h1>
             <h2 class="g-color">Visa Voyage Agency</h2>
-            <h4 class="g-color">Our team of certified immigration specialists brings years of experience and up-to-date knowledge of global migration laws to help you make informed decisions.</h4>
+            <h4 class="g-color">Our team of certified immigration specialists brings years of experience and up-to-date
+                knowledge of global migration laws to help you make informed decisions.</h4>
         </div>
         <div class="col box">
             <h1 class="heading">02</h1>
             <h2 class="g-color">International Access Visas</h2>
-            <h4 class="g-color">Every case is unique. We take the time to understand your individual goals and provide customized visa strategies to match your profile.</h4>
+            <h4 class="g-color">Every case is unique. We take the time to understand your individual goals and provide
+                customized visa strategies to match your profile.</h4>
         </div>
         <div class="col box">
             <h1 class="heading">03</h1>
             <h2 class="g-color">Gateway To Global Citizenship</h2>
-            <h4 class="g-color">Our proven track record and strong attention to detail ensure a higher chance of visa approval for our clients.</h4>
+            <h4 class="g-color">Our proven track record and strong attention to detail ensure a higher chance of visa
+                approval for our clients.</h4>
         </div>
     </div>
 </div>
@@ -87,10 +92,12 @@
         <h2 class="heading">Guide You</h2><br>
         <form #contactUsForm="ngForm">
             <div class="row">
-                <div class="col pb-5"> 
+                <div class="col pb-5">
                     <mat-form-field style="width: 100%;">
                         <mat-label>Your Email</mat-label>
-                        <input id='group13' matInput type="text" [(ngModel)]="contactForm.email"  pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" name="emilId" #emilId="ngModel"  required />
+                        <input id='group13' matInput type="text" [(ngModel)]="contactForm.email"
+                            pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" name="emilId" #emilId="ngModel"
+                            required />
                         <mat-icon matSuffix>mail_outline</mat-icon>
                         <mat-error [hidden]="emilId.valid">
                             <div [hidden]="!emilId.hasError('required')">
@@ -98,11 +105,13 @@
                             </div>
                             <div [hidden]="!emilId.hasError('pattern')">Enter a Valid Email-Id</div>
                         </mat-error>
-                    </mat-form-field></div>
+                    </mat-form-field>
+                </div>
                 <div class="col pb-5">
-                     <mat-form-field style="width: 100%;">
+                    <mat-form-field style="width: 100%;">
                         <mat-label>Your Phone</mat-label>
-                        <input matInput type="tel" name="phone" [(ngModel)]="contactForm.phone" #phone="ngModel" pattern="^[0-9]{10}$" required />
+                        <input matInput type="tel" name="phone" [(ngModel)]="contactForm.phone" #phone="ngModel"
+                            pattern="^[0-9]{10}$" required />
                         <mat-icon matSuffix>phone</mat-icon>
                         <mat-error [hidden]="phone.valid">
                             <div [hidden]="!phone.hasError('required')">
@@ -110,12 +119,14 @@
                             </div>
                             <div [hidden]="!phone.hasError('pattern')">Enter a Valid Phone Number</div>
                         </mat-error>
-                    </mat-form-field></div>
+                    </mat-form-field>
+                </div>
             </div>
             <div class="col pb-5">
                 <mat-form-field style="width: 100%;">
                     <mat-label>Your Address</mat-label>
-                    <input matInput type="text" name="address" [(ngModel)]="contactForm.address" #address="ngModel" required />
+                    <input matInput type="text" name="address" [(ngModel)]="contactForm.address" #address="ngModel"
+                        required />
                     <mat-icon matSuffix>location_on</mat-icon>
                     <mat-error [hidden]="address.valid">
                         <div [hidden]="!address.hasError('required')">
@@ -127,7 +138,8 @@
             <div class="col pb-5">
                 <mat-form-field style="width: 100%;">
                     <mat-label>Message</mat-label>
-                    <textarea matInput rows="4" name="message" [(ngModel)]="contactForm.message" #message="ngModel" required></textarea>
+                    <textarea matInput rows="4" name="message" [(ngModel)]="contactForm.message" #message="ngModel"
+                        required></textarea>
                     <mat-icon matSuffix>message</mat-icon>
                     <mat-error [hidden]="message.valid">
                         <div [hidden]="!message.hasError('required')">
@@ -137,7 +149,8 @@
                 </mat-form-field>
             </div>
             <div class="col content-row">
-                <button class="contact-btn" type="submit" [disabled]="!contactUsForm.valid" (click)="saveContactRequest()">sendMessage</button>
+                <button class="contact-btn" type="submit" [disabled]="!contactUsForm.valid"
+                    (click)="saveContactRequest()">sendMessage</button>
             </div>
         </form>
     </div>

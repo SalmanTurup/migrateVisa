@@ -11,13 +11,15 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 
 const toastrConfig: Partial<ToastrConfig> = {
   positionClass: 'toast-bottom-center',
-  timeOut: 7000,
+  timeOut: 3000,
   closeButton: true,
   progressBar: true
 };
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration(), provideAnimationsAsync(),
+  providers: [
+    provideClientHydration(), 
+    provideAnimationsAsync(),
     provideRouter(routes),
     provideAnimations(),
     provideToastr(toastrConfig),

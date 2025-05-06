@@ -20,26 +20,15 @@ const IMAGE_NOT_FOUND = 'assets/images/Image_not_available.png';
   styleUrl: './admin-dashboard.component.scss'
 })
 export class AdminDashboardComponent {
-
   tab = 'visa';
   contactData: any = [];
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('viewApplication') viewApplication!: ElementRef;
-
-  _formBuilder = inject(FormBuilder);
-
-
-  @ViewChild(MatSort)
-  sort!: MatSort;
-
-  private _liveAnnouncer = inject(LiveAnnouncer);
-
-
+  @ViewChild(MatSort) sort!: MatSort;
+  liveAnnouncer = inject(LiveAnnouncer);
+  formBuilder = inject(FormBuilder);
   visaTableColumn: string[] = ['Name', 'Email', 'Phone', 'DepartureDate', 'VisaType', 'Status', 'Action', 'ViewApplication'];
   contactTableColumn: string[] = ["Email", "Phone", "Address", "Message", 'Status', 'Action'];
-
   visaTableData: any;
   contactTableData: any;
   passportFront = IMAGE_NOT_FOUND;
@@ -48,8 +37,7 @@ export class AdminDashboardComponent {
   aadhaar = IMAGE_NOT_FOUND;
   educationalCertificate = IMAGE_NOT_FOUND;
   letter = IMAGE_NOT_FOUND;
-
-  userDetailsFormGroup = this._formBuilder.group({
+  userDetailsFormGroup = this.formBuilder.group({
     firstName: [''],
     lastName: [''],
     sex: [''],
@@ -70,28 +58,20 @@ export class AdminDashboardComponent {
     email: ['']
   });
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     public dialog: MatDialog,
     public apiService: ApiService,
     private toastr: ToastrService
   ) {
     this.getAllContactRequest();
-
     this.getAllVisaRequest();
   }
 
-  ngOnInit(): void {
-  }
-
-
-  pageNavigate(path: string) {
-    this.router.navigate([`/${path}`]);
-  }
-
+  ngOnInit(): void {}
 
   openDialog(content: any): void {
     const dialogRef = this.dialog.open(content);
-
     dialogRef.afterClosed();
   }
 
@@ -110,9 +90,9 @@ export class AdminDashboardComponent {
 
   announceSortChange(sortState: Sort) {
     if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+      this.liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {
-      this._liveAnnouncer.announce('Sorting cleared');
+      this.liveAnnouncer.announce('Sorting cleared');
     }
   }
 
@@ -137,12 +117,12 @@ export class AdminDashboardComponent {
       mobileNumber: data?.mobileNumber,
       email: data?.email
     });
-    this.passportFront =( data?.passportFront) ? BASE_64 + data?.passportFront : IMAGE_NOT_FOUND;
+    this.passportFront = (data?.passportFront) ? BASE_64 + data?.passportFront : IMAGE_NOT_FOUND;
     this.passportBack = (data?.passportBack) ? BASE_64 + data?.passportBack : IMAGE_NOT_FOUND;
-    this.transactionProof =(data?.transactionProof)? BASE_64 + data?.transactionProof:IMAGE_NOT_FOUND;
+    this.transactionProof = (data?.transactionProof) ? BASE_64 + data?.transactionProof : IMAGE_NOT_FOUND;
     this.aadhaar = (data?.aadhaar) ? BASE_64 + data?.aadhaar : IMAGE_NOT_FOUND;
-    this.educationalCertificate =(data?.educationalCertificate)? BASE_64 + data?.educationalCertificate: IMAGE_NOT_FOUND;
-    this.letter = (data?.letter) ? BASE_64 + data?.letter :IMAGE_NOT_FOUND;
+    this.educationalCertificate = (data?.educationalCertificate) ? BASE_64 + data?.educationalCertificate : IMAGE_NOT_FOUND;
+    this.letter = (data?.letter) ? BASE_64 + data?.letter : IMAGE_NOT_FOUND;
     this.openDialog(this.viewApplication);
   }
 
@@ -151,11 +131,12 @@ export class AdminDashboardComponent {
     this.apiService.getData(`visa/get-application-by-id?id=${email}`).subscribe({
       next: (response) => {
         const data = response?.data;
-        console.log(data);
         this.patchValue(data)
+        this.toasterMessage(response);
+      },
+      error: (err) => {
+        this.toastr.error('Something went wrong. Please try again.', 'Warning!');
       }
-      ,
-      error: (err) => this.toastr.error('Error:', err),
     });
   }
 
@@ -166,21 +147,23 @@ export class AdminDashboardComponent {
         this.visaTableData = new MatTableDataSource(this.visaTableData);
         this.visaTableData.sort = this.sort;
         this.visaTableData.paginator = this.paginator;
+        this.toasterMessage(response);
+      },
+      error: (err) => {
+        this.toastr.error('Something went wrong. Please try again.', 'Warning!');
       }
-      ,
-      error: (err) => this.toastr.error('Error:', err),
     });
   }
 
-  adminDecision(email: string,action:string) {
+  adminDecision(email: string, action: string) {
     this.apiService.postDataWithoutRequestBody(`visa/change-status?id=${email}&status=${action}`).subscribe({
       next: (response) => {
         this.toastr.success(response?.message, 'Success');
         this.getAllVisaRequest();
+        this.toasterMessage(response);
       },
       error: (err) => {
-        const errorMessage = err?.error?.message || 'Something went wrong';
-        this.toastr.error(errorMessage, 'Error');
+        this.toastr.error('Something went wrong. Please try again.', 'Warning!');
       }
     });
   }
@@ -202,22 +185,35 @@ export class AdminDashboardComponent {
         this.contactTableData = new MatTableDataSource(this.contactData);
         this.contactTableData.sort = this.sort;
         this.contactTableData.paginator = this.paginator;
+        this.toasterMessage(response);
+      },
+      error: (err) => {
+        this.toastr.error('Something went wrong. Please try again.', 'Warning!');
       }
-      ,
-      error: (err) => this.toastr.error('Error:', err),
     });
   }
 
   markAsDone(email: string) {
     this.apiService.postDataWithoutRequestBody(`contact-us/change-status?id=${email}`).subscribe({
       next: (response) => {
-        this.toastr.success(response?.message, 'Success');
+        this.toasterMessage(response);
         this.getAllContactRequest();
       },
       error: (err) => {
-        const errorMessage = err?.error?.message || 'Something went wrong';
-        this.toastr.error(errorMessage, 'Error');
+        this.toastr.error('Something went wrong. Please try again.', 'Warning!');
       }
     });
+  }
+
+  toasterMessage(response: any) {
+    if (response.error) {
+      this.toastr.error(response.message, 'Warning!',{ extendedTimeOut: 1000, });
+    } else {
+      this.toastr.success(response.message, 'Success!',{ extendedTimeOut: 1000, });
+    }
+  }
+
+  pageNavigate(path: string) {
+    this.router.navigate([`/${path}`]);
   }
 }

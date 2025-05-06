@@ -11,10 +11,12 @@ import { ViewportScroller } from '@angular/common';
   styleUrl: './footer.component.scss'
 })
 export class FooterComponent implements OnInit, OnDestroy {
+  
   constructor(
     private userService: UserService,
     private router: Router,
   ) { }
+
   ngOnInit() { }
 
   selectRoute(path: any) {
@@ -28,5 +30,6 @@ export class FooterComponent implements OnInit, OnDestroy {
   pageNavigate(path: string) {
     this.router.navigate([`/${path}`]);
   }
+
   ngOnDestroy(): void { }
 }

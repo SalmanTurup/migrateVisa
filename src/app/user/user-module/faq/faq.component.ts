@@ -11,18 +11,6 @@ import { ViewportScroller } from '@angular/common';
   styleUrl: './faq.component.scss'
 })
 export class FAQComponent {
-
-  constructor(
-    private viewportScroller: ViewportScroller,
-    private router: Router,
-  ) {
-  }
-
-  ngOnInit(): void {
-    this.viewportScroller.scrollToPosition([0, 0]);
-  }
-
-
   faqs = [
     {
       question: 'What is the purpose of a visa?',
@@ -68,6 +56,15 @@ export class FAQComponent {
 
   leftFaqs = this.faqs.slice(0, Math.ceil(this.faqs.length / 2));
   rightFaqs = this.faqs.slice(Math.ceil(this.faqs.length / 2));
+
+  constructor(
+    private viewportScroller: ViewportScroller,
+    private router: Router,
+  ) { }
+
+  ngOnInit(): void {
+    this.viewportScroller.scrollToPosition([0, 0]);
+  }
 
   pageNavigate(path: string) {
     this.router.navigate([`/${path}`]);

@@ -13,9 +13,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './contact.component.scss'
 })
 export class ContactComponent implements OnInit, OnDestroy {
-  constructor(private viewportScroller: ViewportScroller,
-    public apiService: ApiService,
-    private toastr: ToastrService) { }
+  email = "info@example.com"
   contactForm = {
     email: '',
     phone: '',
@@ -23,24 +21,44 @@ export class ContactComponent implements OnInit, OnDestroy {
     message: ''
   };
 
-  e_mail = "info@example.com"
+  constructor(
+    private viewportScroller: ViewportScroller,
+    public apiService: ApiService,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit() {
     this.viewportScroller.scrollToPosition([0, 0]);
   }
 
   saveContactRequest() {
-    if(this.contactForm.email && this.contactForm.phone , this.contactForm.address , this.contactForm.message){
-      this.apiService.postDataWithBody('contact-us/save',this.contactForm).subscribe({
+    if (this.contactForm.email && this.contactForm.phone, this.contactForm.address, this.contactForm.message) {
+      this.apiService.postDataWithBody('contact-us/save', this.contactForm).subscribe({
         next: (response) => {
-          this.toastr.success(response?.message, 'Success');
+          this.resetForm();
+          if (response.error) {
+            this.toastr.error(response.message, 'Warning!');
+          } else {
+            this.toastr.success(response.message, 'Success!');
+          }
+        },
+        error: (err) => {
+          this.toastr.error('Something went wrong. Please try again.', 'Warning!');
         }
-        ,
-        error: (err) => this.toastr.error('Error:', err),
       });
-    }else{
+    } else {
       this.toastr.error('Please fill in all required fields', 'Validation Error');
     }
   }
+
+  resetForm() {
+    this.contactForm = {
+      email: '',
+      phone: '',
+      address: '',
+      message: ''
+    };
+  }
+
   ngOnDestroy(): void { }
 }

@@ -3,10 +3,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../shared/shared.module';
 import { MatSortModule } from '@angular/material/sort';
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { ApiService } from '../core/api.service';
-
-
 
 @NgModule({
   imports: [
@@ -17,7 +13,9 @@ import { ApiService } from '../core/api.service';
   ],
   exports:[
     MatSortModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule,
+    CommonModule
   ],
 })
 export class AdminModule { }

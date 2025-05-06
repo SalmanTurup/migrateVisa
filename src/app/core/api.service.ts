@@ -21,16 +21,16 @@ export class ApiService {
   getData(apiName: string): Observable<any> {
     return this.http.get(`${url}${apiName}`);
   }
-  
+
   postDataWithoutRequestBody(apiName: string): Observable<any> {
-    return this.http.post(`${url}${apiName}`, {
-      headers: this.getHeaders()
-    });
+    return this.http.post(`${url}${apiName}`, { headers: this.getHeaders() });
   }
 
   postDataWithBody(apiName: string, body: any): Observable<any> {
-    return this.http.post(`${url}${apiName}`, body, {
-      headers: this.getHeaders()
-    });
+    return this.http.post(`${url}${apiName}`, body);
+  }
+
+  postMultiPartDataWithBody(apiName: string, body: any): Observable<any> {
+    return this.http.post(`${url}${apiName}`, body);
   }
 }

@@ -34,7 +34,7 @@
                 <div class="col pb-5">
                     <mat-form-field style="width: 100%;">
                         <mat-label>Your Phone</mat-label>
-                        <input matInput type="tel" name="phone" [(ngModel)]="contactForm.phone" #phone="ngModel"
+                        <input matInput maxlength="10" name="phone" [(ngModel)]="contactForm.phone" #phone="ngModel"
                             pattern="^[0-9]{10}$" required />
                         <mat-icon matSuffix>phone</mat-icon>
                         <mat-error [hidden]="phone.valid">
@@ -73,7 +73,8 @@
                 </mat-form-field>
             </div>
             <div class="col content-row">
-                <button class="contact-btn" type="submit" [disabled]="!contactUsForm.valid" (click)="saveContactRequest()">sendMessage</button>
+                <button class="contact-btn" type="submit" [disabled]="!contactUsForm.valid"
+                    (click)="saveContactRequest()">sendMessage</button>
             </div>
         </form>
     </div>
@@ -111,7 +112,7 @@
                 <i class="left-icon zmdi zmdi-email"></i>
                 <div>
                     <label>E-mail</label>
-                    <h3>{{e_mail}}</h3>
+                    <h3>{{email}}</h3>
                 </div>
             </div>
 

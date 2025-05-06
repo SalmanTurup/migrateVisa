@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="container">
-    <mat-stepper #stepper  [linear]="true" >
+    <mat-stepper #stepper [linear]="true">
         <mat-step [stepControl]="userDetailsFormGroup" label="Basic">
             <form [formGroup]="userDetailsFormGroup">
                 <h2 class="mt-3">1. Add your tentative travel dates</h2>
@@ -10,9 +10,9 @@
                             <mat-label>Tentative Departure Date</mat-label>
                             <input (focus)="!isUserDetailsSubmit && departureDatePicker.open()" matInput
                                 [min]="minReturnDate" [matDatepicker]="departureDatePicker"
-                                formControlName="tentativeDepartureDate"  required />
+                                formControlName="tentativeDepartureDate" required />
                             <mat-datepicker-toggle matSuffix [for]="departureDatePicker"></mat-datepicker-toggle>
-                            <mat-datepicker #departureDatePicker ></mat-datepicker>
+                            <mat-datepicker #departureDatePicker></mat-datepicker>
                             <mat-error
                                 *ngIf="userDetailsFormGroup.get('tentativeDepartureDate')?.hasError('required') && userDetailsFormGroup.get('tentativeDepartureDate')?.touched">
                                 Departure date is required
@@ -42,8 +42,7 @@
                     <div class="col-12 col-md-3 mb-3">
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Passport Number</mat-label>
-                            <input matInput formControlName="passportNumber" maxlength="8"
-                                 required />
+                            <input matInput formControlName="passportNumber" maxlength="8" required />
                             <mat-error
                                 *ngIf="userDetailsFormGroup.get('passportNumber')?.hasError('required') && userDetailsFormGroup.get('passportNumber')?.touched">
                                 Passport number is required
@@ -61,7 +60,7 @@
                             <input matInput (focus)="!isUserDetailsSubmit && issueDatePicker.open()"
                                 [matDatepicker]="issueDatePicker" formControlName="passportIssueDate" required />
                             <mat-datepicker-toggle matSuffix [for]="issueDatePicker"></mat-datepicker-toggle>
-                            <mat-datepicker #issueDatePicker ></mat-datepicker>
+                            <mat-datepicker #issueDatePicker></mat-datepicker>
                             <mat-error
                                 *ngIf="userDetailsFormGroup.get('passportIssueDate')?.hasError('required') && userDetailsFormGroup.get('passportIssueDate')?.touched">
                                 Passport issue date is required
@@ -73,7 +72,8 @@
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Passport Expiry Date</mat-label>
                             <input matInput (focus)="!isUserDetailsSubmit && expiryDatePicker.open()"
-                                [matDatepicker]="expiryDatePicker" [min]="minReturnDate" formControlName="passportExpiryDate" required />
+                                [matDatepicker]="expiryDatePicker" [min]="minReturnDate"
+                                formControlName="passportExpiryDate" required />
                             <mat-datepicker-toggle matSuffix [for]="expiryDatePicker"></mat-datepicker-toggle>
                             <mat-datepicker #expiryDatePicker></mat-datepicker>
                             <mat-error
@@ -163,8 +163,7 @@
                     <div class="col-12 col-md-3 mb-3">
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Pincode</mat-label>
-                            <input matInput formControlName="pincode" maxlength="6"
-                                required />
+                            <input matInput formControlName="pincode" maxlength="6" required />
                             <mat-error
                                 *ngIf="userDetailsFormGroup.get('pincode')?.hasError('required') && userDetailsFormGroup.get('pincode')?.touched">
                                 Pincode is required
@@ -265,7 +264,8 @@
                             <h4 class="fileName">{{passportFront?.name}}</h4>
                             <label class="label">
                                 <span class="browse-files">
-                                    <input style="font-size: 85%;" [(ngModel)]="passportFront" (change)="masterSelected($event,'passportFront')" type="file" name="passportF">
+                                    <input style="font-size: 85%;" [(ngModel)]="passportFront"
+                                        (change)="masterSelected($event,'passportFront')" type="file" accept=".jpg, .jpeg, .png" name="passportF">
                                 </span>
                             </label>
                         </div>
@@ -280,7 +280,8 @@
                             <h4 class="fileName">{{passportBack?.name}}</h4>
                             <label class="label">
                                 <span class="browse-files">
-                                    <input style="font-size: 85%;" [(ngModel)]="passportBack" (change)="masterSelected($event,'passportBack')" type="file" name="passportB">
+                                    <input style="font-size: 85%;" [(ngModel)]="passportBack"
+                                        (change)="masterSelected($event,'passportBack')" type="file" accept=".jpg, .jpeg, .png" name="passportB">
                                 </span>
                             </label>
                         </div>
@@ -321,7 +322,7 @@
                             <label class="label">
                                 <span class="browse-files">
                                     <input style="font-size: 85%;" [(ngModel)]="letter"
-                                        (change)="masterSelected($event,'UPI')" type="file" name="UPI-ID">
+                                        (change)="masterSelected($event,'UPI')" type="file" accept=".jpg, .jpeg, .png" name="UPI-ID">
                                 </span>
                             </label>
                         </div>
@@ -359,7 +360,7 @@
                         <label class="label">
                             <span class="browse-files">
                                 <input style="font-size: 85%;" [(ngModel)]="letter"
-                                    (change)="masterSelected($event,'letter')" type="file" name="LetterDoc">
+                                    (change)="masterSelected($event,'letter')" type="file" accept=".jpg, .jpeg, .png" name="LetterDoc">
                             </span>
                         </label>
                     </div>
@@ -373,7 +374,7 @@
                         <label class="label">
                             <span class="browse-files">
                                 <input style="font-size: 85%;" [(ngModel)]="aadhaar"
-                                    (change)="masterSelected($event,'aadhaar')" type="file" name="AadhaarDoc">
+                                    (change)="masterSelected($event,'aadhaar')" type="file" accept=".jpg, .jpeg, .png" name="AadhaarDoc">
                             </span>
                         </label>
                     </div>
@@ -387,7 +388,7 @@
                         <label class="label">
                             <span class="browse-files">
                                 <input style="font-size: 85%;" [(ngModel)]="educational"
-                                    (change)="masterSelected($event,'educational')" type="file" name="EducationalDoc">
+                                    (change)="masterSelected($event,'educational')" type="file" accept=".jpg, .jpeg, .png" name="EducationalDoc">
                             </span>
                         </label>
                     </div>

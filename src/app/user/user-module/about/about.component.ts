@@ -19,10 +19,12 @@ export class AboutComponent implements OnInit, OnDestroy {
     message: ''
   };
 
-  constructor(private viewportScroller: ViewportScroller,
+  constructor(
+    private viewportScroller: ViewportScroller,
     public apiService: ApiService,
-        private toastr: ToastrService
+    private toastr: ToastrService
   ) { }
+
   ngOnInit() {
     this.viewportScroller.scrollToPosition([0, 0]);
   }
@@ -31,14 +33,29 @@ export class AboutComponent implements OnInit, OnDestroy {
     if(this.contactForm.email && this.contactForm.phone , this.contactForm.address , this.contactForm.message){
       this.apiService.postDataWithBody('contact-us/save',this.contactForm).subscribe({
         next: (response) => {
-          this.toastr.success(response?.message, 'Success');
+          this.resetForm();
+          if(response.error){
+            this.toastr.error(response.message, 'Warning!');
+          }else{
+            this.toastr.success(response.message, 'Success!');
+          }
+        },
+        error: (err) => {
+          this.toastr.error('Something went wrong. Please try again.', 'Warning!');
         }
-        ,
-        error: (err) => this.toastr.error('Error:', err),
       });
     }else{
-      this.toastr.error('Please fill in all required fields', 'Validation Error');
+      this.toastr.error('Please fill in all required fields', 'Validation Error!');
     }
+  }
+  
+  resetForm(){
+    this.contactForm = {
+      email: '',
+      phone: '',
+      address: '',
+      message: ''
+    };
   }
 
   ngOnDestroy(): void { }

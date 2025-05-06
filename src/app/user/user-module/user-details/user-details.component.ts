@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DatePipe, ViewportScroller } from '@angular/common';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../core/api.service';
+import { UserService } from '../../../core/user.service';
 const imageExtensions = [".jpg", ".jpeg", ".png"];
 @Component({
   selector: 'app-user-details',
@@ -15,17 +16,7 @@ const imageExtensions = [".jpg", ".jpeg", ".png"];
 })
 export class UserDetailsComponent {
 
-  constructor(
-    private viewportScroller: ViewportScroller,
-    private toastr: ToastrService,
-    private router: Router,
-    private apiService: ApiService,
-    private datePipe: DatePipe,
-  ) {
-
-  }
-
-  _formBuilder = inject(FormBuilder);
+  formBuilder = inject(FormBuilder);
   letter: File | null = null;
   aadhaar: File | null = null;
   educational: File | null = null;
@@ -38,7 +29,7 @@ export class UserDetailsComponent {
   transactionID: any;
   isMobile = false;
   minReturnDate: Date = new Date(new Date().setDate(new Date().getDate() + 1));
-  userDetailsFormGroup = this._formBuilder.group({
+  userDetailsFormGroup = this.formBuilder.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     sex: ['', Validators.required],
@@ -58,6 +49,15 @@ export class UserDetailsComponent {
     mobileNumber: ['', [Validators.required, Validators.pattern('^[6-9]\\d{9}$')]],
     email: ['', [Validators.required, Validators.email]]
   });
+
+  constructor(
+    private viewportScroller: ViewportScroller,
+    private toastr: ToastrService,
+    private router: Router,
+    private apiService: ApiService,
+    private datePipe: DatePipe,
+    private userSerivce: UserService,
+  ) { }
 
   ngOnInit(): void {
     this.viewportScroller.scrollToPosition([0, 0]);
@@ -107,23 +107,38 @@ export class UserDetailsComponent {
 
   saveVisaRequest(form: any) {
     if (!form.invalid) {
-      const requestBody = {
-        userForm: this.createRequestBody(form.value),
-        passportFront: this.passportFront,
-        passportBack: this.passportBack,
-        transactionProof: this.UPI,
-        letter: this.letter,
-        aadhaar: this.aadhaar,
-        educationalCertificate: this.educational
+      const requestBody = new FormData();
+      requestBody.append('userForm', new Blob([JSON.stringify(this.createRequestBody(form.value))], { type: 'application/json' }));
+      if (this.passportFront) {
+        requestBody.append('passportFront', this.passportFront);
       }
-      debugger
-      this.apiService.postDataWithBody('visa/save', requestBody).subscribe({
+      if (this.passportBack) {
+        requestBody.append('passportBack', this.passportBack);
+      }
+      if (this.UPI) {
+        requestBody.append('transactionProof', this.UPI);
+      }
+      if (this.letter) {
+        requestBody.append('letter', this.letter);
+      }
+      if (this.aadhaar) {
+        requestBody.append('aadhaar', this.aadhaar);
+      }
+      if (this.educational) {
+        requestBody.append('educationalCertificate', this.educational);
+      }
+      this.apiService.postMultiPartDataWithBody('visa/save', requestBody).subscribe({
         next: (response) => {
           this.isDocUploaded = true;
-          this.toastr.success(response?.message, 'Success');
+          if (response.error) {
+            this.toastr.error(response.message, 'Warning!');
+          } else {
+            this.toastr.success(response.message, 'Success!');
+          }
+        },
+        error: (err) => {
+          this.toastr.error('Something went wrong. Please try again.', 'Warning!');
         }
-        ,
-        error: (err) => this.toastr.error('Error:', err),
       });
     } else {
       this.toastr.error('Please fill in all required fields of Basic Form', 'Validation Error');
@@ -133,7 +148,7 @@ export class UserDetailsComponent {
   createRequestBody(form: any): any {
     return {
       email: form.email,
-      visaType: "single",
+      visaType: this.userSerivce.visaObject.visaType,
       firstName: form.firstName,
       lastName: form.lastName,
       sex: form.sex,
@@ -142,7 +157,7 @@ export class UserDetailsComponent {
       passportNumber: form.passportNumber,
       passportIssueDate: this.datePipe.transform(form.passportIssueDate, "dd/MM/yyyy"),
       passportExpiryDate: this.datePipe.transform(form.passportExpiryDate, "dd/MM/yyyy"),
-      passportIssuePlace: this.datePipe.transform(form.passportIssuePlace, "dd/MM/yyyy"),
+      passportIssuePlace: form.passportIssuePlace,
       tentativeDepartureDate: this.datePipe.transform(form.tentativeDepartureDate, "dd/MM/yyyy"),
       tentativeReturnDate: this.datePipe.transform(form.tentativeReturnDate, "dd/MM/yyyy"),
       currentAddressLine1: form.currentAddressLine1,
@@ -151,27 +166,27 @@ export class UserDetailsComponent {
       state: form.state,
       city: form.city,
       mobileNumber: form.mobileNumber,
-      trasactionId: "1234",
+      trasactionId: this.transactionID ? this.transactionID : '',
       visaDetails: {
-        visaType: "single",
-        stayDuration: "2day",
-        visaValidity: "2",
-        processingTime: "3hr",
-        price: "pune"
+        visaType: this.userSerivce.visaObject.visaType,
+        stayDuration: this.userSerivce.visaObject.stayDuration,
+        visaValidity: this.userSerivce.visaObject.visaValidity,
+        processingTime: this.userSerivce.visaObject.processingTime,
+        price: this.userSerivce.visaObject.price
       }
     };
   }
 
-
   submitForm() {
     if (this.userDetailsFormGroup.invalid) {
       this.userDetailsFormGroup.markAllAsTouched();
+      this.toastr.error('Please fill in all required fields of Basic Form', 'Validation Error');
       return;
     }
     this.isUserDetailsSubmit = true;
   }
 
-  submitDocuments(formData:any) {
+  submitDocuments(formData: any) {
     this.saveVisaRequest(formData);
   }
 
@@ -186,5 +201,4 @@ export class UserDetailsComponent {
   pageNavigate(path: string) {
     this.router.navigate([`/${path}`]);
   }
-
 }

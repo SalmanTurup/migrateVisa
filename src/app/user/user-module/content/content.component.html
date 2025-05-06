@@ -2,10 +2,14 @@
 <div class="container">
     <div class="sidebar">
         <mat-nav-list>
-            <a mat-list-item (click)="selected = 'Privacy'" [ngClass]="{ 'active-link': selected === 'Privacy' }">Privacy Policy</a>
-            <a mat-list-item (click)="selected = 'Refund'" [ngClass]="{ 'active-link': selected === 'Refund' }">Refund & Cancellation Policy</a>
-            <a mat-list-item (click)="selected = 'Terms'" [ngClass]="{ 'active-link': selected === 'Terms' }">Terms & Conditions</a>
-            <a mat-list-item (click)="selected = 'Cookie'" [ngClass]="{ 'active-link': selected === 'Cookie' }">Cookie Policy</a>
+            <a mat-list-item (click)="selected = 'Privacy'"
+                [ngClass]="{ 'active-link': selected === 'Privacy' }">Privacy Policy</a>
+            <a mat-list-item (click)="selected = 'Refund'" [ngClass]="{ 'active-link': selected === 'Refund' }">Refund &
+                Cancellation Policy</a>
+            <a mat-list-item (click)="selected = 'Terms'" [ngClass]="{ 'active-link': selected === 'Terms' }">Terms &
+                Conditions</a>
+            <a mat-list-item (click)="selected = 'Cookie'" [ngClass]="{ 'active-link': selected === 'Cookie' }">Cookie
+                Policy</a>
         </mat-nav-list>
     </div>
 
@@ -74,7 +78,8 @@
                     </ul>
                 </li>
 
-                <li><strong>Cancellation & Refund Policy For Appointments At Vfs Global And Outsourcing And Technology Services Specialists For Governments And Diplomatic Missions Worldwide</strong>
+                <li><strong>Cancellation & Refund Policy For Appointments At Vfs Global And Outsourcing And Technology
+                        Services Specialists For Governments And Diplomatic Missions Worldwide</strong>
                     <ul>
                         <li>If you have applied for a visa to a country which has outsourced its administrative tasks
                             for visa collection to VFS Global or similar agencies, then the Administration Fee in case
@@ -104,7 +109,8 @@
         <div *ngIf="selected === 'Terms'">
             <div class="heading">Terms & Conditions</div>
             <ul>
-                <li><strong>Welcome To migrateVisa.</strong> By using our site and services, you agree to the following terms:</li>
+                <li><strong>Welcome To migrateVisa.</strong> By using our site and services, you agree to the following
+                    terms:</li>
                 <li><strong>Service Scope</strong>
                     <ul>
                         <li>We provide visa application support and related booking services.</li>

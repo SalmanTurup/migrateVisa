@@ -71,6 +71,6 @@ import { ApiService } from '../core/api.service';
     MatTooltipModule,
     HttpClientModule,
   ],
-   providers:[ApiService,DatePipe]
+  providers: [ApiService, DatePipe]
 })
 export class SharedModule { }
