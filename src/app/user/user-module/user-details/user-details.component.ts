@@ -130,7 +130,7 @@ export class UserDetailsComponent {
       this.apiService.postMultiPartDataWithBody('visa/save', requestBody).subscribe({
         next: (response) => {
           this.isDocUploaded = true;
-          if (response.error) {
+          if (response.errorMessage) {
             this.toastr.error(response.message, 'Warning!');
           } else {
             this.toastr.success(response.message, 'Success!');

@@ -34,9 +34,9 @@ export class AboutComponent implements OnInit, OnDestroy {
       this.apiService.postDataWithBody('contact-us/save',this.contactForm).subscribe({
         next: (response) => {
           this.resetForm();
-          if(response.error){
-            this.toastr.error(response.message, 'Warning!');
-          }else{
+          if (response.errorMessage) {
+            this.toastr.error(response.errorMessage, 'Warning!');
+          } else {
             this.toastr.success(response.message, 'Success!');
           }
         },

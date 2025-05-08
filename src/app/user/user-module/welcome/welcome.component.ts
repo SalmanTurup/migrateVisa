@@ -55,12 +55,12 @@ export class WelcomeComponent {
     this.userService.loginUserEmail = "john.doe@example.com";
     this.apiService.getData(`visa/get-user-visa-details?id=${this.userService.loginUserEmail}`).subscribe({
       next: (response) => {
-        this.visaTableData = response?.data;
+        this.visaTableData = response?.data?.VisaApplication;
         this.visaTableData = new MatTableDataSource(this.visaTableData);
         this.visaTableData.sort = this.sort;
         this.visaTableData.paginator = this.paginator;
-        if (response.error) {
-          this.toastr.error(response.message, 'Warning!');
+        if (response.errorMessage) {
+          this.toastr.error(response.errorMessage, 'Warning!');
         } else {
           this.toastr.success(response.message, 'Success!');
         }

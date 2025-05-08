@@ -130,7 +130,7 @@ export class AdminDashboardComponent {
     this.resetUserData();
     this.apiService.getData(`visa/get-application-by-id?id=${email}`).subscribe({
       next: (response) => {
-        const data = response?.data;
+        const data = response?.data?.VisaApplication;
         this.patchValue(data)
         this.toasterMessage(response);
       },
@@ -143,7 +143,7 @@ export class AdminDashboardComponent {
   getAllVisaRequest() {
     this.apiService.getData('visa/get-all-visa').subscribe({
       next: (response) => {
-        this.visaTableData = response?.data;
+        this.visaTableData = response?.data?.oVisaApplication;
         this.visaTableData = new MatTableDataSource(this.visaTableData);
         this.visaTableData.sort = this.sort;
         this.visaTableData.paginator = this.paginator;
@@ -158,7 +158,6 @@ export class AdminDashboardComponent {
   adminDecision(email: string, action: string) {
     this.apiService.postDataWithoutRequestBody(`visa/change-status?id=${email}&status=${action}`).subscribe({
       next: (response) => {
-        this.toastr.success(response?.message, 'Success');
         this.getAllVisaRequest();
         this.toasterMessage(response);
       },
@@ -181,7 +180,7 @@ export class AdminDashboardComponent {
   getAllContactRequest() {
     this.apiService.getData('contact-us/get-all-request').subscribe({
       next: (response) => {
-        this.contactData = response?.data;
+        this.contactData = response?.data?.oContactApplication;
         this.contactTableData = new MatTableDataSource(this.contactData);
         this.contactTableData.sort = this.sort;
         this.contactTableData.paginator = this.paginator;
@@ -196,8 +195,8 @@ export class AdminDashboardComponent {
   markAsDone(email: string) {
     this.apiService.postDataWithoutRequestBody(`contact-us/change-status?id=${email}`).subscribe({
       next: (response) => {
-        this.toasterMessage(response);
         this.getAllContactRequest();
+        this.toasterMessage(response);
       },
       error: (err) => {
         this.toastr.error('Something went wrong. Please try again.', 'Warning!');
@@ -206,10 +205,10 @@ export class AdminDashboardComponent {
   }
 
   toasterMessage(response: any) {
-    if (response.error) {
-      this.toastr.error(response.message, 'Warning!',{ extendedTimeOut: 1000, });
+    if (response.errorMessage) {
+      this.toastr.error(response.errorMessage, 'Warning!');
     } else {
-      this.toastr.success(response.message, 'Success!',{ extendedTimeOut: 1000, });
+      this.toastr.success(response.message, 'Success!');
     }
   }
 
