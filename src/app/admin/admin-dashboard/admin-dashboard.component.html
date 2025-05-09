@@ -16,7 +16,7 @@
     </div>
 
     <div class=" container-xl" *ngIf="tab === 'visa'">
-        <div class="mat-elevation-z8 mt-3" style="overflow: auto;">
+        <div class="mat-elevation-z8 mt-3" style="overflow: auto;" *ngIf="!isMobile">
             <table mat-table [dataSource]="visaTableData" matSort (matSortChange)="announceSortChange($event)"
                 class="mat-elevation-z8">
                 <ng-container matColumnDef="Name">
@@ -67,9 +67,11 @@
                         Action
                     </th>
                     <td mat-cell *matCellDef="let element">
-                        <button matTooltip="Approve" *ngIf="element.status === 'Pending'" class="button-30" role="button" (click)="adminDecision(element.email,'Approved')">
+                        <button matTooltip="Approve" *ngIf="element.status === 'Pending'" class="button-30"
+                            role="button" (click)="adminDecision(element.email,'Approved')">
                             <i class="zmdi zmdi-check" style="color: #034833;"></i></button> &nbsp; &nbsp;
-                        <button matTooltip="Decline" *ngIf="element.status === 'Pending'" class="button-30" role="button" (click)="adminDecision(element.email,'Declined')">
+                        <button matTooltip="Decline" *ngIf="element.status === 'Pending'" class="button-30"
+                            role="button" (click)="adminDecision(element.email,'Declined')">
                             <i class="zmdi zmdi-close" style="color: red;"></i></button>
                     </td>
                 </ng-container>
@@ -79,7 +81,8 @@
                         View Application
                     </th>
                     <td mat-cell *matCellDef="let element">
-                        <button matTooltip="View Application" class="button-30" (click)="getVisaApplicationById(element.email);" role="button">
+                        <button matTooltip="View Application" class="button-30"
+                            (click)="getVisaApplicationById(element.email);" role="button">
                             <i class="zmdi zmdi-eye"></i>
                         </button> &nbsp; &nbsp;
                     </td>
@@ -91,10 +94,42 @@
                 aria-label="Select page of periodic elements">
             </mat-paginator>
         </div>
+        <div *ngIf="isMobile">
+            <hr>
+            <mat-card *ngFor="let element of visaTable" class="mb-2">
+                <mat-card-title>{{ element.firstName }} {{ element.lastName }}</mat-card-title>
+                <mat-card-content>
+                    <p><strong>Email:</strong> {{ element.email }}</p>
+                    <p><strong>Phone:</strong> {{ element.mobileNumber }}</p>
+                    <p><strong>Departure Date:</strong> {{ element.tentativeDepartureDate }}</p>
+                    <p><strong>Visa Type:</strong> {{ element.visaType }}</p>
+                    <p><strong>Status:</strong> {{ element.status }}</p>
+                    <p *ngIf="element.status === 'Pending'"> <strong>Action: </strong>
+                        <button matTooltip="Approve" class="button-30" role="button"
+                            (click)="adminDecision(element.email,'Approved')">
+                            <i class="zmdi zmdi-check" style="color: #034833;"></i>
+                        </button>
+                        &nbsp;&nbsp;
+                        <button matTooltip="Decline" class="button-30" role="button"
+                            (click)="adminDecision(element.email,'Declined')">
+                            <i class="zmdi zmdi-close" style="color: red;"></i>
+                        </button>
+                    </p>
+                    <p>
+                        <strong>View Application: </strong>
+                        <button matTooltip="View Application" class="button-30" role="button"
+                            (click)="getVisaApplicationById(element.email)">
+                            <i class="zmdi zmdi-eye"></i>
+                        </button>
+                    </p>
+                </mat-card-content>
+            </mat-card>
+            <hr>
+        </div>
     </div>
 
     <div class=" container-xl" *ngIf="tab === 'contact'">
-        <div class="mat-elevation-z8 mt-3" style="overflow: auto;">
+        <div class="mat-elevation-z8 mt-3" style="overflow: auto;" *ngIf="!isMobile">
             <table mat-table [dataSource]="contactTableData" matSort (matSortChange)="announceSortChange($event)"
                 class="mat-elevation-z8 center-text">
                 <ng-container matColumnDef="Email">
@@ -138,8 +173,10 @@
                         Action
                     </th>
                     <td mat-cell *matCellDef="let element">
-                        <button matTooltip="Mark As Done" *ngIf="element.status === 'Pending'" class="button-30" role="button">
-                            <i class="zmdi zmdi-check" style="color: #034833;" (click)="markAsDone(element.email)"></i></button>
+                        <button matTooltip="Mark As Done" *ngIf="element.status === 'Pending'" class="button-30"
+                            role="button">
+                            <i class="zmdi zmdi-check" style="color: #034833;"
+                                (click)="markAsDone(element.email)"></i></button>
                     </td>
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="contactTableColumn"></tr>
@@ -148,6 +185,26 @@
             <mat-paginator [pageSizeOptions]="[5, 10]" [pageSize]="10" showFirstLastButtons
                 aria-label="Select page of periodic elements">
             </mat-paginator>
+        </div>
+
+        <div *ngIf="isMobile">
+            <hr>
+            <mat-card *ngFor="let element of contactTable" class="mb-2">
+                <mat-card-title>{{ element.email }}</mat-card-title>
+                <mat-card-content>
+                    <p><strong>Phone:</strong> {{ element.phone }}</p>
+                    <p><strong>Address:</strong> {{ element.address }}</p>
+                    <p><strong>Message:</strong> {{ element.message }}</p>
+                    <p><strong>Status:</strong> {{ element.status }}</p>
+                    <p *ngIf="element.status === 'Pending'"> <strong>Action: </strong>
+                        <button matTooltip="Mark As Done" class="button-30" role="button"
+                            (click)="markAsDone(element.email)">
+                            <i class="zmdi zmdi-check" style="color: #034833;"></i>
+                        </button>
+                    </p>
+                </mat-card-content>
+            </mat-card>
+            <hr>
         </div>
     </div>
 </div>
@@ -303,7 +360,8 @@
             <h2>3. Passport</h2>
             <div class="row gx-4">
                 <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-3">
-                    <img matTooltip="Passport Front" [src]="passportFront" alt="...Passport Front" class="travel-image" />
+                    <img matTooltip="Passport Front" [src]="passportFront" alt="...Passport Front"
+                        class="travel-image" />
                 </div>
                 <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-3">
                     <img matTooltip="Passport Back" [src]="passportBack" alt="...Passport Back" class="travel-image" />
@@ -318,10 +376,12 @@
                     <img matTooltip="Aadhaar Card" [src]="aadhaar" alt="...Aadhaar Card" class="travel-image" />
                 </div>
                 <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-3">
-                    <img matTooltip="Educational Certificate" [src]="educationalCertificate" alt="...Educational Certificate" class="travel-image" />
+                    <img matTooltip="Educational Certificate" [src]="educationalCertificate"
+                        alt="...Educational Certificate" class="travel-image" />
                 </div>
                 <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-3">
-                    <img matTooltip="Letter From Indain Company" [src]="letter" alt="...Letter From Indain Company" class="travel-image" />
+                    <img matTooltip="Letter From Indain Company" [src]="letter" alt="...Letter From Indain Company"
+                        class="travel-image" />
                 </div>
             </div>
         </div>
@@ -330,7 +390,8 @@
             <h2>3. Payment Proof</h2>
             <div class="row gx-4">
                 <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-3">
-                    <img matTooltip="Transaction Proof" [src]="transactionProof" alt="...Transaction Proof" class="travel-image" />
+                    <img matTooltip="Transaction Proof" [src]="transactionProof" alt="...Transaction Proof"
+                        class="travel-image" />
                 </div>
             </div>
         </div>

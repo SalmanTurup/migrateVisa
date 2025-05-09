@@ -29,6 +29,7 @@ export class HeaderComponent {
 
   logout() {
     this.userService.resetApplication();
+    this.isUserLogin = false;
     this.pageNavigate('');
   }
 }

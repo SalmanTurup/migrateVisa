@@ -331,8 +331,7 @@
 
                         <mat-form-field style="width: 100%;">
                             <mat-label>Transaction ID</mat-label>
-                            <input matInput type="text" name="transactionid" [(ngModel)]="transactionID"
-                                #transactionId="ngModel" required />
+                            <input matInput type="text" name="transactionid" maxlength="35" [(ngModel)]="transactionID" #transactionId="ngModel" required />
                             <mat-icon matSuffix>payment</mat-icon>
                             <mat-error *ngIf="transactionId.invalid && (transactionId.dirty || transactionId.touched)">
                                 <div *ngIf="transactionId.hasError('required')">

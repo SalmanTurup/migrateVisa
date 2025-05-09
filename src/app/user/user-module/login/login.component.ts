@@ -118,6 +118,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   verifyAdmin(id: string, pass: string): void {
     if (id === 'salman.turup@gmail.com' && pass === '000000') {
+      this.userService.isUserLogin = true;
       this.toastr.success('Logged in successfully.', 'Success');
       this.pageNavigate('admin');
     } else {

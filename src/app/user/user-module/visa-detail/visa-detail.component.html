@@ -149,4 +149,9 @@
         </div>
     </div>
 </div>
+
+<div  matTooltip="Track your application" class="box text-center dashBoard" *ngIf="isUserLogin" (click)="pageNavigate('welcome')">
+    <span style="color:#83CD20; font-style: italic;">View</span>
+    <span style="color: #034833; font-family: Public Sans;">DashBoard</span>
+</div>
 <app-footer></app-footer>

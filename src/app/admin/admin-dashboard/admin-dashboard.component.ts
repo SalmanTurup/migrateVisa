@@ -9,6 +9,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from '../../core/api.service';
 import { AdminModule } from '../admin.module';
 import { ToastrService } from 'ngx-toastr';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const BASE_64 = 'data:image/png;base64,';
 const IMAGE_NOT_FOUND = 'assets/images/Image_not_available.png';
@@ -21,7 +22,6 @@ const IMAGE_NOT_FOUND = 'assets/images/Image_not_available.png';
 })
 export class AdminDashboardComponent {
   tab = 'visa';
-  contactData: any = [];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('viewApplication') viewApplication!: ElementRef;
   @ViewChild(MatSort) sort!: MatSort;
@@ -30,7 +30,10 @@ export class AdminDashboardComponent {
   visaTableColumn: string[] = ['Name', 'Email', 'Phone', 'DepartureDate', 'VisaType', 'Status', 'Action', 'ViewApplication'];
   contactTableColumn: string[] = ["Email", "Phone", "Address", "Message", 'Status', 'Action'];
   visaTableData: any;
+  visaTable:any;
   contactTableData: any;
+  contactTable:any;
+  isMobile = false;
   passportFront = IMAGE_NOT_FOUND;
   passportBack = IMAGE_NOT_FOUND;
   transactionProof = IMAGE_NOT_FOUND;
@@ -62,13 +65,21 @@ export class AdminDashboardComponent {
     private router: Router,
     public dialog: MatDialog,
     public apiService: ApiService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private snackBar: MatSnackBar
   ) {
-    this.getAllContactRequest();
     this.getAllVisaRequest();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth <= 768) {
+        this.isMobile = true;
+      } else {
+        this.isMobile = false;
+      }
+    }
+  }
 
   openDialog(content: any): void {
     const dialogRef = this.dialog.open(content);
@@ -77,6 +88,7 @@ export class AdminDashboardComponent {
 
   switchTab(tabName: string) {
     this.tab = tabName;
+    if(tabName === 'contact') this.getAllContactRequest();
     setTimeout(() => {
       if (tabName === 'visa') {
         this.visaTableData.paginator = this.paginator;
@@ -143,14 +155,14 @@ export class AdminDashboardComponent {
   getAllVisaRequest() {
     this.apiService.getData('visa/get-all-visa').subscribe({
       next: (response) => {
-        this.visaTableData = response?.data?.oVisaApplication;
+        this.visaTable = this.visaTableData = response?.data?.oVisaApplication;
         this.visaTableData = new MatTableDataSource(this.visaTableData);
         this.visaTableData.sort = this.sort;
         this.visaTableData.paginator = this.paginator;
-        this.toasterMessage(response);
+        this.snackBarMessage(response);
       },
       error: (err) => {
-        this.toastr.error('Something went wrong. Please try again.', 'Warning!');
+        this.snackBarNotification('Something went wrong. Please try again.');
       }
     });
   }
@@ -180,14 +192,14 @@ export class AdminDashboardComponent {
   getAllContactRequest() {
     this.apiService.getData('contact-us/get-all-request').subscribe({
       next: (response) => {
-        this.contactData = response?.data?.oContactApplication;
-        this.contactTableData = new MatTableDataSource(this.contactData);
+        this.contactTable = this.contactTableData = response?.data?.oContactApplication;
+        this.contactTableData = new MatTableDataSource(this.contactTableData);
         this.contactTableData.sort = this.sort;
         this.contactTableData.paginator = this.paginator;
-        this.toasterMessage(response);
+        this.snackBarMessage(response);
       },
       error: (err) => {
-        this.toastr.error('Something went wrong. Please try again.', 'Warning!');
+        this.snackBarNotification('Something went wrong. Please try again.');
       }
     });
   }
@@ -209,6 +221,22 @@ export class AdminDashboardComponent {
       this.toastr.error(response.errorMessage, 'Warning!');
     } else {
       this.toastr.success(response.message, 'Success!');
+    }
+  }
+
+  snackBarNotification(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
+  }
+
+  snackBarMessage(response: any) {
+    if (response.errorMessage) {
+      this.snackBarNotification(response.errorMessage);
+    } else {
+      this.snackBarNotification(response.message);
     }
   }
 

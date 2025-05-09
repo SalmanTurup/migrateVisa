@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './contact.component.scss'
 })
 export class ContactComponent implements OnInit, OnDestroy {
-  email = "info@example.com"
+  email = "migrateVisa@gmail.com"
   contactForm = {
     email: '',
     phone: '',

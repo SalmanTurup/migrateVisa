@@ -21,6 +21,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from '../core/api.service';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { ApiService } from '../core/api.service';
     MatDialogModule,
     MatTooltipModule,
     HttpClientModule,
+    MatCardModule
   ],
   exports: [
     CommonModule,
@@ -70,6 +72,7 @@ import { ApiService } from '../core/api.service';
     MatDialogModule,
     MatTooltipModule,
     HttpClientModule,
+    MatCardModule
   ],
   providers: [ApiService, DatePipe]
 })

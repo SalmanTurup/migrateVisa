@@ -1,4 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -213,7 +214,7 @@ export class UserService implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() { }
 
@@ -222,6 +223,7 @@ export class UserService implements OnInit {
     this.selectedRoutingValue = undefined;
     this.loginUserEmail = undefined;
     this.countryName = undefined;
+    this.router.navigate(['']);
   }
 
   ngOnDestroy(): void {

@@ -3,11 +3,11 @@ import { SharedModule } from '../../../shared/shared.module';
 import { ViewportScroller } from '@angular/common';
 import { UserService } from '../../../core/user.service';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { MatPaginator } from '@angular/material/paginator';
 import { ApiService } from '../../../core/api.service';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-welcome',
@@ -19,6 +19,8 @@ import { MatTableDataSource } from '@angular/material/table';
 export class WelcomeComponent {
   countryData: any;
   visaTableData: any;
+  visatable:any
+  isMobile = false;
   activeLabel: string = 'All';
   buttonLabels: string[] = [
     'All',
@@ -36,12 +38,19 @@ export class WelcomeComponent {
     private viewportScroller: ViewportScroller,
     private userService: UserService,
     private router: Router,
-    private toastr: ToastrService,
     public apiService: ApiService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
     this.viewportScroller.scrollToPosition([0, 0]);
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth <= 768) {
+        this.isMobile = true;
+      } else {
+        this.isMobile = false;
+      }
+    }
     this.countryData = this.userService.countryData;
     this.getAllVisaRequest();
   }
@@ -52,21 +61,20 @@ export class WelcomeComponent {
   }
 
   getAllVisaRequest() {
-    this.userService.loginUserEmail = "john.doe@example.com";
     this.apiService.getData(`visa/get-user-visa-details?id=${this.userService.loginUserEmail}`).subscribe({
       next: (response) => {
-        this.visaTableData = response?.data?.VisaApplication;
+        this.visatable = this.visaTableData = response?.data?.VisaApplication;
         this.visaTableData = new MatTableDataSource(this.visaTableData);
         this.visaTableData.sort = this.sort;
         this.visaTableData.paginator = this.paginator;
         if (response.errorMessage) {
-          this.toastr.error(response.errorMessage, 'Warning!');
+          this.snackBarNotification(response.errorMessage);
         } else {
-          this.toastr.success(response.message, 'Success!');
+          this.snackBarNotification(response.message);
         }
       },
       error: (err) => {
-        this.toastr.error('Something went wrong. Please try again.', 'Warning!');
+        this.snackBarNotification('Something went wrong. Please try again.');
       }
     });
   }
@@ -78,4 +86,13 @@ export class WelcomeComponent {
   setActive(label: string): void {
     this.activeLabel = label;
   }
+
+  snackBarNotification(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
+  }
+  
 }

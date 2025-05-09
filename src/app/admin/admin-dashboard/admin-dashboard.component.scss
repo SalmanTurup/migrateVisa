@@ -1,7 +1,3 @@
-::ng-deep body {
-    overflow: hidden !important;
-}
-
 .brandName {
     font-weight: 900;
     font-size: 32px;
@@ -132,6 +128,30 @@ table td {
     transition: transform 0.3s;
 }
 
+
+mat-card {
+    margin: 10px 0;
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 16px;
+    background-color: #ffffff;
+}
+
+mat-card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0056b3;
+    margin-bottom: 10px;
+}
+
+mat-card-content p {
+    margin: 6px 0;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.4;
+}
+
+
 @media screen and (max-width: 768px) {
     .brandName {
         margin: 3% 0 0 3%;
@@ -152,5 +172,18 @@ table td {
 
     .content {
         padding: 1rem;
+    }
+
+    mat-card {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    mat-card-title {
+        font-size: 16px;
+    }
+
+    mat-card-content p {
+        font-size: 13px;
     }
 }

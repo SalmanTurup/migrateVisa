@@ -4,7 +4,7 @@
 <div class="container box">
     <h1>Track Your Visa Timeline</h1>
     <p>Stay updated on your visa application progess right here.</p>
-    <div class="mat-elevation-z8 mt-3" style="overflow: auto;">
+    <div class="mat-elevation-z8 mt-3" style="overflow: auto;" *ngIf="!isMobile">
         <table mat-table [dataSource]="visaTableData">
 
             <ng-container matColumnDef="No">
@@ -55,9 +55,22 @@
             aria-label="Select page of periodic elements">
         </mat-paginator>
     </div>
+    <div *ngIf="isMobile">
+        <hr>
+        <mat-card *ngFor="let element of visatable" class="mb-2">
+          <mat-card-title>{{ element.firstName }} {{ element.lastName }}</mat-card-title>
+          <mat-card-content>
+            <p><strong>Visa Type:</strong> {{ element.visaDetails.visaType }}</p>
+            <p><strong>Stay Duration:</strong> {{ element.visaDetails.stayDuration }}</p>
+            <p><strong>Validity:</strong> {{ element.visaDetails.visaValidity }}</p>
+            <p><strong>Processing Time:</strong> {{ element.visaDetails.processingTime }}</p>
+            <p><strong>Price:</strong> {{ element.visaDetails.price }}</p>
+            <p><strong>Status:</strong> {{ element.status }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <hr>
 </div><br>
-<hr>
-
 <div class="content mt-5">
     <div class="d-flex flex-wrap justify-content-center gap-2">
         <button class="btn login-btn" *ngFor="let label of buttonLabels" [ngClass]="{ 'active': activeLabel === label }"
