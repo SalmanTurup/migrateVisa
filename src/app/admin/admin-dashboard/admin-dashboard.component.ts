@@ -138,9 +138,9 @@ export class AdminDashboardComponent {
     this.openDialog(this.viewApplication);
   }
 
-  getVisaApplicationById(email: any) {
+  getVisaApplicationById(id: any) {
     this.resetUserData();
-    this.apiService.getData(`visa/get-application-by-id?id=${email}`).subscribe({
+    this.apiService.getData(`visa/get-application-by-id?id=${id}`).subscribe({
       next: (response) => {
         const data = response?.data?.VisaApplication;
         this.patchValue(data)

@@ -68,10 +68,10 @@
                     </th>
                     <td mat-cell *matCellDef="let element">
                         <button matTooltip="Approve" *ngIf="element.status === 'Pending'" class="button-30"
-                            role="button" (click)="adminDecision(element.email,'Approved')">
+                            role="button" (click)="adminDecision(element.id,'Approved')">
                             <i class="zmdi zmdi-check" style="color: #034833;"></i></button> &nbsp; &nbsp;
                         <button matTooltip="Decline" *ngIf="element.status === 'Pending'" class="button-30"
-                            role="button" (click)="adminDecision(element.email,'Declined')">
+                            role="button" (click)="adminDecision(element.id,'Declined')">
                             <i class="zmdi zmdi-close" style="color: red;"></i></button>
                     </td>
                 </ng-container>
@@ -82,7 +82,7 @@
                     </th>
                     <td mat-cell *matCellDef="let element">
                         <button matTooltip="View Application" class="button-30"
-                            (click)="getVisaApplicationById(element.email);" role="button">
+                            (click)="getVisaApplicationById(element.id);" role="button">
                             <i class="zmdi zmdi-eye"></i>
                         </button> &nbsp; &nbsp;
                     </td>
@@ -106,19 +106,19 @@
                     <p><strong>Status:</strong> {{ element.status }}</p>
                     <p *ngIf="element.status === 'Pending'"> <strong>Action: </strong>
                         <button matTooltip="Approve" class="button-30" role="button"
-                            (click)="adminDecision(element.email,'Approved')">
+                            (click)="adminDecision(element.id,'Approved')">
                             <i class="zmdi zmdi-check" style="color: #034833;"></i>
                         </button>
                         &nbsp;&nbsp;
                         <button matTooltip="Decline" class="button-30" role="button"
-                            (click)="adminDecision(element.email,'Declined')">
+                            (click)="adminDecision(element.id,'Declined')">
                             <i class="zmdi zmdi-close" style="color: red;"></i>
                         </button>
                     </p>
                     <p>
                         <strong>View Application: </strong>
                         <button matTooltip="View Application" class="button-30" role="button"
-                            (click)="getVisaApplicationById(element.email)">
+                            (click)="getVisaApplicationById(element.id)">
                             <i class="zmdi zmdi-eye"></i>
                         </button>
                     </p>
