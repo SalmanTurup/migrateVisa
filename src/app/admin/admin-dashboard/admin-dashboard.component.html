@@ -16,6 +16,12 @@
     </div>
 
     <div class=" container-xl" *ngIf="tab === 'visa'">
+        <div class="text-end">
+            <button class="button-30 refresh" role="button" [disabled]="isLoading" (click)="refreshTable(tab)">
+                <i class="fa fa-refresh" *ngIf="!isLoading"></i>
+                <i class="fa fa-refresh fa-spin" *ngIf="isLoading"></i>
+            </button>
+        </div>
         <div class="mat-elevation-z8 mt-3" style="overflow: auto;" *ngIf="!isMobile">
             <table mat-table [dataSource]="visaTableData" matSort (matSortChange)="announceSortChange($event)"
                 class="mat-elevation-z8">
@@ -66,13 +72,17 @@
                     <th mat-header-cell *matHeaderCellDef class="font-400">
                         Action
                     </th>
-                    <td mat-cell *matCellDef="let element">
+                    <td mat-cell *matCellDef="let element; let i = index">
                         <button matTooltip="Approve" *ngIf="element.status === 'Pending'" class="button-30"
-                            role="button" (click)="adminDecision(element.id,'Approved')">
-                            <i class="zmdi zmdi-check" style="color: #034833;"></i></button> &nbsp; &nbsp;
+                            role="button" (click)="adminDecision(element.id,'Approved',i)" [disabled]="isLoading || decisionLoader[i]">
+                            <i class="zmdi zmdi-check" style="color: #034833;" *ngIf="!decisionLoader[i]"></i>
+                            <i class="fa fa-spinner fa-spin" *ngIf="decisionLoader[i]"></i>
+                        </button> &nbsp; &nbsp;
                         <button matTooltip="Decline" *ngIf="element.status === 'Pending'" class="button-30"
-                            role="button" (click)="adminDecision(element.id,'Declined')">
-                            <i class="zmdi zmdi-close" style="color: red;"></i></button>
+                            role="button" (click)="adminDecision(element.id,'Declined',i)" [disabled]="isLoading || decisionLoader[i]">
+                            <i class="zmdi zmdi-close" style="color: red;" *ngIf="!decisionLoader[i]"></i>
+                            <i class="fa fa-spinner fa-spin" *ngIf="decisionLoader[i]"></i>
+                        </button>
                     </td>
                 </ng-container>
 
@@ -80,10 +90,11 @@
                     <th mat-header-cell *matHeaderCellDef class="font-400">
                         View Application
                     </th>
-                    <td mat-cell *matCellDef="let element">
+                    <td mat-cell *matCellDef="let element;let i = index;">
                         <button matTooltip="View Application" class="button-30"
-                            (click)="getVisaApplicationById(element.id);" role="button">
-                            <i class="zmdi zmdi-eye"></i>
+                            (click)="getVisaApplicationById(element.id,i);" role="button" [disabled]="loader[i] || isLoading">
+                            <i class="zmdi zmdi-eye" *ngIf="!loader[i]"></i>
+                            <i class="fa fa-spinner fa-spin" *ngIf="loader[i]"></i>
                         </button> &nbsp; &nbsp;
                     </td>
                 </ng-container>
@@ -96,7 +107,7 @@
         </div>
         <div *ngIf="isMobile">
             <hr>
-            <mat-card *ngFor="let element of visaTable" class="mb-2">
+            <mat-card *ngFor="let element of visaTable;let i = index;" class="mb-2">
                 <mat-card-title>{{ element.firstName }} {{ element.lastName }}</mat-card-title>
                 <mat-card-content>
                     <p><strong>Email:</strong> {{ element.email }}</p>
@@ -106,20 +117,22 @@
                     <p><strong>Status:</strong> {{ element.status }}</p>
                     <p *ngIf="element.status === 'Pending'"> <strong>Action: </strong>
                         <button matTooltip="Approve" class="button-30" role="button"
-                            (click)="adminDecision(element.id,'Approved')">
-                            <i class="zmdi zmdi-check" style="color: #034833;"></i>
+                            (click)="adminDecision(element.id,'Approved',i)" [disabled]="isLoading || decisionLoader[i]">
+                            <i class="zmdi zmdi-check" style="color: #034833;" *ngIf="!decisionLoader[i]"></i>
+                            <i class="fa fa-spinner fa-spin" *ngIf="decisionLoader[i]"></i>
                         </button>
                         &nbsp;&nbsp;
                         <button matTooltip="Decline" class="button-30" role="button"
-                            (click)="adminDecision(element.id,'Declined')">
-                            <i class="zmdi zmdi-close" style="color: red;"></i>
+                            (click)="adminDecision(element.id,'Declined',i)" [disabled]="isLoading || decisionLoader[i]">
+                            <i class="zmdi zmdi-close" style="color: red;" *ngIf="!decisionLoader[i]"></i>
+                            <i class="fa fa-spinner fa-spin" *ngIf="decisionLoader[i]"></i>
                         </button>
                     </p>
                     <p>
                         <strong>View Application: </strong>
-                        <button matTooltip="View Application" class="button-30" role="button"
-                            (click)="getVisaApplicationById(element.id)">
-                            <i class="zmdi zmdi-eye"></i>
+                        <button matTooltip="View Application" class="button-30" role="button" (click)="getVisaApplicationById(element.id,i)" [disabled]="loader[i] || isLoading">
+                            <i class="zmdi zmdi-eye" *ngIf="!loader[i]"></i>
+                            <i class="fa fa-spinner fa-spin" *ngIf="loader[i]"></i>
                         </button>
                     </p>
                 </mat-card-content>
@@ -129,6 +142,12 @@
     </div>
 
     <div class=" container-xl" *ngIf="tab === 'contact'">
+        <div class="text-end">
+            <button class="button-30 refresh" role="button"  [disabled]="isLoading" (click)="refreshTable(tab)">
+                <i class="fa fa-refresh" *ngIf="!isLoading"></i>
+                <i class="fa fa-refresh fa-spin" *ngIf="isLoading"></i>
+            </button>
+        </div>
         <div class="mat-elevation-z8 mt-3" style="overflow: auto;" *ngIf="!isMobile">
             <table mat-table [dataSource]="contactTableData" matSort (matSortChange)="announceSortChange($event)"
                 class="mat-elevation-z8 center-text">
@@ -172,11 +191,11 @@
                     <th mat-header-cell *matHeaderCellDef class="font-400">
                         Action
                     </th>
-                    <td mat-cell *matCellDef="let element">
-                        <button matTooltip="Mark As Done" *ngIf="element.status === 'Pending'" class="button-30"
-                            role="button">
-                            <i class="zmdi zmdi-check" style="color: #034833;"
-                                (click)="markAsDone(element.email)"></i></button>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        <button matTooltip="Mark As Done" *ngIf="element.status === 'Pending'" class="button-30" role="button" (click)="markAsDone(element.email,i)" [disabled]="contactLoader[i] || isLoading">
+                            <i class="zmdi zmdi-check" *ngIf="!contactLoader[i]" style="color: #034833;"></i>
+                            <i class="fa fa-spinner fa-spin" *ngIf="contactLoader[i]"></i>
+                        </button>
                     </td>
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="contactTableColumn"></tr>
@@ -189,7 +208,7 @@
 
         <div *ngIf="isMobile">
             <hr>
-            <mat-card *ngFor="let element of contactTable" class="mb-2">
+            <mat-card *ngFor="let element of contactTable;let i = index" class="mb-2">
                 <mat-card-title>{{ element.email }}</mat-card-title>
                 <mat-card-content>
                     <p><strong>Phone:</strong> {{ element.phone }}</p>
@@ -197,9 +216,9 @@
                     <p><strong>Message:</strong> {{ element.message }}</p>
                     <p><strong>Status:</strong> {{ element.status }}</p>
                     <p *ngIf="element.status === 'Pending'"> <strong>Action: </strong>
-                        <button matTooltip="Mark As Done" class="button-30" role="button"
-                            (click)="markAsDone(element.email)">
-                            <i class="zmdi zmdi-check" style="color: #034833;"></i>
+                        <button matTooltip="Mark As Done" *ngIf="element.status === 'Pending'" class="button-30" role="button" (click)="markAsDone(element.email,i)" [disabled]="contactLoader[i]">
+                            <i class="zmdi zmdi-check" *ngIf="!contactLoader[i]" style="color: #034833;"></i>
+                            <i class="fa fa-spinner fa-spin" *ngIf="contactLoader[i]"></i>
                         </button>
                     </p>
                 </mat-card-content>

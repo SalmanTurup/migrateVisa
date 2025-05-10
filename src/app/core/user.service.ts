@@ -11,6 +11,7 @@ export class UserService implements OnInit {
   public isUserLogin = false;
   public loginUserEmail: any;
   public visaObject: any;
+  public isAdmin : any;
   public countryData: any = [
     {
       sImage: "assets/images/Vietnam.png",
@@ -223,6 +224,7 @@ export class UserService implements OnInit {
     this.selectedRoutingValue = undefined;
     this.loginUserEmail = undefined;
     this.countryName = undefined;
+    this.isAdmin = false;
     this.router.navigate(['']);
   }
 

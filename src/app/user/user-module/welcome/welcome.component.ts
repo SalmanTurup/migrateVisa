@@ -30,6 +30,7 @@ export class WelcomeComponent {
     'Schengen Visa',
     'Visa Free'
   ];
+  isLoading = false;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   displayedColumns: string[] = ["No", 'Entery', 'Visa Types', 'Stay duration', 'Visa validity', 'Processing time', 'Prince', 'Status'];
@@ -61,19 +62,22 @@ export class WelcomeComponent {
   }
 
   getAllVisaRequest() {
-    this.apiService.getData(`visa/get-user-visa-details?id=${this.userService.loginUserEmail}`).subscribe({
+    this.isLoading = true;
+    this.apiService.getData(`visa/get-user-visa-details?id=${this.userService?.loginUserEmail}`).subscribe({
       next: (response) => {
-        this.visatable = this.visaTableData = response?.data?.VisaApplication;
-        this.visaTableData = new MatTableDataSource(this.visaTableData);
-        this.visaTableData.sort = this.sort;
-        this.visaTableData.paginator = this.paginator;
         if (response.errorMessage) {
           this.snackBarNotification(response.errorMessage);
         } else {
+          this.visatable = this.visaTableData = response?.data?.VisaApplication;
+          this.visaTableData = new MatTableDataSource(this.visaTableData);
+          this.visaTableData.sort = this.sort;
+          this.visaTableData.paginator = this.paginator;
           this.snackBarNotification(response.message);
         }
+        this.isLoading = false;
       },
       error: (err) => {
+        this.isLoading = false;
         this.snackBarNotification('Something went wrong. Please try again.');
       }
     });
@@ -93,6 +97,10 @@ export class WelcomeComponent {
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
     });
+  }
+
+  refreshTable(){
+   this.getAllVisaRequest(); 
   }
   
 }

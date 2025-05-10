@@ -10,6 +10,7 @@ import { ApiService } from '../../core/api.service';
 import { AdminModule } from '../admin.module';
 import { ToastrService } from 'ngx-toastr';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from '../../core/user.service';
 
 const BASE_64 = 'data:image/png;base64,';
 const IMAGE_NOT_FOUND = 'assets/images/Image_not_available.png';
@@ -30,9 +31,9 @@ export class AdminDashboardComponent {
   visaTableColumn: string[] = ['Name', 'Email', 'Phone', 'DepartureDate', 'VisaType', 'Status', 'Action', 'ViewApplication'];
   contactTableColumn: string[] = ["Email", "Phone", "Address", "Message", 'Status', 'Action'];
   visaTableData: any;
-  visaTable:any;
+  visaTable: any;
   contactTableData: any;
-  contactTable:any;
+  contactTable: any;
   isMobile = false;
   passportFront = IMAGE_NOT_FOUND;
   passportBack = IMAGE_NOT_FOUND;
@@ -60,13 +61,18 @@ export class AdminDashboardComponent {
     mobileNumber: [''],
     email: ['']
   });
+  isLoading = false;
+  loader: any = [];
+  contactLoader: any = [];
+  decisionLoader: any = [];
 
   constructor(
     private router: Router,
     public dialog: MatDialog,
     public apiService: ApiService,
     private toastr: ToastrService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private userService : UserService
   ) {
     this.getAllVisaRequest();
   }
@@ -88,7 +94,11 @@ export class AdminDashboardComponent {
 
   switchTab(tabName: string) {
     this.tab = tabName;
-    if(tabName === 'contact') this.getAllContactRequest();
+    let isAllow = true;
+    if (tabName === 'contact' && isAllow) {
+      this.getAllContactRequest();
+      isAllow = false;
+    }
     setTimeout(() => {
       if (tabName === 'visa') {
         this.visaTableData.paginator = this.paginator;
@@ -138,42 +148,55 @@ export class AdminDashboardComponent {
     this.openDialog(this.viewApplication);
   }
 
-  getVisaApplicationById(id: any) {
+  getVisaApplicationById(id: any, index: any) {
     this.resetUserData();
+    this.loader[index] = true;
     this.apiService.getData(`visa/get-application-by-id?id=${id}`).subscribe({
       next: (response) => {
-        const data = response?.data?.VisaApplication;
-        this.patchValue(data)
+        this.loader[index] = false;
+        if (response.message) {
+          const data = response?.data?.VisaApplication;
+          this.patchValue(data)
+        }
         this.toasterMessage(response);
       },
       error: (err) => {
+        this.loader[index] = false;
         this.toastr.error('Something went wrong. Please try again.', 'Warning!');
       }
     });
   }
 
   getAllVisaRequest() {
+    this.isLoading = true
     this.apiService.getData('visa/get-all-visa').subscribe({
       next: (response) => {
-        this.visaTable = this.visaTableData = response?.data?.oVisaApplication;
-        this.visaTableData = new MatTableDataSource(this.visaTableData);
-        this.visaTableData.sort = this.sort;
-        this.visaTableData.paginator = this.paginator;
+        this.isLoading = false
+        if (response.message) {
+          this.visaTable = this.visaTableData = response?.data?.oVisaApplication;
+          this.visaTableData = new MatTableDataSource(this.visaTableData);
+          this.visaTableData.sort = this.sort;
+          this.visaTableData.paginator = this.paginator;
+        }
         this.snackBarMessage(response);
       },
       error: (err) => {
+        this.isLoading = false
         this.snackBarNotification('Something went wrong. Please try again.');
       }
     });
   }
 
-  adminDecision(email: string, action: string) {
+  adminDecision(email: string, action: string,i:any) {
+    this.decisionLoader[i] = true;
     this.apiService.postDataWithoutRequestBody(`visa/change-status?id=${email}&status=${action}`).subscribe({
       next: (response) => {
+        this.decisionLoader = false;
         this.getAllVisaRequest();
         this.toasterMessage(response);
       },
       error: (err) => {
+        this.decisionLoader = false;
         this.toastr.error('Something went wrong. Please try again.', 'Warning!');
       }
     });
@@ -190,27 +213,35 @@ export class AdminDashboardComponent {
   }
 
   getAllContactRequest() {
+    this.isLoading = true
     this.apiService.getData('contact-us/get-all-request').subscribe({
       next: (response) => {
-        this.contactTable = this.contactTableData = response?.data?.oContactApplication;
-        this.contactTableData = new MatTableDataSource(this.contactTableData);
-        this.contactTableData.sort = this.sort;
-        this.contactTableData.paginator = this.paginator;
+        this.isLoading = false
+        if (response.message) {
+          this.contactTable = this.contactTableData = response?.data?.oContactApplication;
+          this.contactTableData = new MatTableDataSource(this.contactTableData);
+          this.contactTableData.sort = this.sort;
+          this.contactTableData.paginator = this.paginator;
+        }
         this.snackBarMessage(response);
       },
       error: (err) => {
+        this.isLoading = false
         this.snackBarNotification('Something went wrong. Please try again.');
       }
     });
   }
 
-  markAsDone(email: string) {
+  markAsDone(email: string, index: any) {
+    this.contactLoader[index] = true;
     this.apiService.postDataWithoutRequestBody(`contact-us/change-status?id=${email}`).subscribe({
       next: (response) => {
+        this.contactLoader[index] = false;
         this.getAllContactRequest();
         this.toasterMessage(response);
       },
       error: (err) => {
+        this.contactLoader[index] = false;
         this.toastr.error('Something went wrong. Please try again.', 'Warning!');
       }
     });
@@ -241,6 +272,17 @@ export class AdminDashboardComponent {
   }
 
   pageNavigate(path: string) {
+    if(this.userService.isAdmin){
+      this.userService.resetApplication();
+    }
     this.router.navigate([`/${path}`]);
+  }
+
+  refreshTable(tab: any) {
+    if (tab === 'visa') {
+      this.getAllVisaRequest();
+    } else {
+      this.getAllContactRequest();
+    }
   }
 }

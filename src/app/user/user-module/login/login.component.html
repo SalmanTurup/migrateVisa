@@ -91,8 +91,8 @@
         <div class="pt-4 content-row section-title" style="font-size: 12px; text-transform: capitalize;">
             By Continuing, You agree to our&nbsp;<a (click)="openDialog(termsTemplate)">terms & condtions</a>
         </div>
-        <div *ngIf="isUser &&  !isLoading" class="content-row section-title user" (click)="changeUser()">Admin Login</div>
-        <div *ngIf="isAdmin && !isLoading" class="content-row section-title user" (click)="changeUser()">User Login</div>
+        <div *ngIf="isUser &&  !isLoading" class="content-row section-title user" (click)="changeUser()"><i class="zmdi zmdi-account-o"></i>&nbsp;Admin Login</div>
+        <div *ngIf="isAdmin && !isLoading" class="content-row section-title user" (click)="changeUser()"><i class="zmdi zmdi-account-o"></i> &nbsp;User Login</div>
     </div>
 </div>
 
@@ -100,8 +100,7 @@
     <div class="terms-popup container" style="padding: 5%;">
         <h2>Terms & Conditions</h2>
         <p style="font-size: 15px;">
-            Your Terms & Conditions content goes here. You can provide detailed information about your Visa website’s
-            policies, rules, and usage.
+            By using this service, you agree to our terms and conditions. Usage is subject to our privacy policy and guidelines.
         </p>
     </div>
 </ng-template>
