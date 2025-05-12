@@ -43,7 +43,13 @@ export class ContactComponent implements OnInit, OnDestroy {
           }
         },
         error: (err) => {
-          this.toastr.error('Something went wrong. Please try again.', 'Warning!');
+          if (err.errorMessage) {
+            this.toastr.error(err.errorMessage, 'Warning!');
+          } else if (err?.error) {
+            this.toastr.error(err.error, 'Warning!');
+          } else {
+            this.toastr.error('Something went wrong. Please try again.', 'Warning!');
+          }
         }
       });
     } else {

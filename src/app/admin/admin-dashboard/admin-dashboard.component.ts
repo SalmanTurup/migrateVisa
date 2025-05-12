@@ -59,12 +59,14 @@ export class AdminDashboardComponent {
     state: [''],
     city: [''],
     mobileNumber: [''],
-    email: ['']
+    email: [''],
   });
   isLoading = false;
   loader: any = [];
   contactLoader: any = [];
   decisionLoader: any = [];
+  transaction : any;
+  isTransactionProff = false;
 
   constructor(
     private router: Router,
@@ -139,6 +141,8 @@ export class AdminDashboardComponent {
       mobileNumber: data?.mobileNumber,
       email: data?.email
     });
+    this.transaction = data?.transactionId;
+    this.isTransactionProff = (data.transactionProof === null) ? false : true; 
     this.passportFront = (data?.passportFront) ? BASE_64 + data?.passportFront : IMAGE_NOT_FOUND;
     this.passportBack = (data?.passportBack) ? BASE_64 + data?.passportBack : IMAGE_NOT_FOUND;
     this.transactionProof = (data?.transactionProof) ? BASE_64 + data?.transactionProof : IMAGE_NOT_FOUND;
@@ -162,7 +166,7 @@ export class AdminDashboardComponent {
       },
       error: (err) => {
         this.loader[index] = false;
-        this.toastr.error('Something went wrong. Please try again.', 'Warning!');
+        this.errorMessage(err);
       }
     });
   }
@@ -182,7 +186,13 @@ export class AdminDashboardComponent {
       },
       error: (err) => {
         this.isLoading = false
-        this.snackBarNotification('Something went wrong. Please try again.');
+        if (err?.errorMessage) {
+          this.snackBarNotification(err.errorMessage);
+        } else if (err?.error) {
+          this.snackBarNotification(err.error);
+        } else {
+          this.snackBarNotification('Something went wrong. Please try again.');
+        }
       }
     });
   }
@@ -197,7 +207,7 @@ export class AdminDashboardComponent {
       },
       error: (err) => {
         this.decisionLoader = false;
-        this.toastr.error('Something went wrong. Please try again.', 'Warning!');
+        this.errorMessage(err);
       }
     });
   }
@@ -227,7 +237,13 @@ export class AdminDashboardComponent {
       },
       error: (err) => {
         this.isLoading = false
-        this.snackBarNotification('Something went wrong. Please try again.');
+        if (err?.errorMessage) {
+          this.snackBarNotification(err.errorMessage);
+        } else if (err?.error) {
+          this.snackBarNotification(err.error);
+        } else {
+          this.snackBarNotification('Something went wrong. Please try again.');
+        }
       }
     });
   }
@@ -242,7 +258,7 @@ export class AdminDashboardComponent {
       },
       error: (err) => {
         this.contactLoader[index] = false;
-        this.toastr.error('Something went wrong. Please try again.', 'Warning!');
+        this.errorMessage(err);
       }
     });
   }
@@ -268,6 +284,16 @@ export class AdminDashboardComponent {
       this.snackBarNotification(response.errorMessage);
     } else {
       this.snackBarNotification(response.message);
+    }
+  }
+
+  errorMessage(err: any) {
+    if (err.errorMessage) {
+      this.toastr.error(err.errorMessage, 'Warning!');
+    } else if (err?.error) {
+      this.toastr.error(err.error, 'Warning!');
+    } else {
+      this.toastr.error('Something went wrong. Please try again.', 'Warning!');
     }
   }
 

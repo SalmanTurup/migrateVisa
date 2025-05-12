@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { ApiService } from '../../../core/api.service';
 import { UserService } from '../../../core/user.service';
 const imageExtensions = [".jpg", ".jpeg", ".png"];
+const MAX_IMAGE_SIZE_MB = 2;
+const MAX_IMAGE_SIZE_BYTES = MAX_IMAGE_SIZE_MB * 1024 * 1024;
 @Component({
   selector: 'app-user-details',
   standalone: true,
@@ -91,6 +93,11 @@ export class UserDetailsComponent {
     const fileName = file.name.toLowerCase();
     const isImage = imageExtensions?.some(ext => fileName.endsWith(ext));
 
+    if (file.size > MAX_IMAGE_SIZE_BYTES) {
+      this.toastr.error('Image must be less than 2MB!', 'File Too Large');
+      return;
+    }
+
     if (isImage && variable) {
       (this as any)[variable] = file;
     } else {
@@ -101,7 +108,11 @@ export class UserDetailsComponent {
   masterSelected(event: Event, variable: string) {
     const fileInput = event.target as HTMLInputElement;
     if (fileInput.files && fileInput.files.length > 0) {
+      if(fileInput.files[0] && fileInput.files[0].size > MAX_IMAGE_SIZE_BYTES){
+        this.toastr.error('Image must be less than 2MB!', 'File Too Large');
+      }else{
       (this as any)[variable] = fileInput.files[0];
+      }
     }
   }
 
@@ -131,13 +142,19 @@ export class UserDetailsComponent {
         next: (response) => {
           this.isDocUploaded = true;
           if (response.errorMessage) {
-            this.toastr.error(response.message, 'Warning!');
+            this.toastr.error(response.errorMessage, 'Warning!');
           } else {
             this.toastr.success(response.message, 'Success!');
           }
         },
         error: (err) => {
-          this.toastr.error('Something went wrong. Please try again.', 'Warning!');
+          if (err?.errorMessage) {
+            this.toastr.error(err.errorMessage, 'Warning!');
+          } else if (err?.error) {
+            this.toastr.error(err.error, 'Warning!');
+          } else {
+            this.toastr.error('Something went wrong. Please try again.', 'Warning!');
+          }
         }
       });
     } else {
@@ -166,7 +183,7 @@ export class UserDetailsComponent {
       state: form.state,
       city: form.city,
       mobileNumber: form.mobileNumber,
-      trasactionId: this.transactionID ? this.transactionID : '',
+      transactionId: this.transactionID ? this.transactionID : '',
       visaDetails: {
         visaType: this.userSerivce.visaObject.visaType,
         stayDuration: this.userSerivce.visaObject.stayDuration,

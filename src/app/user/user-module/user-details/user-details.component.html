@@ -308,8 +308,7 @@
                         </a>
                         <h1 *ngIf="isMobile" class="mb-3" style="font-size: 1.5rem;">OR</h1>
                         <h1 class="mb-3" style="font-size: 1.8rem;">Scan and Pay Using UPI App</h1>
-                        <img src="assets/images/QR.png" alt="Consultation Services" class="img-fluid"
-                            style="max-width: 300px;" />
+                        <img src="assets/images/QR.png" alt="Consultation Services" class="img-fluid" style="max-width: 300px;" loading="lazy"/>
                     </div>
 
                     <div class="col-12 col-md-6">
@@ -321,7 +320,7 @@
                             <h4 class="fileName">{{UPI?.name}}</h4>
                             <label class="label">
                                 <span class="browse-files">
-                                    <input style="font-size: 85%;" [(ngModel)]="letter"
+                                    <input style="font-size: 85%;" [(ngModel)]="UPI"
                                         (change)="masterSelected($event,'UPI')" type="file" accept=".jpg, .jpeg, .png" name="UPI-ID">
                                 </span>
                             </label>
