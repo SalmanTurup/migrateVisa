@@ -189,7 +189,7 @@ export class AdminDashboardComponent {
         if (err?.errorMessage) {
           this.snackBarNotification(err?.errorMessage);
         } else if (err?.error) {
-          this.snackBarNotification(err.error?.errorMessage);
+          this.snackBarNotification(err?.error?.errorMessage);
         } else {
           this.snackBarNotification('Something went wrong. Please try again.');
         }
@@ -242,7 +242,7 @@ export class AdminDashboardComponent {
         if (err?.errorMessage) {
           this.snackBarNotification(err?.errorMessage);
         } else if (err?.error) {
-          this.snackBarNotification(err.error?.errorMessage);
+          this.snackBarNotification(err?.error?.errorMessage);
         } else {
           this.snackBarNotification('Something went wrong. Please try again.');
         }
@@ -296,7 +296,7 @@ export class AdminDashboardComponent {
     if (err?.errorMessage) {
       this.toastr.error(err?.errorMessage, 'Warning!');
     } else if (err?.error) {
-      this.toastr.error(err.error?.errorMessage, 'Warning!');
+      this.toastr.error(err?.error?.errorMessage, 'Warning!');
     } else {
       this.toastr.error('Something went wrong. Please try again.', 'Warning!');
     }

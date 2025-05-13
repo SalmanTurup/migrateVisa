@@ -81,7 +81,7 @@ export class WelcomeComponent {
         if(err?.errorMessage){
           this.snackBarNotification(err?.errorMessage);
         } else if(err?.error){
-          this.snackBarNotification(err.error?.errorMessage);
+          this.snackBarNotification(err?.error?.errorMessage);
         }
         this.snackBarNotification('Something went wrong. Please try again.');
       }
