@@ -65,7 +65,7 @@ export class AdminDashboardComponent {
   loader: any = [];
   contactLoader: any = [];
   decisionLoader: any = [];
-  transaction : any;
+  transaction: any;
   isTransactionProff = false;
 
   constructor(
@@ -74,7 +74,7 @@ export class AdminDashboardComponent {
     public apiService: ApiService,
     private toastr: ToastrService,
     private snackBar: MatSnackBar,
-    private userService : UserService
+    private userService: UserService
   ) {
     this.getAllVisaRequest();
   }
@@ -142,7 +142,7 @@ export class AdminDashboardComponent {
       email: data?.email
     });
     this.transaction = data?.transactionId;
-    this.isTransactionProff = (data.transactionProof === null) ? false : true; 
+    this.isTransactionProff = (data.transactionProof === null) ? false : true;
     this.passportFront = (data?.passportFront) ? BASE_64 + data?.passportFront : IMAGE_NOT_FOUND;
     this.passportBack = (data?.passportBack) ? BASE_64 + data?.passportBack : IMAGE_NOT_FOUND;
     this.transactionProof = (data?.transactionProof) ? BASE_64 + data?.transactionProof : IMAGE_NOT_FOUND;
@@ -187,9 +187,9 @@ export class AdminDashboardComponent {
       error: (err) => {
         this.isLoading = false
         if (err?.errorMessage) {
-          this.snackBarNotification(err.errorMessage);
+          this.snackBarNotification(err?.errorMessage);
         } else if (err?.error) {
-          this.snackBarNotification(err.error);
+          this.snackBarNotification(err.error?.errorMessage);
         } else {
           this.snackBarNotification('Something went wrong. Please try again.');
         }
@@ -197,12 +197,14 @@ export class AdminDashboardComponent {
     });
   }
 
-  adminDecision(email: string, action: string,i:any) {
+  adminDecision(email: string, action: string, i: any) {
     this.decisionLoader[i] = true;
     this.apiService.postDataWithoutRequestBody(`visa/change-status?id=${email}&status=${action}`).subscribe({
       next: (response) => {
         this.decisionLoader = false;
-        this.getAllVisaRequest();
+        if (response.message) {
+          this.getAllVisaRequest();
+        }
         this.toasterMessage(response);
       },
       error: (err) => {
@@ -238,9 +240,9 @@ export class AdminDashboardComponent {
       error: (err) => {
         this.isLoading = false
         if (err?.errorMessage) {
-          this.snackBarNotification(err.errorMessage);
+          this.snackBarNotification(err?.errorMessage);
         } else if (err?.error) {
-          this.snackBarNotification(err.error);
+          this.snackBarNotification(err.error?.errorMessage);
         } else {
           this.snackBarNotification('Something went wrong. Please try again.');
         }
@@ -249,11 +251,14 @@ export class AdminDashboardComponent {
   }
 
   markAsDone(email: string, index: any) {
+    email = 'sdssa'
     this.contactLoader[index] = true;
     this.apiService.postDataWithoutRequestBody(`contact-us/change-status?id=${email}`).subscribe({
       next: (response) => {
         this.contactLoader[index] = false;
-        this.getAllContactRequest();
+        if (response.message) {
+          this.getAllContactRequest();
+        }
         this.toasterMessage(response);
       },
       error: (err) => {
@@ -288,17 +293,17 @@ export class AdminDashboardComponent {
   }
 
   errorMessage(err: any) {
-    if (err.errorMessage) {
-      this.toastr.error(err.errorMessage, 'Warning!');
+    if (err?.errorMessage) {
+      this.toastr.error(err?.errorMessage, 'Warning!');
     } else if (err?.error) {
-      this.toastr.error(err.error, 'Warning!');
+      this.toastr.error(err.error?.errorMessage, 'Warning!');
     } else {
       this.toastr.error('Something went wrong. Please try again.', 'Warning!');
     }
   }
 
   pageNavigate(path: string) {
-    if(this.userService.isAdmin){
+    if (this.userService.isAdmin) {
       this.userService.resetApplication();
     }
     this.router.navigate([`/${path}`]);

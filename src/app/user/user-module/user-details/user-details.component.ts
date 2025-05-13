@@ -149,9 +149,9 @@ export class UserDetailsComponent {
         },
         error: (err) => {
           if (err?.errorMessage) {
-            this.toastr.error(err.errorMessage, 'Warning!');
+            this.toastr.error(err?.errorMessage, 'Warning!');
           } else if (err?.error) {
-            this.toastr.error(err.error, 'Warning!');
+            this.toastr.error(err.error?.errorMessage, 'Warning!');
           } else {
             this.toastr.error('Something went wrong. Please try again.', 'Warning!');
           }
