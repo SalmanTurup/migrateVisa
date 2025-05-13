@@ -36,10 +36,10 @@ export class ContactComponent implements OnInit, OnDestroy {
       this.apiService.postDataWithBody('contact-us/save', this.contactForm).subscribe({
         next: (response) => {
           this.resetForm();
-          if (response.errorMessage) {
-            this.toastr.error(response.errorMessage, 'Warning!');
+          if (response?.errorMessage) {
+            this.toastr.error(response?.errorMessage, 'Warning!');
           } else {
-            this.toastr.success(response.message, 'Success!');
+            this.toastr.success(response?.message, 'Success!');
           }
         },
         error: (err) => {

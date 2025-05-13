@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.isLoading = true;;
     this.apiService.postDataWithoutRequestBody(`verification/send-otp?email=${this.email}`).subscribe({
       next: (response) => {
-        if(response.message){
+        if(response?.message){
           const decrypted = CryptoJS.AES.decrypt(response?.data?.otp, key, {
             mode: CryptoJS.mode.ECB,
             padding: CryptoJS.pad.Pkcs7
@@ -64,9 +64,9 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.isOTPSend = true;
           this.isLoading = false;
           this.startTimer();
-          this.toastr.success(response.message, 'Success!');
+          this.toastr.success(response?.message, 'Success!');
         }else{
-          this.toastr.error(response.errorMessage, 'Warning!');
+          this.toastr.error(response?.errorMessage, 'Warning!');
         }
       },
       error: (err) => {

@@ -158,7 +158,7 @@ export class AdminDashboardComponent {
     this.apiService.getData(`visa/get-application-by-id?id=${id}`).subscribe({
       next: (response) => {
         this.loader[index] = false;
-        if (response.message) {
+        if (response?.message) {
           const data = response?.data?.VisaApplication;
           this.patchValue(data)
         }
@@ -176,7 +176,7 @@ export class AdminDashboardComponent {
     this.apiService.getData('visa/get-all-visa').subscribe({
       next: (response) => {
         this.isLoading = false
-        if (response.message) {
+        if (response?.message) {
           this.visaTable = this.visaTableData = response?.data?.oVisaApplication;
           this.visaTableData = new MatTableDataSource(this.visaTableData);
           this.visaTableData.sort = this.sort;
@@ -202,7 +202,7 @@ export class AdminDashboardComponent {
     this.apiService.postDataWithoutRequestBody(`visa/change-status?id=${email}&status=${action}`).subscribe({
       next: (response) => {
         this.decisionLoader = false;
-        if (response.message) {
+        if (response?.message) {
           this.getAllVisaRequest();
         }
         this.toasterMessage(response);
@@ -229,7 +229,7 @@ export class AdminDashboardComponent {
     this.apiService.getData('contact-us/get-all-request').subscribe({
       next: (response) => {
         this.isLoading = false
-        if (response.message) {
+        if (response?.message) {
           this.contactTable = this.contactTableData = response?.data?.oContactApplication;
           this.contactTableData = new MatTableDataSource(this.contactTableData);
           this.contactTableData.sort = this.sort;
@@ -256,7 +256,7 @@ export class AdminDashboardComponent {
     this.apiService.postDataWithoutRequestBody(`contact-us/change-status?id=${email}`).subscribe({
       next: (response) => {
         this.contactLoader[index] = false;
-        if (response.message) {
+        if (response?.message) {
           this.getAllContactRequest();
         }
         this.toasterMessage(response);
@@ -269,10 +269,10 @@ export class AdminDashboardComponent {
   }
 
   toasterMessage(response: any) {
-    if (response.errorMessage) {
-      this.toastr.error(response.errorMessage, 'Warning!');
+    if (response?.errorMessage) {
+      this.toastr.error(response?.errorMessage, 'Warning!');
     } else {
-      this.toastr.success(response.message, 'Success!');
+      this.toastr.success(response?.message, 'Success!');
     }
   }
 
@@ -285,10 +285,10 @@ export class AdminDashboardComponent {
   }
 
   snackBarMessage(response: any) {
-    if (response.errorMessage) {
-      this.snackBarNotification(response.errorMessage);
+    if (response?.errorMessage) {
+      this.snackBarNotification(response?.errorMessage);
     } else {
-      this.snackBarNotification(response.message);
+      this.snackBarNotification(response?.message);
     }
   }
 

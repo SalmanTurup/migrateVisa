@@ -141,10 +141,10 @@ export class UserDetailsComponent {
       this.apiService.postMultiPartDataWithBody('visa/save', requestBody).subscribe({
         next: (response) => {
           this.isDocUploaded = true;
-          if (response.errorMessage) {
-            this.toastr.error(response.errorMessage, 'Warning!');
+          if (response?.errorMessage) {
+            this.toastr.error(response?.errorMessage, 'Warning!');
           } else {
-            this.toastr.success(response.message, 'Success!');
+            this.toastr.success(response?.message, 'Success!');
           }
         },
         error: (err) => {

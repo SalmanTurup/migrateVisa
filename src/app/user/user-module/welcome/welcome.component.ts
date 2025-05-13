@@ -65,14 +65,14 @@ export class WelcomeComponent {
     this.isLoading = true;
     this.apiService.getData(`visa/get-user-visa-details?id=${this.userService?.loginUserEmail}`).subscribe({
       next: (response) => {
-        if (response.errorMessage) {
-          this.snackBarNotification(response.errorMessage);
+        if (response?.errorMessage) {
+          this.snackBarNotification(response?.errorMessage);
         } else {
           this.visatable = this.visaTableData = response?.data?.VisaApplication;
           this.visaTableData = new MatTableDataSource(this.visaTableData);
           this.visaTableData.sort = this.sort;
           this.visaTableData.paginator = this.paginator;
-          this.snackBarNotification(response.message);
+          this.snackBarNotification(response?.message);
         }
         this.isLoading = false;
       },
