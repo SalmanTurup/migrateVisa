@@ -18,7 +18,6 @@ const MAX_IMAGE_SIZE_BYTES = MAX_IMAGE_SIZE_MB * 1024 * 1024;
 })
 export class UserDetailsComponent {
 
-  formBuilder = inject(FormBuilder);
   letter: File | null = null;
   aadhaar: File | null = null;
   educational: File | null = null;
@@ -59,6 +58,7 @@ export class UserDetailsComponent {
     private apiService: ApiService,
     private datePipe: DatePipe,
     private userSerivce: UserService,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -151,7 +151,11 @@ export class UserDetailsComponent {
           if (err?.errorMessage) {
             this.toastr.error(err?.errorMessage, 'Warning!');
           } else if (err?.error) {
-            this.toastr.error(err?.error?.errorMessage, 'Warning!');
+            if (err?.error?.errorMessage) {
+              this.toastr.error(err?.error?.errorMessage, 'Warning!');
+            } else {
+              this.toastr.error(err?.error, 'Warning!');
+            }
           } else {
             this.toastr.error('Something went wrong. Please try again.', 'Warning!');
           }

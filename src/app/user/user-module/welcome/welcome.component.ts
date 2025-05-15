@@ -39,7 +39,7 @@ export class WelcomeComponent {
     private viewportScroller: ViewportScroller,
     private userService: UserService,
     private router: Router,
-    public apiService: ApiService,
+    private apiService: ApiService,
     private snackBar: MatSnackBar
   ) { }
 
@@ -78,10 +78,14 @@ export class WelcomeComponent {
       },
       error: (err) => {
         this.isLoading = false;
-        if(err?.errorMessage){
+        if (err?.errorMessage) {
           this.snackBarNotification(err?.errorMessage);
-        } else if(err?.error){
-          this.snackBarNotification(err?.error?.errorMessage);
+        } else if (err?.error) {
+          if (err?.error?.errorMessage) {
+            this.snackBarNotification(err?.error?.errorMessage);
+          } else {
+            this.snackBarNotification(err?.error);
+          }
         }
         this.snackBarNotification('Something went wrong. Please try again.');
       }

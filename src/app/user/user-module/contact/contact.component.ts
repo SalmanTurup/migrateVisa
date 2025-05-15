@@ -23,7 +23,7 @@ export class ContactComponent implements OnInit, OnDestroy {
 
   constructor(
     private viewportScroller: ViewportScroller,
-    public apiService: ApiService,
+    private apiService: ApiService,
     private toastr: ToastrService
   ) { }
 
@@ -46,7 +46,11 @@ export class ContactComponent implements OnInit, OnDestroy {
           if (err?.errorMessage) {
             this.toastr.error(err?.errorMessage, 'Warning!');
           } else if (err?.error) {
-            this.toastr.error(err?.error?.errorMessage, 'Warning!');
+            if (err?.error?.errorMessage) {
+              this.toastr.error(err?.error?.errorMessage, 'Warning!');
+            } else {
+              this.toastr.error(err?.error, 'Warning!');
+            }
           } else {
             this.toastr.error('Something went wrong. Please try again.', 'Warning!');
           }

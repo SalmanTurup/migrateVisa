@@ -47,7 +47,7 @@ export class AdminDashboardComponent {
     sex: [''],
     birthDate: [''],
     placeOfBirth: [''],
-    passportNumber: ['', [Validators.required]],
+    passportNumber: [''],
     passportIssueDate: [''],
     passportExpiryDate: [''],
     passportIssuePlace: [''],
@@ -70,11 +70,11 @@ export class AdminDashboardComponent {
 
   constructor(
     private router: Router,
-    public dialog: MatDialog,
-    public apiService: ApiService,
+    private dialog: MatDialog,
+    private apiService: ApiService,
     private toastr: ToastrService,
     private snackBar: MatSnackBar,
-    private userService: UserService
+    private userService: UserService,
   ) {
     this.getAllVisaRequest();
   }
@@ -189,7 +189,11 @@ export class AdminDashboardComponent {
         if (err?.errorMessage) {
           this.snackBarNotification(err?.errorMessage);
         } else if (err?.error) {
-          this.snackBarNotification(err?.error?.errorMessage);
+          if (err?.error?.errorMessage) {
+            this.snackBarNotification(err?.error?.errorMessage);
+          } else {
+            this.snackBarNotification(err?.error);
+          }
         } else {
           this.snackBarNotification('Something went wrong. Please try again.');
         }
@@ -242,7 +246,11 @@ export class AdminDashboardComponent {
         if (err?.errorMessage) {
           this.snackBarNotification(err?.errorMessage);
         } else if (err?.error) {
-          this.snackBarNotification(err?.error?.errorMessage);
+          if (err?.error?.errorMessage) {
+            this.snackBarNotification(err?.error?.errorMessage);
+          } else {
+            this.snackBarNotification(err?.error);
+          }
         } else {
           this.snackBarNotification('Something went wrong. Please try again.');
         }
@@ -296,7 +304,11 @@ export class AdminDashboardComponent {
     if (err?.errorMessage) {
       this.toastr.error(err?.errorMessage, 'Warning!');
     } else if (err?.error) {
-      this.toastr.error(err?.error?.errorMessage, 'Warning!');
+      if (err?.error?.errorMessage) {
+        this.toastr.error(err?.error?.errorMessage, 'Warning!');
+      } else {
+        this.toastr.error(err?.error, 'Warning!');
+      }
     } else {
       this.toastr.error('Something went wrong. Please try again.', 'Warning!');
     }
