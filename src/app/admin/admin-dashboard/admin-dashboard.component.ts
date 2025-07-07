@@ -259,7 +259,6 @@ export class AdminDashboardComponent {
   }
 
   markAsDone(email: string, index: any) {
-    email = 'sdssa'
     this.contactLoader[index] = true;
     this.apiService.postDataWithoutRequestBody(`contact-us/change-status?id=${email}`).subscribe({
       next: (response) => {
