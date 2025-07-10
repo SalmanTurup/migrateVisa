@@ -1,13 +1,15 @@
-<!-- <app-header></app-header> -->
 <div class="brandName" (click)="pageNavigate('')">
     <span style="color:#83CD20; font-style: italic;"><i class="zmdi zmdi-home"></i></span>
     <span style="color: #034833; font-family: Public Sans;">Home</span>
 </div>
 <div class="containerOne">
     <div class="left-column">
-        <img src="assets/images/login.png" alt="...Login" class="travel-image" loading="lazy"/>
+        <div class="image-container">
+            <img *ngIf="isUser" src="assets/images/login.png" alt="...Login" class="travel-image fade" loading="lazy" />
+            <img *ngIf="isAdmin" src="assets/images/admin.png" alt="...Login" class="travel-image fade" loading="lazy" />
+        </div>
     </div>
-    <div class="right-column">
+    <div class="right-column" [@formSwitcher]="isUser ? 'user' : 'admin'">
         <div class="content-row mb-4" style="flex-direction: column;">
             <h2 class="heading">Welcome To Migrate Visa</h2>
             <p class="section-title">Sign up/Login using your mobile number &nbsp;<i class="zmdi zmdi-account-add"></i>
@@ -20,7 +22,8 @@
                         <mat-form-field style="width: 100%;">
                             <mat-label>Enter Your Email</mat-label>
                             <input matInput name="email" [(ngModel)]="email" #emailModel="ngModel" required
-                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [disabled]="isOTPSend && !ResendOTP" />
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                [disabled]="isOTPSend && !ResendOTP" />
                             <mat-icon matSuffix>mail</mat-icon>
                             <mat-error *ngIf="emailModel.invalid && emailModel.touched">
                                 <div *ngIf="emailModel.hasError('required')">Please enter an email</div>
@@ -39,9 +42,9 @@
                         <span *ngIf="!this.isLoading">Send OTP</span>
                         <i *ngIf="this.isLoading" class="fa fa-spinner fa-spin" style="font-size:24px"></i>
                     </button>
-                    <button *ngIf="isOTPSend" class="contact-btn" type="submit" [disabled]="!isOtpComplete || isLoading "
-                        (click)="verify()">Verify OTP</button>
-                        &nbsp;
+                    <button *ngIf="isOTPSend" class="contact-btn" type="submit"
+                        [disabled]="!isOtpComplete || isLoading " (click)="verify()">Verify OTP</button>
+                    &nbsp;
                     <button *ngIf="isOTPSend" class="contact-btn" type="submit" [disabled]="!ResendOTP || isLoading"
                         (click)="sendOtp()">
                         <span *ngIf="!ResendOTP && !this.isLoading">Resend in {{ countdown }}s</span>
@@ -50,8 +53,7 @@
                     </button>
                 </div>
             </ng-container>
-        </form>
-        <ng-container *ngIf="isAdmin">
+            <ng-container *ngIf="isAdmin">
             <form #admin="ngForm">
                 <div class="row" style="flex-direction: column;">
                     <div class="col pb-2">
@@ -87,12 +89,14 @@
                 </div>
             </form>
         </ng-container>
-
+        </form>
         <div class="pt-4 content-row section-title" style="font-size: 12px; text-transform: capitalize;">
             By Continuing, You agree to our&nbsp;<a (click)="openDialog(termsTemplate)">terms & condtions</a>
         </div>
-        <div *ngIf="isUser &&  !isLoading" class="content-row section-title user" (click)="changeUser()"><i class="zmdi zmdi-account-o"></i>&nbsp;Admin Login</div>
-        <div *ngIf="isAdmin && !isLoading" class="content-row section-title user" (click)="changeUser()"><i class="zmdi zmdi-account-o"></i> &nbsp;User Login</div>
+        <div *ngIf="isUser &&  !isLoading" class="content-row section-title user" (click)="changeUser()"><i
+                class="zmdi zmdi-account-o"></i>&nbsp;Admin Login</div>
+        <div *ngIf="isAdmin && !isLoading" class="content-row section-title user" (click)="changeUser()"><i
+                class="zmdi zmdi-account-o"></i> &nbsp;User Login</div>
     </div>
 </div>
 
@@ -100,7 +104,8 @@
     <div class="terms-popup container" style="padding: 5%;">
         <h2>Terms & Conditions</h2>
         <p style="font-size: 15px;">
-            By using this service, you agree to our terms and conditions. Usage is subject to our privacy policy and guidelines.
+            By using this service, you agree to our terms and conditions. Usage is subject to our privacy policy and
+            guidelines.
         </p>
     </div>
 </ng-template>

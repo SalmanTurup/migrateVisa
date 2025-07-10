@@ -7,6 +7,13 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from '../../../core/api.service';
 import * as CryptoJS from 'crypto-js';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
 
 
 const HARD_CODE_OTP = '00000';
@@ -16,7 +23,17 @@ const key = CryptoJS.enc.Utf8.parse('1234567890123456');
   standalone: true,
   imports: [SharedModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  animations: [
+    trigger('formSwitcher', [
+      state('user', style({ opacity: 1, transform: 'translateX(0)' })),
+      state('admin', style({ opacity: 1, transform: 'translateX(0)' })),
+      transition('user <=> admin', [
+        style({ opacity: 0, transform: 'translateX(20px)' }),
+        animate('400ms ease-out'),
+      ]),
+    ]),
+  ]
 })
 export class LoginComponent implements OnInit, OnDestroy {
   phoneNumber: any;
@@ -41,7 +58,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private apiService: ApiService
   ) { }
-  
+
   ngOnInit() {
     this.viewportScroller.scrollToPosition([0, 0]);
   }
@@ -55,7 +72,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.isLoading = true;;
     this.apiService.postDataWithoutRequestBody(`verification/send-otp?email=${this.email}`).subscribe({
       next: (response) => {
-        if(response?.message){
+        if (response?.message) {
           const decrypted = CryptoJS.AES.decrypt(response?.data?.otp, key, {
             mode: CryptoJS.mode.ECB,
             padding: CryptoJS.pad.Pkcs7
@@ -65,22 +82,22 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.isLoading = false;
           this.startTimer();
           this.toastr.success(response?.message, 'Success!');
-        }else{
+        } else {
           this.toastr.error(response?.errorMessage, 'Warning!');
         }
       },
       error: (err) => {
         this.isLoading = false;
-        if(err?.errorMessage){
+        if (err?.errorMessage) {
           this.toastr.error(err?.errorMessage, 'Warning!');
-        }else if(err?.error){
-          if(err?.error?.errorMessage){
+        } else if (err?.error) {
+          if (err?.error?.errorMessage) {
             this.toastr.error(err?.error?.errorMessage, 'Warning!');
-          }else{
+          } else {
             this.toastr.error(err?.error, 'Warning!');
           }
-        }else{
-        this.toastr.error('Something went wrong. Please try again.', 'Warning!');
+        } else {
+          this.toastr.error('Something went wrong. Please try again.', 'Warning!');
         }
       }
     });
