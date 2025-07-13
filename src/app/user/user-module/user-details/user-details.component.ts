@@ -57,7 +57,7 @@ export class UserDetailsComponent {
     private router: Router,
     private apiService: ApiService,
     private datePipe: DatePipe,
-    private userSerivce: UserService,
+    private userService: UserService,
     private formBuilder: FormBuilder
   ) { }
 
@@ -70,6 +70,7 @@ export class UserDetailsComponent {
         this.isMobile = false;
       }
     }
+    this.userService.isDataEntery = true;
   }
 
   onDragOver(event: DragEvent) {
@@ -169,7 +170,7 @@ export class UserDetailsComponent {
   createRequestBody(form: any): any {
     return {
       email: form.email,
-      visaType: this.userSerivce.visaObject.visaType,
+      visaType: this.userService.visaObject.visaType,
       firstName: form.firstName,
       lastName: form.lastName,
       sex: form.sex,
@@ -189,11 +190,11 @@ export class UserDetailsComponent {
       mobileNumber: form.mobileNumber,
       transactionId: this.transactionID ? this.transactionID : '',
       visaDetails: {
-        visaType: this.userSerivce.visaObject.visaType,
-        stayDuration: this.userSerivce.visaObject.stayDuration,
-        visaValidity: this.userSerivce.visaObject.visaValidity,
-        processingTime: this.userSerivce.visaObject.processingTime,
-        price: this.userSerivce.visaObject.price
+        visaType: this.userService.visaObject.visaType,
+        stayDuration: this.userService.visaObject.stayDuration,
+        visaValidity: this.userService.visaObject.visaValidity,
+        processingTime: this.userService.visaObject.processingTime,
+        price: this.userService.visaObject.price
       }
     };
   }
@@ -222,4 +223,8 @@ export class UserDetailsComponent {
   pageNavigate(path: string) {
     this.router.navigate([`/${path}`]);
   }
+
+   ngOnDestroy(): void {
+    this.userService.isDataEntery = false;
+   }
 }

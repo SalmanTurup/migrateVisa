@@ -13,6 +13,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 })
 export class HeaderComponent {
   isUserLogin = false;
+  isDataEntery = false;
 
   constructor(
     private router: Router,
@@ -21,6 +22,7 @@ export class HeaderComponent {
 
   ngOnInit(): void {
     this.isUserLogin = this.userService.isUserLogin;
+    this.isDataEntery = this.userService.isDataEntery;
   }
 
   pageNavigate(path: string) {
@@ -30,6 +32,7 @@ export class HeaderComponent {
   logout() {
     this.userService.resetApplication();
     this.isUserLogin = false;
+    this.isDataEntery = false;
     this.pageNavigate('');
   }
 }

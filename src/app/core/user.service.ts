@@ -12,6 +12,7 @@ export class UserService implements OnInit {
   public loginUserEmail: any;
   public visaObject: any;
   public isAdmin : any;
+  public isDataEntery = false;
   public countryData: any = [
     {
       sImage: "assets/images/Vietnam.png",
@@ -225,6 +226,7 @@ export class UserService implements OnInit {
     this.loginUserEmail = undefined;
     this.countryName = undefined;
     this.isAdmin = false;
+    this.isDataEntery = false;
     this.router.navigate(['']);
   }
 

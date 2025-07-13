@@ -1,8 +1,11 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary" style="margin:1%">
     <div class="container-fluid main">
-        <div class="brandName" (click)="pageNavigate('')">
+        <div *ngIf="!isDataEntery" class="brandName" (click)="pageNavigate('')">
             <span style="color:#83CD20; font-style: italic;">migrate</span>
             <span style="color: #034833; font-family: Public Sans;">Visa</span>
+        </div>
+        <div *ngIf="isDataEntery" class="brandName" (click)="pageNavigate('welcome')">
+            <button matTooltip="Back To DashBoard" class="button-30" role="button"><i class="zmdi zmdi-arrow-left"></i>&nbsp;Back</button>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
