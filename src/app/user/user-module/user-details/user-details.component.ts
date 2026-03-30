@@ -139,7 +139,7 @@ export class UserDetailsComponent {
       if (this.educational) {
         requestBody.append('educationalCertificate', this.educational);
       }
-      this.apiService.postMultiPartDataWithBody('visa/save', requestBody).subscribe({
+      this.apiService.postMultiPartDataWithBody('visa/save-visa', requestBody).subscribe({
         next: (response) => {
           this.isDocUploaded = true;
           if (response?.errorMessage) {

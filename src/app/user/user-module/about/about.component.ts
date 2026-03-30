@@ -31,7 +31,7 @@ export class AboutComponent implements OnInit, OnDestroy {
 
   saveContactRequest() {
     if(this.contactForm.email && this.contactForm.phone , this.contactForm.address , this.contactForm.message){
-      this.apiService.postDataWithBody('contact-us/save',this.contactForm).subscribe({
+      this.apiService.postDataWithBody('contact-us/save-contact',this.contactForm).subscribe({
         next: (response) => {
           this.resetForm();
           if (response?.errorMessage) {
