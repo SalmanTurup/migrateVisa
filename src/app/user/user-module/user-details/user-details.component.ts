@@ -6,13 +6,15 @@ import { DatePipe, ViewportScroller } from '@angular/common';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../core/api.service';
 import { UserService } from '../../../core/user.service';
+import { CORE_IMPORTS } from '../../../imports/core-imports';
+import { MATERIAL_IMPORTS } from '../../../imports/material-imports';
 const imageExtensions = [".jpg", ".jpeg", ".png"];
 const MAX_IMAGE_SIZE_MB = 2;
 const MAX_IMAGE_SIZE_BYTES = MAX_IMAGE_SIZE_MB * 1024 * 1024;
 @Component({
   selector: 'app-user-details',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, ...CORE_IMPORTS, ...MATERIAL_IMPORTS],
   templateUrl: './user-details.component.html',
   styleUrl: './user-details.component.scss'
 })
@@ -109,10 +111,10 @@ export class UserDetailsComponent {
   masterSelected(event: Event, variable: string) {
     const fileInput = event.target as HTMLInputElement;
     if (fileInput.files && fileInput.files.length > 0) {
-      if(fileInput.files[0] && fileInput.files[0].size > MAX_IMAGE_SIZE_BYTES){
+      if (fileInput.files[0] && fileInput.files[0].size > MAX_IMAGE_SIZE_BYTES) {
         this.toastr.error('Image must be less than 2MB!', 'File Too Large');
-      }else{
-      (this as any)[variable] = fileInput.files[0];
+      } else {
+        (this as any)[variable] = fileInput.files[0];
       }
     }
   }
@@ -224,7 +226,7 @@ export class UserDetailsComponent {
     this.router.navigate([`/${path}`]);
   }
 
-   ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.userService.isDataEntery = false;
-   }
+  }
 }

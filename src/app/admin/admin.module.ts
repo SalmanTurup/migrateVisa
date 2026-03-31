@@ -7,15 +7,15 @@ import { MatSortModule } from '@angular/material/sort';
 @NgModule({
   imports: [
     CommonModule,
-    HttpClientModule, 
+    HttpClientModule,
     MatSortModule,
     SharedModule
   ],
-  exports:[
+  exports : [
+    CommonModule,
+    HttpClientModule,
     MatSortModule,
     SharedModule,
-    HttpClientModule,
-    CommonModule
-  ],
+  ]
 })
 export class AdminModule { }

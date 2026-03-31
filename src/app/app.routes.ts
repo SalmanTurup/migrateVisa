@@ -9,7 +9,6 @@ import { ContentComponent } from './user/user-module/content/content.component';
 import { LoginComponent } from './user/user-module/login/login.component';
 import { UserDetailsComponent } from './user/user-module/user-details/user-details.component';
 import { WelcomeComponent } from './user/user-module/welcome/welcome.component';
-import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -21,6 +20,6 @@ export const routes: Routes = [
     { path: 'content', component: ContentComponent },
     { path: 'visa', component: VisaDetailComponent },
     { path: 'userDetails', component: UserDetailsComponent },
-    { path: 'welcome', component: WelcomeComponent  },
-    { path: 'admin', component: AdminDashboardComponent  }     
+    { path: 'welcome', component: WelcomeComponent },
+    { path: 'admin', loadComponent: () => import('../app/admin/admin-dashboard/admin-dashboard.component').then(c => c.AdminDashboardComponent) }
 ];

@@ -3,11 +3,13 @@ import { SharedModule } from '../../../shared/shared.module';
 import { ViewportScroller } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from '../../../core/api.service';
+import { CORE_IMPORTS } from '../../../imports/core-imports';
+import { MATERIAL_IMPORTS } from '../../../imports/material-imports';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, ...CORE_IMPORTS, ...MATERIAL_IMPORTS],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss'
 })
@@ -30,8 +32,8 @@ export class AboutComponent implements OnInit, OnDestroy {
   }
 
   saveContactRequest() {
-    if(this.contactForm.email && this.contactForm.phone , this.contactForm.address , this.contactForm.message){
-      this.apiService.postDataWithBody('contact-us/save-contact',this.contactForm).subscribe({
+    if (this.contactForm.email && this.contactForm.phone, this.contactForm.address, this.contactForm.message) {
+      this.apiService.postDataWithBody('contact-us/save-contact', this.contactForm).subscribe({
         next: (response) => {
           this.resetForm();
           if (response?.errorMessage) {
@@ -58,8 +60,8 @@ export class AboutComponent implements OnInit, OnDestroy {
       this.toastr.error('Please fill in all required fields', 'Validation Error!');
     }
   }
-  
-  resetForm(){
+
+  resetForm() {
     this.contactForm = {
       email: '',
       phone: '',

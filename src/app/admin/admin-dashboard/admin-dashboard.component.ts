@@ -11,13 +11,16 @@ import { AdminModule } from '../admin.module';
 import { ToastrService } from 'ngx-toastr';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../../core/user.service';
+import { CORE_IMPORTS } from '../../imports/core-imports';
+import { MATERIAL_IMPORTS } from '../../imports/material-imports';
+import { SharedModule } from '../../shared/shared.module';
 
 const BASE_64 = 'data:image/png;base64,';
 const IMAGE_NOT_FOUND = 'assets/images/Image_not_available.png';
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [AdminModule],
+  imports: [AdminModule,...CORE_IMPORTS, ...MATERIAL_IMPORTS],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.scss'
 })

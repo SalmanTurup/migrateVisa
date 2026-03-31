@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { SharedModule } from '../../../shared/shared.module';
 import { Router } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
@@ -7,13 +7,9 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from '../../../core/api.service';
 import * as CryptoJS from 'crypto-js';
-import {
-  trigger,
-  state,
-  style,
-  transition,
-  animate,
-} from '@angular/animations';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { CORE_IMPORTS } from '../../../imports/core-imports';
+import { MATERIAL_IMPORTS } from '../../../imports/material-imports';
 
 
 const HARD_CODE_OTP = '00000';
@@ -21,7 +17,7 @@ const key = CryptoJS.enc.Utf8.parse('1234567890123456');
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, ...CORE_IMPORTS, ...MATERIAL_IMPORTS],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   animations: [
@@ -56,7 +52,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private toastr: ToastrService,
     private dialog: MatDialog,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private ngZone :NgZone
   ) { }
 
   ngOnInit() {
@@ -130,7 +127,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   pageNavigate(path: string) {
+   
     this.router.navigate([`/${path}`]);
+
   }
 
   openDialog(content: any): void {

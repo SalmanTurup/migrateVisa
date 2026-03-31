@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { SharedModule } from '../../../shared/shared.module';
 import { Router } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
+import { CORE_IMPORTS } from '../../../imports/core-imports';
+import { MATERIAL_IMPORTS } from '../../../imports/material-imports';
 
 @Component({
   selector: 'app-faq',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, ...CORE_IMPORTS, ...MATERIAL_IMPORTS],
   templateUrl: './faq.component.html',
   styleUrl: './faq.component.scss'
 })

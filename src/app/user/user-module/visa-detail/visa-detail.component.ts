@@ -3,11 +3,13 @@ import { SharedModule } from '../../../shared/shared.module';
 import { UserService } from '../../../core/user.service';
 import { ViewportScroller } from '@angular/common';
 import { Router } from '@angular/router';
+import { CORE_IMPORTS } from '../../../imports/core-imports';
+import { MATERIAL_IMPORTS } from '../../../imports/material-imports';
 
 @Component({
   selector: 'app-visa-detail',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, ...CORE_IMPORTS, ...MATERIAL_IMPORTS],
   templateUrl: './visa-detail.component.html',
   styleUrl: './visa-detail.component.scss'
 })
@@ -37,7 +39,7 @@ export class VisaDetailComponent {
     };
     (this.isUserLogin) ? this.pageNavigate('userDetails') : this.pageNavigate('login');
   }
-  
+
   pageNavigate(path: string) {
     this.router.navigate([`/${path}`]);
   }

@@ -3,12 +3,14 @@ import { SharedModule } from '../../../shared/shared.module';
 import { ViewportScroller } from '@angular/common';
 import { ApiService } from '../../../core/api.service';
 import { ToastrService } from 'ngx-toastr';
+import { CORE_IMPORTS } from '../../../imports/core-imports';
+import { MATERIAL_IMPORTS } from '../../../imports/material-imports';
 
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, ...CORE_IMPORTS, ...MATERIAL_IMPORTS],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss'
 })

@@ -8,18 +8,20 @@ import { ApiService } from '../../../core/api.service';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CORE_IMPORTS } from '../../../imports/core-imports';
+import { MATERIAL_IMPORTS } from '../../../imports/material-imports';
 
 @Component({
   selector: 'app-welcome',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, ...CORE_IMPORTS, ...MATERIAL_IMPORTS],
   templateUrl: './welcome.component.html',
   styleUrl: './welcome.component.scss'
 })
 export class WelcomeComponent {
   countryData: any;
   visaTableData: any;
-  visatable:any
+  visatable: any
   isMobile = false;
   activeLabel: string = 'All';
   buttonLabels: string[] = [
@@ -34,7 +36,7 @@ export class WelcomeComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   displayedColumns: string[] = ["No", 'Entery', 'Visa Types', 'Stay duration', 'Visa validity', 'Processing time', 'Prince', 'Status'];
-  
+
   constructor(
     private viewportScroller: ViewportScroller,
     private userService: UserService,
@@ -108,8 +110,8 @@ export class WelcomeComponent {
     });
   }
 
-  refreshTable(){
-   this.getAllVisaRequest(); 
+  refreshTable() {
+    this.getAllVisaRequest();
   }
-  
+
 }
