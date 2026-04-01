@@ -5,7 +5,6 @@ import { ViewportScroller } from '@angular/common';
 import { Router } from '@angular/router';
 import { CORE_IMPORTS } from '../../../imports/core-imports';
 import { MATERIAL_IMPORTS } from '../../../imports/material-imports';
-
 @Component({
   selector: 'app-visa-detail',
   standalone: true,

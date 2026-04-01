@@ -5,7 +5,6 @@ import { ToastrService } from 'ngx-toastr';
 import { ApiService } from '../../../core/api.service';
 import { CORE_IMPORTS } from '../../../imports/core-imports';
 import { MATERIAL_IMPORTS } from '../../../imports/material-imports';
-
 @Component({
   selector: 'app-about',
   standalone: true,

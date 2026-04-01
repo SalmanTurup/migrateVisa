@@ -3,8 +3,6 @@ import { SharedModule } from '../../../shared/shared.module';
 import { UserService } from '../../../core/user.service';
 import { ViewportScroller } from '@angular/common';
 import { CORE_IMPORTS } from '../../../imports/core-imports';
-import { MATERIAL_IMPORTS } from '../../../imports/material-imports';
-
 @Component({
   selector: 'app-content',
   standalone: true,

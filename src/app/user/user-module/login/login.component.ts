@@ -11,8 +11,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { CORE_IMPORTS } from '../../../imports/core-imports';
 import { MATERIAL_IMPORTS } from '../../../imports/material-imports';
 
-
-const HARD_CODE_OTP = '00000';
+const HARD_PASSWORD = '000000';
 const key = CryptoJS.enc.Utf8.parse('1234567890123456');
 @Component({
   selector: 'app-login',
@@ -141,7 +140,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   verifyAdmin(id: string, pass: string): void {
-    if (id === 'salman.turup@gmail.com' && pass === '000000') {
+    if (id === 'salman.turup@gmail.com' && pass === HARD_PASSWORD) {
       this.userService.isUserLogin = true;
       this.userService.isAdmin = true;
       this.toastr.success('Logged in successfully.', 'Success');

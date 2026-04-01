@@ -1,9 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SharedModule } from '../../../shared/shared.module';
 import { ViewportScroller } from '@angular/common';
-import { CORE_IMPORTS } from '../../../imports/core-imports';
-import { MATERIAL_IMPORTS } from '../../../imports/material-imports';
-
 @Component({
   selector: 'app-blog',
   standalone: true,

@@ -1,8 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../../../core/user.service';
 import { Router } from '@angular/router';
-import { ViewportScroller } from '@angular/common';
-
 @Component({
   selector: 'app-footer',
   standalone: true,

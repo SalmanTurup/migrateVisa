@@ -8,6 +8,7 @@ import { ApiService } from '../../../core/api.service';
 import { UserService } from '../../../core/user.service';
 import { CORE_IMPORTS } from '../../../imports/core-imports';
 import { MATERIAL_IMPORTS } from '../../../imports/material-imports';
+
 const imageExtensions = [".jpg", ".jpeg", ".png"];
 const MAX_IMAGE_SIZE_MB = 2;
 const MAX_IMAGE_SIZE_BYTES = MAX_IMAGE_SIZE_MB * 1024 * 1024;

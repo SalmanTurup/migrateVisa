@@ -5,7 +5,6 @@ import { UserService } from '../../../core/user.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CORE_IMPORTS } from '../../../imports/core-imports';
-import { MATERIAL_IMPORTS } from '../../../imports/material-imports';
 
 @Component({
   selector: 'app-home',
