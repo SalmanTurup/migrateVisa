@@ -127,9 +127,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   pageNavigate(path: string) {
-   
     this.router.navigate([`/${path}`]);
-
   }
 
   openDialog(content: any): void {

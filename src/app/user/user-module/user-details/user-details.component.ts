@@ -15,6 +15,7 @@ const MAX_IMAGE_SIZE_BYTES = MAX_IMAGE_SIZE_MB * 1024 * 1024;
   selector: 'app-user-details',
   standalone: true,
   imports: [SharedModule, ...CORE_IMPORTS, ...MATERIAL_IMPORTS],
+  providers: [DatePipe],
   templateUrl: './user-details.component.html',
   styleUrl: './user-details.component.scss'
 })

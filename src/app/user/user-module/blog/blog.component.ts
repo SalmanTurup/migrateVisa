@@ -7,7 +7,7 @@ import { MATERIAL_IMPORTS } from '../../../imports/material-imports';
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [SharedModule, ...CORE_IMPORTS, ...MATERIAL_IMPORTS],
+  imports: [SharedModule],
   templateUrl: './blog.component.html',
   styleUrl: './blog.component.scss'
 })

@@ -8,7 +8,7 @@ import { MATERIAL_IMPORTS } from '../../../imports/material-imports';
 @Component({
   selector: 'app-faq',
   standalone: true,
-  imports: [SharedModule, ...CORE_IMPORTS, ...MATERIAL_IMPORTS],
+  imports: [SharedModule, ...CORE_IMPORTS],
   templateUrl: './faq.component.html',
   styleUrl: './faq.component.scss'
 })

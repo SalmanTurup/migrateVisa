@@ -14,7 +14,7 @@ import { MATERIAL_IMPORTS } from '../../../imports/material-imports';
 @Component({
   selector: 'app-welcome',
   standalone: true,
-  imports: [SharedModule, ...CORE_IMPORTS, ...MATERIAL_IMPORTS],
+  imports: [SharedModule, ...CORE_IMPORTS],
   templateUrl: './welcome.component.html',
   styleUrl: './welcome.component.scss'
 })

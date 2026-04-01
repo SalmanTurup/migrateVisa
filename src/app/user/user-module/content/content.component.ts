@@ -8,7 +8,7 @@ import { MATERIAL_IMPORTS } from '../../../imports/material-imports';
 @Component({
   selector: 'app-content',
   standalone: true,
-  imports: [SharedModule, ...CORE_IMPORTS, ...MATERIAL_IMPORTS],
+  imports: [SharedModule, ...CORE_IMPORTS],
   templateUrl: './content.component.html',
   styleUrl: './content.component.scss'
 })
